@@ -113,6 +113,7 @@
         ***********************************-->
 
     </div>
+
     <script src="/assests/vendor/global/global.min.js"></script>
 	<script src="/assests/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 	<script src="/assests/vendor/chart.js/Chart.bundle.min.js"></script>
@@ -138,7 +139,7 @@
 
     <script src="/assests/vendor/iCheck/js/icheck.js"></script>
     <script src="/assests/vendor/jasny-bootstrap/js/jasny-bootstrap.js"  type="text/javascript"></script>
-    <script src="/assests/vendor/select2/js/select2.full.min.js" type="text/javascript"></script>
+    <!-- <script src="/assests/vendor/select2/js/select2.full.min.js" type="text/javascript"></script>-->
     <script src="/assests/vendor/bootstrapwizard/jquery.bootstrap.wizard.js" type="text/javascript"></script>
     <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>

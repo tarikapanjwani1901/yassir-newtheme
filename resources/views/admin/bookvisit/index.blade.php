@@ -93,11 +93,57 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Remove Book Visit</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure?</p>
+                </div>
+                <input type="hidden" name="bookId" id="bookId" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="button" id="btn_ok_1" class="btn btn-primary">Sure</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('customjs')
-    $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker7').datetimepicker();
+
+    jQuery(document).ready(function () {
+        
+        jQuery('#datetimepicker6').datetimepicker();
+        jQuery('#datetimepicker7').datetimepicker();
+
+
+        jQuery(document).on("click", ".onclick", function () {
+            var myBookId = $(this).data('id');
+            jQuery(".modal-dialog #bookId").val( myBookId );
+            jQuery("#myModal").dialog("open");
+
+        });
+
+        jQuery("#btn_ok_1").on('click',function(){
+            var bvID = jQuery("#bookId").val();
+            $.ajax({
+                type:'POST',
+                url:'bookvisit/delete/'+bvID,
+                data:'_token = <?php echo csrf_token() ?>',
+                success:function(data){
+                        if (data == 'success') {
+                            $( ".close" ).trigger( "click" );
+                            $("#tr_"+bvID).css('display','none');
+                        }
+                }
+            });
+        });
     });
 @endsection
