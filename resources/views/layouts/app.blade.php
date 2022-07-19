@@ -143,7 +143,7 @@
     <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>
     
-    <script>
+    <script type="text/javascript">
         @yield('customjs')
     </script>
 

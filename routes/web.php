@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Admin\InquiryController;
 use App\Http\Controllers\Web\Admin\BookVisitController;
+use App\Http\Controllers\Web\Admin\AdminDashboardController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +30,10 @@ Route::post('/login', [LoginController::class, 'generateOTP'])->name('generateOT
 Route::post('/postOtp', [LoginController::class, 'otpSubmit'])->name('otpSubmit');
 Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP');
 Route::get('backtologin', [LoginController::class, 'backtologin'])->name('backtologin');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Dashboard
+Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
 // Inquiry
 Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');

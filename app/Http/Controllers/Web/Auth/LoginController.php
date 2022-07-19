@@ -116,7 +116,7 @@ class LoginController extends Controller
 				$user = User::where('mobile', $_POST['mobile_number'])->first(); 
                 Auth::login($user);
                 
-
+                return Redirect::route("dashboard");
             }
         }	
     }
@@ -174,6 +174,16 @@ class LoginController extends Controller
 
         return $query;
 
+    }
+
+    public function logout()
+    {
+
+        \Session::flush();
+        \Auth::logout();
+
+        return redirect()->route('login');
+        
     }
 
 }
