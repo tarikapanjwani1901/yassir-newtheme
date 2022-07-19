@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Admin\InquiryController;
-
+use App\Http\Controllers\Web\Admin\BookVisitController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,3 +31,9 @@ Route::get('backtologin', [LoginController::class, 'backtologin'])->name('backto
 
 // Inquiry
 Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
+Route::post('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
+
+// Book Visit
+Route::get('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
+Route::post('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
+Route::post('/admin/bookvisit/delete/{id}', [BookVisitController::class, 'destroy'])->name('destroy');

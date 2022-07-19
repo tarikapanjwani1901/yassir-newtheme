@@ -2,3 +2,13 @@
     --bs-text-opacity: 1;
     color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important; 
 }
+
+form.reportform select, form.reportform .datebox
+{
+    max-width:150px;
+}
+
+.btn-danger{
+    padding:6px 12px;
+    font-size:14px !important;
+}

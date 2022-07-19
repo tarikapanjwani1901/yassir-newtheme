@@ -15,14 +15,23 @@
     <title>Yassir | Admin </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/assests/images/favicon.png">
+
     <link href="/assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
+	<link rel="stylesheet" href="/assests/vendor/chartist/css/chartist.min.css">
 	<!-- Vectormap -->
     <link href="/assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="/assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="/assests/css/style.css" rel="stylesheet">
+    
 	<link href="/assests/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
 	
+    <link rel="stylesheet" type="text/css" href="/assests/vendor/datatables/css/dataTables.bootstrap.css" />
+    <link href="/assests/css/pages/tables.css" rel="stylesheet" type="text/css" />
+    <link href="/assests/vendor/daterangepicker/css/daterangepicker.css" rel="stylesheet" type="text/css" />
+    <link href="/assests/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/assests/css/style.css" rel="stylesheet">
+    <link href="/assests/css/custom.css" rel="stylesheet">
+
 </head>
 
 
@@ -113,14 +122,30 @@
     <script src="/assests/vendor/peity/jquery.peity.min.js"></script>
 	
 	<!-- Apex Chart -->
-	<script src="/assests/vendor/apexchart/apexchart.js"></script>
+	<!-- <script src="/assests/vendor/apexchart/apexchart.js"></script> -->
 	
 	<!-- Dashboard 1 -->
-	<script src="/assests/js/dashboard/dashboard-1.js"></script>
+	<!-- <script src="/assests/js/dashboard/dashboard-1.js"></script>-->
 	
     <script src="/assests/js/custom.min.js"></script>
 	<script src="/assests/js/deznav-init.js"></script>
+
+    <script src="/assests/vendor/moment/moment.min.js" type="text/javascript"></script>
+    <script src="/assests/vendor/daterangepicker/js/daterangepicker.js" type="text/javascript"></script>
+    <script src="/assests/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="/assests/vendor/clockface/js/clockface.js" type="text/javascript"></script>
+    <script src="/assests/js/pages/datepicker.js" type="text/javascript"></script>
+
+    <script src="/assests/vendor/iCheck/js/icheck.js"></script>
+    <script src="/assests/vendor/jasny-bootstrap/js/jasny-bootstrap.js"  type="text/javascript"></script>
+    <script src="/assests/vendor/select2/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="/assests/vendor/bootstrapwizard/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+    <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
+    <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>
     
+    <script>
+        @yield('customjs')
+    </script>
 
 	<script>
 		function carouselReview(){
