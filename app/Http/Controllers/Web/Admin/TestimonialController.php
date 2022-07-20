@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Testimonials;
 use Sentinel;
 use DB;
+use Image;
 
 class TestimonialController extends Controller
 {
@@ -19,7 +20,7 @@ class TestimonialController extends Controller
     }
 
     public function add() {
-         return view('admin.testimonialadd');
+         return view('admin.testimonial.add');
     }
 
     public function delete($id) {
@@ -63,18 +64,18 @@ class TestimonialController extends Controller
         $image = request()->file('inputFile');
         if($image) {
 
-        $target_dir = "public/images/testimonial/".$id;
+        $target_dir = "images/testimonial/".$id;
 
-            if (!file_exists($target_dir))
-            {
-                mkdir($target_dir, 0777, true);
-            }
+        if (!file_exists($target_dir))
+        {
+            mkdir($target_dir, 0777, true);
+        }
 
-            $photo = $request->file('inputFile');
-            $imagename = $photo->getClientOriginalName();  
-            $destinationPath = public_path().'/images/testimonial/'.$id;
-            $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
-            $thumb_img->save($destinationPath.'/'.$imagename,80);
+        $photo = $request->file('inputFile');
+        $imagename = $photo->getClientOriginalName();  
+        $destinationPath = public_path().'/images/testimonial/'.$id;
+        $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
+        $thumb_img->save($destinationPath.'/'.$imagename,80);
 
            $testimonial = DB::table('site_testimonials')
             ->where('t_id', $id)
@@ -103,7 +104,7 @@ class TestimonialController extends Controller
             ['t_rating' => $_POST['rating'], 't_quote' => $_POST['message'], 't_image' => $imagename, 't_name' => $_POST['name'], 't_company' => $_POST['company'], 'created_at' => date('Y-m-d h:i:s'), 'created_by' => '1']
             );
 
-            $target_dir = "public/images/testimonial/".$ids."/".$id;    
+            $target_dir = "images/testimonial/".$ids."/".$id;    
 
             if (!file_exists($target_dir))
             {

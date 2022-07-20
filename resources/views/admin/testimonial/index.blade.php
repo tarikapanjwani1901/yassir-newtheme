@@ -58,3 +58,28 @@
 
 </div>
 @endsection
+
+
+@section('customjs')
+    jQuery(document).ready(function () {
+        $(document).on("click", ".onclick", function () {
+            var myBookId = $(this).data('id');
+            $(".modal-dialog #bookId").val( myBookId );
+        });
+
+        jQuery("#btn_ok_1").on('click',function(){
+            var testimonialID = jQuery("#bookId").val();
+            $.ajax({
+            type:'POST',
+            url:'testimonials/delete/'+testimonialID,
+            data:'_token = <?php echo csrf_token() ?>',
+            success:function(data){
+                    if (data == 'success') {
+                        $( ".close" ).trigger( "click" );
+                        $("#tr_"+testimonialID).css('display','none');
+                    }
+            }
+            });
+        });
+    });
+@endsection

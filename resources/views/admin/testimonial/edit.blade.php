@@ -31,7 +31,7 @@
                             <div class="form-group row label-floating is-empty">
                                 <label class="control-label  col-md-2 col-sm-3" for="name">Rating</label>
                                 <div class="col-md-10 col-sm-9">
-                                    <select id="rating" name="rating" class="form-control">
+                                    <select id="rating" name="rating" class="default-select size-1 form-control wide mb-3">
                                         <option value="">Select Rating</option>
                                         <?php
                                             for ($i=5; $i > 0 ; $i--) {
