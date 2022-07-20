@@ -17,7 +17,7 @@ use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Admin\InquiryController;
 use App\Http\Controllers\Web\Admin\BookVisitController;
 use App\Http\Controllers\Web\Admin\AdminDashboardController;
-
+use App\Http\Controllers\Web\Admin\TestimonialController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,3 +43,11 @@ Route::post('/admin/inquiry', [InquiryController::class, 'index'])->name('index'
 Route::get('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
 Route::post('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
 Route::post('/admin/bookvisit/delete/{id}', [BookVisitController::class, 'destroy'])->name('destroy');
+
+// Testimonial
+Route::get('/admin/testimonials', [TestimonialController::class, 'index']);
+Route::get('/admin/testimonials/add', [TestimonialController::class, 'add']);
+Route::post('/admin/testimonials/add', [TestimonialController::class, 'addTestimonail']);
+Route::get('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editTestimonail']);
+Route::post('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editPostTestimonail']);
+Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);

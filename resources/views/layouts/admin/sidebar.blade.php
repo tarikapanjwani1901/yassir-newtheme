@@ -8,6 +8,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ URL::to('admin/testimonials') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-networking"></i>
+                    <span class="nav-text">Testimonial</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ URL::to('admin/bookvisit') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Book Visit</span>

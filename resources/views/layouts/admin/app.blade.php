@@ -25,6 +25,7 @@
 	
     <link rel="stylesheet" type="text/css" href="/assests/vendor/datatables/css/dataTables.bootstrap.css" />
     <link href="/assests/css/pages/tables.css" rel="stylesheet" type="text/css" />
+    <link href="/assests/vendor/jasny-bootstrap/css/jasny-bootstrap.css" rel="stylesheet">
     <link href="/assests/vendor/daterangepicker/css/daterangepicker.css" rel="stylesheet" type="text/css" />
     <link href="/assests/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 
@@ -79,7 +80,7 @@
         <!--**********************************
             Header start
         ***********************************-->
-            @include('layouts.header')
+            @include('layouts.admin.header')
         <!--**********************************
             Header end
         ***********************************-->
@@ -87,7 +88,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-            @include('layouts.sidebar')
+            @include('layouts.admin.sidebar')
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -107,7 +108,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-            @include('layouts.footer')
+            @include('layouts.admin.footer')
         <!--**********************************
             Footer end
         ***********************************-->
@@ -115,6 +116,7 @@
     </div>
 
     <script src="/assests/vendor/global/global.min.js"></script>
+    <script src="/assests/vendor/jquery-validation/jquery.validate.min.js"></script>
 	<script src="/assests/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 	<script src="/assests/vendor/chart.js/Chart.bundle.min.js"></script>
 	<script src="/assests/vendor/owl-carousel/owl.carousel.js"></script>		

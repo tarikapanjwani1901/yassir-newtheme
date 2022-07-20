@@ -12,3 +12,48 @@ form.reportform select, form.reportform .datebox
     padding:6px 12px;
     font-size:14px !important;
 }
+
+.table td img.testimonial-user{
+    width: 50px;
+    padding: 0;
+}
+a.btn-default, ul.pager li a, .fileinput-new span.btn, span.btn-file, a.fileinput-exists, .form-actions input.btn-default, button.btn-success
+{
+    color: #fff;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 700;
+    border-radius: 28px;
+    padding: 7px 27px;
+    background-color: #515763;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    display: inline-block;
+    margin: 0 5px;
+    border: 0;
+}
+
+body input[type="submit"],
+body input[type="submit"],
+body input[type="button"]{
+    color: #fff;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 700;
+    border-radius: 28px;
+    padding: 11px 32px;
+    background-color: #515763;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    display: inline-block;
+    margin: 0 5px;
+    border: 0;
+}
+
+body input[type="submit"]:hover,
+body input[type="submit"]:hover{
+    background: #620a21 !important;
+    color: #fff;
+}
