@@ -116,6 +116,13 @@ class LoginController extends Controller
 				$user = User::where('mobile', $_POST['mobile_number'])->first(); 
                 Auth::login($user);
                 
+                $user = Auth::user();
+                $_SESSION['user'] = $user;
+
+                if($user->user_role==env('ADMIN_ROLE_ID')){
+                    session(['user_role'=>'admin']);
+                }
+
                 return Redirect::route("dashboard");
             }
         }	

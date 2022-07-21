@@ -32,22 +32,29 @@ Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP'
 Route::get('backtologin', [LoginController::class, 'backtologin'])->name('backtologin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Dashboard
-Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+Route::group(['middleware' => ['auth']], function () {
 
-// Inquiry
-Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
-Route::post('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
+    Route::group( ['middleware' => 'admin'], function()
+    {
+        // Dashboard
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-// Book Visit
-Route::get('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
-Route::post('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
-Route::post('/admin/bookvisit/delete/{id}', [BookVisitController::class, 'destroy'])->name('destroy');
+        // Inquiry
+        Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
+        Route::post('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
 
-// Testimonial
-Route::get('/admin/testimonials', [TestimonialController::class, 'index']);
-Route::get('/admin/testimonials/add', [TestimonialController::class, 'add']);
-Route::post('/admin/testimonials/add', [TestimonialController::class, 'addTestimonail']);
-Route::get('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editTestimonail']);
-Route::post('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editPostTestimonail']);
-Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
+        // Book Visit
+        Route::get('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
+        Route::post('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
+        Route::post('/admin/bookvisit/delete/{id}', [BookVisitController::class, 'destroy'])->name('destroy');
+
+        // Testimonial
+        Route::get('/admin/testimonials', [TestimonialController::class, 'index']);
+        Route::get('/admin/testimonials/add', [TestimonialController::class, 'add']);
+        Route::post('/admin/testimonials/add', [TestimonialController::class, 'addTestimonail']);
+        Route::get('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editTestimonail']);
+        Route::post('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editPostTestimonail']);
+        Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
+        
+    });
+});
