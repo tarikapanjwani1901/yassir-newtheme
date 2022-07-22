@@ -19,10 +19,9 @@ use App\Http\Controllers\Web\Admin\BookVisitController;
 use App\Http\Controllers\Web\Admin\AdminDashboardController;
 use App\Http\Controllers\Web\Admin\TestimonialController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\Web\Vendor\VendorDashboardController;
 
+Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
 
 // Admin Login
 Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('login');
@@ -37,7 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group( ['middleware' => 'admin'], function()
     {
         // Dashboard
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admindashboard');
 
         // Inquiry
         Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
@@ -55,6 +54,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editTestimonail']);
         Route::post('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editPostTestimonail']);
         Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
-        
+
+    });
+});
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::group( ['middleware' => 'vendor'], function()
+    {
+        // Dashboard
+        Route::get('/vendor/dashboard', [VendorDashboardController::class, 'index'])->name('vendordashboard');
+
     });
 });

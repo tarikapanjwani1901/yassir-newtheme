@@ -49,6 +49,11 @@ class LoginController extends Controller
     {
         return view('admin.auth.login');
     }
+    
+    public function showVendorLoginForm()
+    {
+        return view('vendor.auth.login');
+    }
 
     public function generateOTP(Request $request)
     {
@@ -121,9 +126,17 @@ class LoginController extends Controller
 
                 if($user->user_role==env('ADMIN_ROLE_ID')){
                     session(['user_role'=>'admin']);
+                    return Redirect::route("admindashboard");
                 }
+                else if($user->user_role==env('VENDOR_ROLE_ID')){
+                    session(['user_role'=>'vendor']);
+                    return Redirect::route("vendordashboard");
+                }
+                else{
 
+                }
                 return Redirect::route("dashboard");
+                
             }
         }	
     }
