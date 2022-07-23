@@ -17,16 +17,17 @@ use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Admin\InquiryController;
 use App\Http\Controllers\Web\Admin\BookVisitController;
 use App\Http\Controllers\Web\Admin\AdminDashboardController;
+use App\Http\Controllers\Web\Admin\CitiesController;
 use App\Http\Controllers\Web\Admin\TestimonialController;
 use App\Http\Controllers\Web\Admin\PropertiesController;
 use App\Http\Controllers\Web\CommonController;
+use App\Http\Controllers\Web\Admin\StateController;
+use App\Http\Controllers\Web\Admin\SubCitiesController;
+use App\Http\Controllers\Web\Admin\AreasController;
 
+use App\Http\Controllers\Web\Vendor\VendorDashboardController;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
 
 // Admin Login
 Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('login');
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group( ['middleware' => 'admin'], function()
     {
         // Dashboard
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admindashboard');
 
         // Inquiry
         Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
@@ -61,7 +62,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
 		
 		
-		
         // Testimonial
         Route::get('/admin/properties', [PropertiesController::class, 'index']);
         Route::get('/admin/properties/add', [PropertiesController::class, 'add']);
@@ -75,6 +75,49 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/admin/getSubCity',[CommonController::class,'getSubCityByCity']);
 		Route::get('/admin/getArea',[CommonController::class,'getAreaBySubCity']);
 		
-        
+
+        // States
+        Route::get('/admin/states', [StateController::class, 'index']);
+        Route::get('/admin/states/add', [StateController::class, 'add']);
+        Route::post('/admin/states/add', [StateController::class, 'addState']);
+        Route::get('/admin/states/edit/{id}', [StateController::class, 'editState']);
+        Route::post('/admin/states/edit/{id}', [StateController::class, 'editPostState']);
+        Route::post('/admin/states/delete/{id}', [StateController::class, 'delete']);
+        Route::get('/admin/state_search',[StateController::class, 'state_search']);
+
+        // Cities
+        Route::get('/admin/cities', [CitiesController::class, 'index']);
+        Route::get('/admin/cities/add', [CitiesController::class, 'add']);
+        Route::post('/admin/cities/add', [CitiesController::class, 'addCities']);
+        Route::get('/admin/cities/edit/{id}', [CitiesController::class, 'editCities']);
+        Route::post('/admin/cities/edit/{id}', [CitiesController::class, 'editPostCities']);
+        Route::post('/admin/cities/delete/{id}', [CitiesController::class, 'delete']);
+
+        // Sub-Cities
+        Route::get('/admin/sub_cities', [SubCitiesController::class, 'index']);
+        Route::get('/admin/sub_cities/add', [SubCitiesController::class, 'add']);
+        Route::post('/admin/sub_cities/add', [SubCitiesController::class, 'addSubCities']);
+        Route::get('/admin/sub_cities/edit/{id}', [SubCitiesController::class, 'editSubCities']);
+        Route::post('/admin/sub_cities/edit/{id}', [SubCitiesController::class, 'editPostSubCities']);
+        Route::post('/admin/sub_cities/delete/{id}', [SubCitiesController::class, 'delete']);
+
+        // Areas
+        Route::get('/admin/areas', [AreasController::class, 'index']);
+        Route::get('/admin/areas/add', [AreasController::class, 'add']);
+        Route::post('/admin/areas/add', [AreasController::class, 'addAreas']);
+        Route::get('/admin/areas/edit/{id}', [AreasController::class, 'editAreas']);
+        Route::post('/admin/areas/edit/{id}', [AreasController::class, 'editPostAreas']);
+        Route::post('/admin/areas/delete/{id}', [AreasController::class, 'delete']);
+
+    });
+});
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::group( ['middleware' => 'vendor'], function()
+    {
+        // Dashboard
+        Route::get('/vendor/dashboard', [VendorDashboardController::class, 'index'])->name('vendordashboard');
+
     });
 });

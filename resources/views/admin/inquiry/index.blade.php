@@ -92,11 +92,43 @@
         </div>
     </div>
 
+    <div class="modal-dialog" role="document" id="state_delete_confirm" style="display: none;">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Delete State</h4>
+    </div>
+    <div class="modal-body">
+        Are you sure?
+    </div>
+    <input type="hidden" name="deleted_id" id="deleted_id" value=""/>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btn_ok_1" class="btn btn-primary">OK</button>
+    </div>
+    </div>
+    </div>
+
 @endsection
 
 @section('customjs')
-    $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker7').datetimepicker();
+    $(document).on("click", ".onclick", function () {
+         var ID = $(this).data('id');
+         $(".modal-dialog #deleted_id").val( ID );
+    });
+
+    jQuery("#btn_ok_1").on('click',function(){
+        var DeletedID = jQuery("#deleted_id").val();
+        $.ajax({
+           type:'POST',
+           url:'state/delete/'+DeletedID,
+           data:'_token = <?php echo csrf_token() ?>',
+           success:function(data){
+                if (data == 'success') {
+                    $( ".close" ).trigger( "click" );
+                    $("#tr_"+DeletedID).css('display','none');
+                }
+           }
+        });
     });
 @endsection
