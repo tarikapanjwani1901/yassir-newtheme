@@ -15,7 +15,6 @@ class TestimonialController extends Controller
     {
         //Get all the testimonials
         $testimonials = Testimonials::getAllTestimonial();
-
         return view('admin.testimonial.index')->with('testimonials', $testimonials);
     }
 

@@ -71,3 +71,52 @@ body input[type="submit"]:hover{
     -o-transition: border .2s ease-in-out;
     transition: border .2s ease-in-out;
 }
+
+
+.flex.items-center.justify-between {
+  display: flex;
+  text-align: right;
+  float: right;
+}
+.flex.justify-between.flex-1.sm\:hidden {
+  display: none;
+}
+.hidden.sm\:flex-1.sm\:flex.sm\:items-center.sm\:justify-between {
+  display: flex;
+  align-content: end;
+}
+.w-5.h-5 {
+  width: 20px;
+}
+.relative.z-0.inline-flex.shadow-sm.rounded-md {
+  margin-left: 12px;
+}
+.relative.inline-flex.items-center.px-4.py-2.-ml-px.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.leading-5 {
+  padding: 5px 10px !important;
+  border-color: #ccc !important;
+}
+.relative.inline-flex.items-center.px-4.py-2.-ml-px.text-sm.font-medium.text-gray-700.bg-white.border.border-gray-300.leading-5.hover\:text-gray-500.focus\:z-10.focus\:outline-none.focus\:ring.ring-gray-300.focus\:border-blue-300.active\:bg-gray-100.active\:text-gray-700.transition.ease-in-out.duration-150 {
+  padding: 5px 9px !important;
+  border-color: #ccc !important;
+}
+.relative.inline-flex.items-center.px-2.py-2.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.rounded-l-md.leading-5 {
+  padding: 5px 3px !important;
+  border-color: #ccc !important;
+}
+.relative.inline-flex.items-center.px-2.py-2.-ml-px.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.rounded-r-md.leading-5.hover\:text-gray-400.focus\:z-10.focus\:outline-none.focus\:ring.ring-gray-300.focus\:border-blue-300.active\:bg-gray-100.active\:text-gray-500.transition.ease-in-out.duration-150 {
+  padding: 5px 5px !important;
+  border-color: #ccc !important;
+}
+.relative.inline-flex.items-center.px-4.py-2.-ml-px.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.leading-5 {
+  background: #000 !important;
+  color: #fff;
+  border-color:#000 !important;
+}
+.relative.inline-flex.items-center.px-2.py-2.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.rounded-l-md.leading-5.hover\:text-gray-400.focus\:z-10.focus\:outline-none.focus\:ring.ring-gray-300.focus\:border-blue-300.active\:bg-gray-100.active\:text-gray-500.transition.ease-in-out.duration-150 {
+	padding: 5px 4px !important;
+	border-color: #ccc !important;
+}
+.relative.inline-flex.items-center.px-2.py-2.-ml-px.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.rounded-r-md.leading-5 {
+	padding: 5px 4px !important;
+	border-color: #ccc !important;
+}
