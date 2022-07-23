@@ -120,3 +120,7 @@ body input[type="submit"]:hover{
 	padding: 5px 4px !important;
 	border-color: #ccc !important;
 }
+.relative.inline-flex.items-center.px-4.py-2.-ml-px.text-sm.font-medium.text-gray-700.bg-white.border.border-gray-300.cursor-default.leading-5 {
+	padding: 5px 10px !important;
+	border-color: #ccc !important;
+}

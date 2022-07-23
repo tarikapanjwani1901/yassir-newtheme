@@ -1172,7 +1172,7 @@ label {
 @endsection
 
 @section('customjs')
-
+<script>
   $(document).ready(function(){
 
 // $( ".possesion_date" ).datepicker();
@@ -1764,5 +1764,5 @@ $(document).ready(function(){
             }
 
 });
-
+</script>
 @endsection

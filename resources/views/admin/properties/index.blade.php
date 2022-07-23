@@ -86,6 +86,7 @@
 
 
 @section('customjs')
+<script>
     jQuery(document).ready(function () {
         $(document).on("click", ".close", function () {
             $('#myModal').modal('hide');
@@ -114,4 +115,5 @@
             });
         });
     });
+	</script>
 @endsection
