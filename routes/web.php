@@ -73,8 +73,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/admin/getState',[CommonController::class,'getStateByCountry']);
 		Route::get('/admin/getCity',[CommonController::class,'getCityByState']);
 		Route::get('/admin/getSubCity',[CommonController::class,'getSubCityByCity']);
-		Route::get('/admin/getArea',[CommonController::class,'getAreaBySubCity']);
-		
+		Route::get('/admin/getArea',[CommonController::class,'getAreaBySubCity']);	
 
         // States
         Route::get('/admin/states', [StateController::class, 'index']);
@@ -95,6 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/getState', [CitiesController::class, 'getStateByCountry']);
         Route::get('/admin/getCity', [CitiesController::class, 'getCityByState']);
         Route::get('/admin/getSubCity', [CitiesController::class, 'getSubCityByCity']);
+        Route::get('/admin/cities_search',[CitiesController::class,'search_cities']);
 
         // Sub-Cities
         Route::get('/admin/sub_cities', [SubCitiesController::class, 'index']);
@@ -103,6 +103,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/sub_cities/edit/{id}', [SubCitiesController::class, 'editSubCities']);
         Route::post('/admin/sub_cities/edit/{id}', [SubCitiesController::class, 'editPostSubCities']);
         Route::post('/admin/sub_cities/delete/{id}', [SubCitiesController::class, 'delete']);
+        Route::get('/admin/sub_cities_search',[SubCitiesController::class, 'search_sub_cities']);
 
         // Areas
         Route::get('/admin/areas', [AreasController::class, 'index']);

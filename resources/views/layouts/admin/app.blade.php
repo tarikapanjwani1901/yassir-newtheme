@@ -150,7 +150,7 @@
     <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>
     	<script src="/assests/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
-        <script src="/assests/vendor/select2/js/select2.full.min.js"></script>
+    
     
 
     

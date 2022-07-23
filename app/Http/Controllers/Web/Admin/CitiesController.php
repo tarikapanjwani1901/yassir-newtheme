@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-use App\Models\State;
+use App\Models\City;
 
 class CitiesController extends Controller
 {
@@ -64,7 +64,7 @@ class CitiesController extends Controller
 
     public function editCities($id) 
     {
-        $data =  Cities::where('id',$id)->firstOrFail();
+        $data =  City::where('id',$id)->firstOrFail();
 
         if($data == null)
         {
@@ -147,100 +147,99 @@ class CitiesController extends Controller
 
         return $cities;
     }
- 
- 
- 
- 
 
     public function search_cities(Request $request)
     {
 
-    // echo "hii"; exit;
-    $search_keyword = $request->get('search_keyword');
-    $search_country = $request->get('search_country');
-    $search_state = $request->get('search_state');
-    $search_status = $request->get('search_status');
+        // echo "hii"; exit;
+        $search_keyword = $request->get('search_keyword');
+        $search_country = $request->get('search_country');
+        $search_state = $request->get('search_state');
+        $search_status = $request->get('search_status');
+            
+        $cities = DB::table('cities')
+        ->select('states.id as state_id','states.name as state_name','cities.status as status','cities.name as city_name','cities.id as city_id','countries.name as country_name','countries.id as country_id')
+        ->join('states', 'cities.state_id', '=', 'states.id')
+        ->join('countries', 'countries.id', '=', 'states.country_id');
         
-    $cities = DB::table('cities')
-    ->select('states.id as state_id','states.name as state_name','cities.status as status','cities.name as city_name','cities.id as city_id','countries.name as country_name','countries.id as country_id')
-    ->join('states', 'cities.state_id', '=', 'states.id')
-    ->join('countries', 'countries.id', '=', 'states.country_id');
-    
-    if($search_keyword!=""){
-        $cities = $cities->where('cities.name','like','%'.$search_keyword.'%');
-    }
-    if($search_country>0){
-        $cities = $cities->where('countries.id',$search_country);
-    }
-    if($search_state>0){
-        $cities =$cities->where('cities.state_id',$search_state);
-    }
-    if($search_status!=""){
-        $cities =$cities->where('cities.status',$search_status);
-    }
-    $cities =$cities->orderBy('cities.id',"DESC");		
-    $cities =$cities->paginate(10);		
-    
-    $countries = $this->countryList();
-    $stateList = array();
-    $states[''] = 'Please select state';
-            
-    if($search_country>0){
+        if($search_keyword!=""){
+            $cities = $cities->where('cities.name','like','%'.$search_keyword.'%');
+        }
+        if($search_country>0){
+            $cities = $cities->where('countries.id',$search_country);
+        }
+        if($search_state>0){
+            $cities =$cities->where('cities.state_id',$search_state);
+        }
+        if($search_status!=""){
+            $cities =$cities->where('cities.status',$search_status);
+        }
+
+        $cities =$cities->orderBy('cities.id',"DESC");		
+        $cities =$cities->paginate(10);		
         
-        $stateList = DB::table('states')
-            ->select('states.name','states.id')
-            ->where("states.country_id",$search_country)
-            ->orderBy('states.name',"ASC")		
-    
-            ->get();
-    
+        $countries = $this->countryList();
+        $stateList = array();
+        $states[''] = 'Please select state';
             
+        if($search_country>0){
             
-            foreach($stateList as $single){
-                $states[$single->id] = $single->name;		
-        }	
-    }
+            $stateList = DB::table('states')
+                ->select('states.name','states.id')
+                ->where("states.country_id",$search_country)
+                ->orderBy('states.name',"ASC")		
+        
+                ->get();
+        
+                
+                
+                foreach($stateList as $single){
+                    $states[$single->id] = $single->name;		
+            }	
+        }
+
         $status[''] = 'All';
         $status['Active'] = 'Active';
         $status['Deactive'] = 'Deactive';
 
-
         return view('admin.locations.cities.index',compact('cities','search_keyword','search_country','search_state','search_status','countries','states','status'));
     }
 
-    public function editPostCities(Request $request,$id) {
+    public function editPostCities(Request $request,$id) 
+    {
         
-            $checkState = Cities::where('name',$request->name)->where('state_id',$request->state)->where('country_id',$request->country)->where("id",'!=',$id)->first();
-                
-                if(isset($checkState->id) && $checkState->id >0){
-                    return  redirect('admin/cities/edit/'.$id)->with(['error' => 'Sorry city already exists.']);
-                }
-        
-            $state = DB::table('cities')
+        $checkState = City::where('name',$request->name)->where('state_id',$request->state)->where('country_id',$request->country)->where("id",'!=',$id)->first();
+            
+        if(isset($checkState->id) && $checkState->id >0){
+            return  redirect('admin/cities/edit/'.$id)->with(['error' => 'Sorry city already exists.']);
+        }
+
+        $state = DB::table('cities')
             ->where('id', $id)
             ->update(['name' => $_POST['name'], 'state_id' => $_POST['state'], 'country_id' => $_POST['country'], 'status' => $_POST['status']]);
-        
-        
-                return redirect('admin/cities')->with(['success' => 'City has been successfully updated.']);
+
+        return redirect('admin/cities')->with(['success' => 'City has been successfully updated.']);
 
     }
 
-    public function addCities(Request $request,$id="") {
-        
+    public function addCities(Request $request,$id="") 
+    {    
 
-        $checkState = Cities::where('name',$request->name)->where('state_id',$request->state)->where('country_id',$request->country)->first();
+        $checkState = City::where('name',$request->name)->where('state_id',$request->state)->where('country_id',$request->country)->first();
                 
-                if(isset($checkState->id) && $checkState->id >0){
-                    return  redirect('admin/cities/add')->with(['error' => 'Sorry city already exists.']);
-                }
+        if(isset($checkState->id) && $checkState->id >0){
+            return  redirect('admin/cities/add')->with(['error' => 'Sorry city already exists.']);
+        }
         
-            
-        
-            $ids = DB::table('cities')->insertGetId(
-            ['name' => $_POST['name'], 'state_id' => $_POST['state'], 'country_id' => $_POST['country'], 'status' => $_POST['status']]
+        $ids = DB::table('cities')->insertGetId(
+            [ 
+                'name' => $_POST['name'], 
+                'state_id' => $_POST['state'], 
+                'country_id' => $_POST['country'], 
+                'status' => $_POST['status']]
             );
 
-                    return redirect('admin/cities')->with(['success' => 'City has been successfully add.']);
+        return redirect('admin/cities')->with(['success' => 'City has been successfully add.']);
 
     }
 }

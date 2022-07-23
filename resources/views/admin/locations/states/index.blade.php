@@ -9,30 +9,32 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <form method="get" class="padd15" name="search" action="state_search"  autocomplete="off">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <input type="search" value="{{$search_keyword}}" name="search_keyword" class="form-control" placeholder="City">
-                                </div>
-                                
-                                <div class="col-md-3">
-                                    {!! Form::select('search_country', $countries,$search_country,['class' => 'form-control search_country default-select size-1 form-control wide mb-3 ', 'id' => 'search_country']) !!}
-                                </div>
+                        <div class="col-md-12">
+                            <form method="get" class="padd15" name="search" action="state_search"  autocomplete="off">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input type="search" value="{{$search_keyword}}" name="search_keyword" class="form-control" placeholder="State">
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        {!! Form::select('search_country', $countries,$search_country,['class' => 'select2 form-control search_country size-1 form-control wide', 'id' => 'search_country']) !!}
+                                    </div>
 
-                                <div class="col-md-3">
-                                    {!! Form::select('search_status', $status,$search_status,['class' => 'form-control search_status default-select size-1 form-control wide mb-3', 'id' => 'search_status']) !!}
-                                </div>
+                                    <div class="col-md-2">
+                                        {!! Form::select('search_status', $status,$search_status,['class' => 'select2 form-control search_status size-1 form-control wide', 'id' => 'search_status']) !!}
+                                    </div>
 
-                                <div class="col-md-2">
-                                    <input type="submit" class="btn btn-primary" value="Submit">
-                                </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                    </div>
 
-                                <div class="col-md-1">
-                                    <a href="{{url('/admin/states')}}" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                    <div class="col-md-1">
+                                        <a href="{{url('/admin/states')}}" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>    
-
+                            
+                            </form>    
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -77,8 +79,61 @@
         </div>
 
     </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Remove State</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this state?</p>
+                </div>
+                <input type="hidden" name="id" id="id" value="">
+                <div class="modal-footer">
+                    <button type="button" id="btn_ok_1" class="btn btn-primary">Sure</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('customjs')
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
 
-@stop
+            $(".select2").select2();
+            
+            $(document).on("click", ".close", function () {
+                $('#myModal').modal('hide');
+            });
+
+            $(document).on("click", ".onclick", function () {
+                var id = $(this).data('id');
+                $(".modal-dialog #id").val( id );
+                $('#myModal').modal('show');
+            });
+
+            jQuery("#btn_ok_1").on('click',function(){
+                var token = $('meta[name="csrf_token"]').attr('content');
+                var id = jQuery("#id").val();
+                $.ajax({
+                type:'POST',
+                url:'/admin/states/delete/'+id,
+                data:{_token: token},
+                success:function(data){
+                        if (data == 'success') {
+                            $( ".close" ).trigger( "click" );
+                            $("#tr_"+id).css('display','none');
+                            window.location.reload();
+                        }
+                }
+                });
+            });
+        });
+
+    </script>
+@endsection

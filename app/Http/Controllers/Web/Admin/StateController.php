@@ -134,18 +134,21 @@ class StateController extends Controller
 
     public function editPostState(Request $request,$id) {
         
-			 $checkState = State::where('name',$request->name)->where('country_id',$request->country)->where("id",'!=',$id)->first();
+        $checkState = State::where('name',$request->name)->where('country_id',$request->country)->where("id",'!=',$id)->first();
 				
-				if(isset($checkState->id) && $checkState->id >0){
-					 return  redirect('admin/state/edit/'.$id)->with(['error' => 'Sorry state already exists.']);
-				}
+        if(isset($checkState->id) && $checkState->id >0){
+            return  redirect('admin/state/edit/'.$id)->with(['error' => 'Sorry state already exists.']);
+        }
 		
-            $state = DB::table('states')
+        $state = DB::table('states')
             ->where('id', $id)
-            ->update(['name' => $_POST['name'], 'country_id' => $_POST['country'], 'status' => $_POST['status']]);
+            ->update([
+                'name' => $_POST['name'], 
+                'country_id' => $_POST['country'], 
+                'status' => $_POST['status']]);
            
 		   
-                   return redirect('admin/state')->with(['success' => 'State has been successfully updated.']);
+        return redirect('admin/states')->with(['success' => 'State has been successfully updated.']);
 
     }
 

@@ -76,7 +76,7 @@ class TestimonialController extends Controller
         $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
         $thumb_img->save($destinationPath.'/'.$imagename,80);
 
-           $testimonial = DB::table('site_testimonials')
+        $testimonial = DB::table('site_testimonials')
             ->where('t_id', $id)
             ->update(['t_rating' => $_POST['rating'], 't_quote' => $_POST['message'], 't_name' => $_POST['name'], 't_company' => $_POST['company'],'t_image' => $imagename , 'created_by' => '1','updated_at' => date('Y-m-d h:i:s')]);
                 

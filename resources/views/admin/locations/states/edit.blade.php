@@ -70,7 +70,10 @@
                 },      
                 errorPlacement: function (error, element) {
                     if(element.attr("name")=='country' || element.attr("name")=='status'){
-                        error.insertAfter(element.next('.dropdown-toggle'));
+                        error.insertAfter(element.next('.select2'));
+                    }
+                    else{
+                        error.insertAfter(element);
                     }
                 },  
                 highlight: function (element) {
@@ -83,4 +86,4 @@
         });
     });
 </script>
-@stop
+@endsection
