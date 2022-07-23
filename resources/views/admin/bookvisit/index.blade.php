@@ -117,7 +117,7 @@
 @endsection
 
 @section('customjs')
-
+<script type="text/javascript">
     jQuery(document).ready(function () {
         
         jQuery('#datetimepicker6').datetimepicker();
@@ -146,4 +146,5 @@
             });
         });
     });
-@endsection
+</script>
+@stop

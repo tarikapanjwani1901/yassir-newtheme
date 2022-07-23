@@ -112,6 +112,7 @@
 @endsection
 
 @section('customjs')
+<script type="text/javascript">
     $(document).on("click", ".onclick", function () {
          var ID = $(this).data('id');
          $(".modal-dialog #deleted_id").val( ID );
@@ -131,4 +132,5 @@
            }
         });
     });
-@endsection
+</script>
+@stop

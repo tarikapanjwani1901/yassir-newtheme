@@ -55,7 +55,7 @@
                                                 <td><?php echo $value->status; ?></td>
                                                 <td class="ac">
                                                     <div class="d-flex">
-                                                        <a href="state/edit/{{ $value->state_id}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a href="states/edit/{{ $value->state_id}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                                         <a href="#" data-toggle="modal" data-target="#state_delete_confirm"  data-id="{{ $value->state_id }}" class="onclick btn btn-danger shadow btn-xs sharp"><i class="fas fa-trash-alt"></i></a>
                                                     </div>
                                                 </td>
@@ -81,4 +81,4 @@
 
 @section('customjs')
 
-@endsection
+@stop

@@ -43,7 +43,7 @@ class CitiesController extends Controller
         $status['Deactive'] = 'Deactive';
         
             
-        return view('admin.locations.cities.cities',compact('cities','search_keyword','search_country','search_state','countries','states','status','search_status'));
+        return view('admin.locations.cities.index',compact('cities','search_keyword','search_country','search_state','countries','states','status','search_status'));
     }
 
     public function add() 
@@ -53,7 +53,7 @@ class CitiesController extends Controller
         $status['Active'] = 'Active';
         $status['Deactive'] = 'Deactive';
         
-        return view('admin.locations.cities.citiesadd',compact('countries','status'));
+        return view('admin.locations.cities.add',compact('countries','status'));
     }
 
     public function delete($id) 
@@ -95,60 +95,56 @@ class CitiesController extends Controller
         $status['Active'] = 'Active';
         $status['Deactive'] = 'Deactive';
 
-        return view('admin.locations.cities.citiesedit',compact('states','cities','countries','status'));
+        return view('admin.locations.cities.edit',compact('states','cities','countries','status'));
     }
  
- 
- 
     public function getStateByCountry(Request $request){
-            $stateList = DB::table('states')
-            ->select('states.name','states.id')
-        ->where("states.country_id",$request->country)
-        ->orderBy('states.name',"ASC")		
+        $stateList = DB::table('states')
+                    ->select('states.name','states.id')
+                    ->where("states.country_id",$request->country)
+                    ->orderBy('states.name',"ASC")		
+                    ->get();
+            
+        $states = array();
+            
+        foreach($stateList as $single){
+            $states[$single->id] = $single->name;		
+        }
 
-            ->get();
-            
-            $states = array();
-            
-            foreach($stateList as $single){
-                $states[$single->id] = $single->name;		
-        }	
         return $states;
     }
  
     public function getCityByState(Request $request){
             
-            $citiesList = DB::table('cities')
+        $citiesList = DB::table('cities')
             ->select('cities.name','cities.id')
-        ->where("cities.state_id",$request->state)
-        ->orderBy('cities.name',"ASC")		
-
+            ->where("cities.state_id",$request->state)
+            ->orderBy('cities.name',"ASC")	
             ->get();
 
             
-            $cities = array();
+        $cities = array();
             
-            foreach($citiesList as $single){
-                $cities[$single->id] = $single->name;		
+        foreach($citiesList as $single){
+            $cities[$single->id] = $single->name;		
         }	
         return $cities;
     }
  
     public function getSubCityByCity(Request $request){
             
-            $citiesList = DB::table('sub_cities')
-            ->select('sub_cities.name','sub_cities.id')
-        ->where("sub_cities.city_id",$request->city)
-        ->orderBy('sub_cities.name',"ASC")		
+        $citiesList = DB::table('sub_cities')
+                    ->select('sub_cities.name','sub_cities.id')
+                    ->where("sub_cities.city_id",$request->city)
+                    ->orderBy('sub_cities.name',"ASC")	
+                    ->get();
 
-            ->get();
-
+        $cities = array();
             
-            $cities = array();
-            
-            foreach($citiesList as $single){
-                $cities[$single->id] = $single->name;		
+        foreach($citiesList as $single){
+            $cities[$single->id] = $single->name;		
         }	
+
         return $cities;
     }
  
@@ -209,7 +205,7 @@ class CitiesController extends Controller
         $status['Deactive'] = 'Deactive';
 
 
-        return view('admin.locations.cities..cities',compact('cities','search_keyword','search_country','search_state','search_status','countries','states','status'));
+        return view('admin.locations.cities.index',compact('cities','search_keyword','search_country','search_state','search_status','countries','states','status'));
     }
 
     public function editPostCities(Request $request,$id) {

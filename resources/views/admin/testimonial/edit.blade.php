@@ -97,8 +97,8 @@
 @endsection
 
 @section('customjs')
+<script type="text/javascript">
     jQuery(document).ready(function () {
-
         jQuery('#addtestimonail').validate({
             rules: {
                 name: {
@@ -123,4 +123,5 @@
             }
         });
     });
-@endsection
+@stop
+</script>

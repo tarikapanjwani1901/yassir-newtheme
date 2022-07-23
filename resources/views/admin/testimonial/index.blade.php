@@ -61,6 +61,7 @@
 
 
 @section('customjs')
+<script type="text/javascript">
     jQuery(document).ready(function () {
         $(document).on("click", ".onclick", function () {
             var myBookId = $(this).data('id');
@@ -82,4 +83,5 @@
             });
         });
     });
-@endsection
+</script>
+@stop

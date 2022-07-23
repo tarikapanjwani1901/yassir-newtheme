@@ -75,6 +75,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/cities/edit/{id}', [CitiesController::class, 'editCities']);
         Route::post('/admin/cities/edit/{id}', [CitiesController::class, 'editPostCities']);
         Route::post('/admin/cities/delete/{id}', [CitiesController::class, 'delete']);
+        Route::get('/admin/getState', [CitiesController::class, 'getStateByCountry']);
+        Route::get('/admin/getCity', [CitiesController::class, 'getCityByState']);
+        Route::get('/admin/getSubCity', [CitiesController::class, 'getSubCityByCity']);
 
         // Sub-Cities
         Route::get('/admin/sub_cities', [SubCitiesController::class, 'index']);

@@ -73,6 +73,7 @@
 @endsection
 
 @section('customjs')
+<script type="text/javascript">
 jQuery(document).ready(function () {
     $('#addtestimonail').validate({
         rules: {
@@ -112,4 +113,5 @@ jQuery(document).ready(function () {
         }
     });
 });
-@endsection
+</script>
+@stop
