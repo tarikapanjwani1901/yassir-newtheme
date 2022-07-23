@@ -9,7 +9,7 @@
 	
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+	<meta name="csrf_token" content="{{ csrf_token() }}" />
 	<meta property="og:image" content="social-image.png"/>
 	<meta name="format-detection" content="telephone=no">
     <title>Yassir | Admin </title>
@@ -28,6 +28,10 @@
     <link href="/assests/vendor/jasny-bootstrap/css/jasny-bootstrap.css" rel="stylesheet">
     <link href="/assests/vendor/daterangepicker/css/daterangepicker.css" rel="stylesheet" type="text/css" />
     <link href="/assests/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+    
+    <link href="/assests/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assests/vendor/select2/css/select2.min.css">
 
     <link href="/assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="/assests/css/style.css" rel="stylesheet">
@@ -145,6 +149,10 @@
     <script src="/assests/vendor/bootstrapwizard/jquery.bootstrap.wizard.js" type="text/javascript"></script>
     <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>
+    	<script src="/assests/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
+        <script src="/assests/vendor/select2/js/select2.full.min.js"></script>
+    
+
     
     <script type="text/javascript">
         @yield('customjs')

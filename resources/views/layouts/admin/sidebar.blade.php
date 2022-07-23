@@ -17,6 +17,16 @@
                     <li><a href="{{ URL::to('admin/testimonials/add') }}" >Add Testimonial</a></li>
                 </ul>
             </li>
+             <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Properties</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ URL::to('admin/properties') }}" >Properties</a></li>
+                    <li><a href="{{ URL::to('admin/properties/add') }}" >Add Proprty</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="{{ URL::to('admin/bookvisit') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>

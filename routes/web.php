@@ -18,6 +18,10 @@ use App\Http\Controllers\Web\Admin\InquiryController;
 use App\Http\Controllers\Web\Admin\BookVisitController;
 use App\Http\Controllers\Web\Admin\AdminDashboardController;
 use App\Http\Controllers\Web\Admin\TestimonialController;
+use App\Http\Controllers\Web\Admin\PropertiesController;
+use App\Http\Controllers\Web\CommonController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,6 +59,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editTestimonail']);
         Route::post('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editPostTestimonail']);
         Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
+		
+		
+		
+        // Testimonial
+        Route::get('/admin/properties', [PropertiesController::class, 'index']);
+        Route::get('/admin/properties/add', [PropertiesController::class, 'add']);
+        Route::post('/admin/properties/postProperty', [PropertiesController::class, 'addProperties']);
+        Route::get('/admin/properties/edit/{id}', [PropertiesController::class, 'editProperties']);
+        Route::post('/admin/properties/edit/{id}', [PropertiesController::class, 'editPostProperties']);
+        Route::post('/admin/properties/delete/{id}', [PropertiesController::class, 'delete']);
+		
+		Route::get('/admin/getState',[CommonController::class,'getStateByCountry']);
+		Route::get('/admin/getCity',[CommonController::class,'getCityByState']);
+		Route::get('/admin/getSubCity',[CommonController::class,'getSubCityByCity']);
+		Route::get('/admin/getArea',[CommonController::class,'getAreaBySubCity']);
+		
         
     });
 });

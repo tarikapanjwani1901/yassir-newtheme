@@ -78,7 +78,7 @@ function getUrlParams(dParam)
 			headerBg: (dzHeaderBg != '') ? dzHeaderBg : "color_1",
 			navheaderBg: (dzNavHeaderBg != '') ? dzNavHeaderBg : "color_1",
 			sidebarBg: (dzSidebarBg != '') ? dzSidebarBg : "color_1",
-			sidebarStyle: (dzSidebarStyle != '') ? dzsidebarStyle : "full",
+			sidebarStyle:  "full",
 			sidebarPosition: (dzSidebarPosition != '') ? dzSidebarPosition : "fixed",
 			headerPosition: (dzHeaderPosition != '') ? dzHeaderPosition : "fixed",
 			containerLayout: (dzContainerLayout != '') ? dzContainerLayout : "full",
