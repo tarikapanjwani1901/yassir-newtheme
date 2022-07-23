@@ -124,6 +124,7 @@ body input[type="submit"]:hover{
 	padding: 5px 10px !important;
 	border-color: #ccc !important;
 }
+
 .table tbody tr td {
 	font-size: 12px;
 	color: #000;
@@ -133,6 +134,24 @@ body input[type="submit"]:hover{
 	font-size: 13px;
 }
 .text-sm.text-gray-700.leading-5 {
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+	border-color: #ccc;
+
+}
+.select2-container .select2-selection--multiple {
+	border: 0.0625rem solid #ccc;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background-color: #eee;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	cursor: default;
+	float: left;
+	margin-right: 5px;
+	margin-top: 5px;
+	padding: 5px 13px;
 	font-size: 12px;
 	color: #000;
 }

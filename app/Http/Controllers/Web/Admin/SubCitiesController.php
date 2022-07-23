@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-use App\Models\State;
+use App\Models\SubCity;
 
 class SubCitiesController extends Controller
 {
@@ -42,7 +42,7 @@ class SubCitiesController extends Controller
         $status['Active'] = 'Active';
         $status['Deactive'] = 'Deactive';
 
-        return view('admin.locations.sub_cities.sub_cities',compact('sub_cities','cities','search_keyword','search_country','search_state','search_city','search_status','countries','states','status'));
+        return view('admin.locations.sub_cities.index',compact('sub_cities','cities','search_keyword','search_country','search_state','search_city','search_status','countries','states','status'));
     }
 
     public function add() {
@@ -52,7 +52,7 @@ class SubCitiesController extends Controller
         $status['Active'] = 'Active';
         $status['Deactive'] = 'Deactive';
         
-        return view('admin.locations.sub_cities.sub_citiesadd',compact('countries','status'));
+        return view('admin.locations.sub_cities.add',compact('countries','status'));
     }
 
     public function delete($id) {
@@ -111,7 +111,7 @@ class SubCitiesController extends Controller
      $status['Deactive'] = 'Deactive';
  
 
-        return view('admin.locations.sub_cities.sub_citiesedit',compact('cities','states','sub_cities','countries','status'));
+        return view('admin.locations.sub_cities.edit',compact('cities','states','sub_cities','countries','status'));
     }
  
  
@@ -184,7 +184,7 @@ class SubCitiesController extends Controller
         $status['Active'] = 'Active';
         $status['Deactive'] = 'Deactive';
 
-        return view('admin.locations.sub_cities.sub_cities',compact('sub_cities','search_keyword','search_country','search_state','search_city','search_status','status','countries','states','cities'));
+        return view('admin.locations.sub_cities.index',compact('sub_cities','search_keyword','search_country','search_state','search_city','search_status','status','countries','states','cities'));
     }
 
     public function editPostSubCities(Request $request,$id) {

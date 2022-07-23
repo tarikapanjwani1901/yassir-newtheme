@@ -24,7 +24,7 @@
                                 <div class="form-group row label-floating is-empty">
                                     <label class="control-label col-md-2 col-sm-3" for="name">State <span style="color:red"> * </span> </label>    
                                     <div class="col-md-10 col-sm-9">
-                                        <select name="state" id="state" class="form-control">
+                                        <select name="state" id="state" class="form-control select2">
                                             <option value="">Please select state</option>
                                         </select>
                                         <span class="help-block">{{ $errors->first('state', ':message') }}</span>
@@ -34,7 +34,7 @@
                                 <div class="form-group row label-floating is-empty">
                                     <label class="control-label col-md-2 col-sm-3" for="name">City Name <span style="color:red"> * </span> </label>    
                                     <div class="col-md-10 col-sm-9">
-                                        <input id="name" name="name" type="text" class="form-control" autocomplete="off" required>
+                                        <input id="name" name="name" type="text" class="form-control" autocomplete="off">
                                     </div>
                                 </div>
                                 
@@ -67,6 +67,9 @@
 @section('customjs')
     <script type="text/javascript">
         jQuery(document).ready(function () {
+
+            $(".select2").select2();
+
             $('#addcity').validate({
                 rules: {
                     
@@ -80,10 +83,20 @@
                         minlength: 2,
                         required: true
                     },
-                
+                    status: {
+                        required: true
+                    },
                 },
                 highlight: function (element) {
                     $(element).closest('.control-group').removeClass('success').addClass('error');
+                },
+                errorPlacement: function (error, element) {
+                    if(element.attr("name")=='country' || element.attr("name")=='state' || element.attr("name")=='status'){
+                        error.insertAfter(element.next('.select2'));
+                    }
+                    else{
+                        error.insertAfter(element);
+                    }
                 },
                 success: function (element) {
                     element.text('OK!').addClass('valid')

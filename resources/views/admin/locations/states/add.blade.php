@@ -16,7 +16,7 @@
                                 <div class="form-group row label-floating is-empty">
                                     <label class="control-label col-md-2 col-sm-3" for="name">Country <span style="color:red"> * </span> </label>    
                                     <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('country', $countries, '',['class' => 'select2 default-select size-1 form-control wide mb-3', 'id' => 'countries']) !!}
+                                        {!! Form::select('country', $countries, '',['class' => 'select2 size-1 form-control wide mb-3', 'id' => 'countries']) !!}
                                         <span class="help-block">{{ $errors->first('country', ':message') }}</span>
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                                 <div class="form-group row label-floating is-empty">
                                     <label class="control-label col-md-2 col-sm-3" for="name">Status <span style="color:red"> * </span> </label>    
                                     <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('status', $status, '',['class' => 'default-select size-1 form-control wide mb-3', 'id' => 'status']) !!}
+                                        {!! Form::select('status', $status, '',['class' => 'select2 size-1 form-control wide mb-3', 'id' => 'status']) !!}
                                         <span class="help-block">{{ $errors->first('status', ':message') }}</span>
                                     </div>
                                 </div>
@@ -56,6 +56,8 @@
 @section('customjs')
 <script type="text/javascript">
     jQuery(document).ready(function () {
+        jQuery(".select2").select2();
+
         $('#addstate').validate({
             rules: {
                 name: {
@@ -65,14 +67,16 @@
                 country: {
                     required: true
                 },
-                
                 status: {
                     required: true
                 },
             },
             errorPlacement: function (error, element) {
                 if(element.attr("name")=='country' || element.attr("name")=='status'){
-                    error.insertAfter(element.next('.dropdown-toggle'));
+                    error.insertAfter(element.next('.select2'));
+                }
+                else{
+                    error.insertAfter(element);
                 }
             },
             highlight: function (element) {
@@ -84,4 +88,4 @@
         });
     });
 </script>
-@stop
+@endsection
