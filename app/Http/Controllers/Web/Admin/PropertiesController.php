@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Web\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Properties;
+use App\Models\PropertyUnits;
+use App\Models\PropertyUnitsAreas;
+
+
 use App\Models\Common;
 
 use Sentinel;
@@ -32,21 +36,23 @@ class PropertiesController extends Controller
 
     public function delete($id) {
         DB::table('properties')->where('id', '=', $id)->delete();
+		DB::table('property_units')->where('property_id', '=', $id)->delete();
+		DB::table('property_unit_type_area')->where('property_id', '=', $id)->delete();
         return 'success';
     }
 
     public function editProperties($id) 
     {
-        $data =  Properties::where('t_id',$id)->firstOrFail();
+        $data =  Properties::where('id',$id)->firstOrFail();
 
         if($data == null)
         {
             return abort(404);
         }               
 
-        $properties = DB::table('site_propertiess')->where('t_id','=',$id)->get()->toArray();
+        $properties = DB::table('properties')->where('id','=',$id)->get()->toArray();
 
-        return view('admin.properties.edit')->with('propertiess', $properties);
+        return view('admin.properties.edit')->with('properties', $properties);
     }
 
     public function manage_properties(Request $request)
@@ -121,6 +127,11 @@ class PropertiesController extends Controller
     }
 	public function propertyDataUpdate($id,$request){
 		
+		DB::table('property_units')->where('property_id', '=', $id)->delete();
+		DB::table('property_unit_type_area')->where('property_id', '=', $id)->delete();
+        
+		
+		
 		$Properties = Properties::find($id);
 		$sub_category = $request->sub_category;
 		$property_type = $request->property_type;
@@ -150,6 +161,82 @@ $area_details = $plot_area =$carpet_area =$property_status =$age_of_property =$p
 $pre_leased =$fire_noc_certified =$number_of_rooms =$number_of_balconies =$furnishing_detail =$furnished_data =$entrance_width =
 $ceiling_heights =$number_of_private_washroom =$number_of_shared_washroom =$conference_room =$reception_area =$facilities =$fire_safety_measures =$number_of_floor =
 $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$number_of_parking_allotted =$parkings =$suitable_business_type  = "";
+		
+		
+		if($sub_category=="Residential"){
+			if(!empty($request->propertyDetails[str_replace(" ","",$property_type)])){
+				foreach($request->propertyDetails[str_replace(" ","",$property_type)]  as $singleBhkType=>$singleBhkData){
+							$PropertyUnits = new PropertyUnits();
+							$PropertyUnits->property_id = $id;
+							$PropertyUnits->property_unit = $singleBhkType;
+							if(isset($singleBhkData['number_of_bedrooms'])){
+								$PropertyUnits->number_of_bedrooms = $singleBhkData['number_of_bedrooms'];
+							}
+							
+							if(isset($singleBhkData['number_of_bathrooms'])){
+								$PropertyUnits->number_of_bathrooms = $singleBhkData['number_of_bathrooms'];
+							}if(isset($singleBhkData['number_of_balconies'])){
+								$PropertyUnits->number_of_balconies = $singleBhkData['number_of_balconies'];
+							
+							}
+							$PropertyUnits->other_room =  "";
+							if(isset($singleBhkData['other_room']) && !empty($singleBhkData['other_room'])){
+								$PropertyUnits->other_room = implode(", ",$singleBhkData['other_room']);
+							}
+							
+							$PropertyUnits->furnished_details =  "";
+							if(isset($singleBhkData['furnished_details']) && !empty($singleBhkData['furnished_details'])){
+								$PropertyUnits->furnished_details = implode(", ",$singleBhkData['furnished_details']);
+							}
+							
+							$PropertyUnits->reserved_parking =  "";
+							if(isset($singleBhkData['reserved_parking']) && !empty($singleBhkData['reserved_parking'])){
+								$PropertyUnits->reserved_parking = implode(", ",$singleBhkData['reserved_parking']);
+							}
+							if(isset($singleBhkData['number_of_floor'])){
+								$PropertyUnits->number_of_floor = $singleBhkData['number_of_floor'];
+							}if(isset($singleBhkData['total_units'])){
+								$PropertyUnits->total_units = $singleBhkData['total_units'];
+							}if(isset($singleBhkData['number_of_blocks'])){
+								$PropertyUnits->number_of_blocks = $singleBhkData['number_of_blocks'];
+							}
+							$PropertyUnits->propertystatus = $singleBhkData['propertystatus'];
+							if($singleBhkData['propertystatus']=="Ready to move"){
+								$PropertyUnits->possession_date = "";
+								$PropertyUnits->age_of_property = $singleBhkData['age_of_property'];
+							}else{
+								
+								$PropertyUnits->age_of_property = "";
+								$PropertyUnits->possession_date = $singleBhkData['possession_date'];	
+							}
+							
+							$PropertyUnits->save();
+							$PropertiesUnitID = $PropertyUnits->id;
+							
+							if(!empty($singleBhkData['carpet_area'])){	
+								foreach($singleBhkData['carpet_area'] as $singleAreaKey=>$singleArea){
+									$PropertyUnitsAreas = new PropertyUnitsAreas();
+									$PropertyUnitsAreas->property_id = $id;
+									$PropertyUnitsAreas->property_unit_id = $PropertiesUnitID;
+									
+									if(isset($singleBhkData['carpet_area'][$singleAreaKey])){
+										$PropertyUnitsAreas->carpet_area = $singleBhkData['carpet_area'][$singleAreaKey];
+									}
+									if(isset($singleBhkData['super_builtup_area'][$singleAreaKey])){
+										$PropertyUnitsAreas->super_builtup_area = $singleBhkData['super_builtup_area'][$singleAreaKey];
+									}
+									if(isset($singleBhkData['plot_area'][$singleAreaKey])){
+										$PropertyUnitsAreas->plot_area = $singleBhkData['plot_area'][$singleAreaKey];
+									}
+									
+									$PropertyUnitsAreas->save();
+								}
+							}
+							
+					
+				}
+			}
+		}
 		
 		if($sub_category=="Residential"){
 			$rera_number =  $request->rera_number;
@@ -195,6 +282,10 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 				
 			}
 			if($commercial_property_type=="Retail"){
+				$locality = $request->locality;
+				$located_inside = $request->located_inside;
+				
+				
 				$retail_type =  $request->retail_type;
 				$shop_located_inside =  $request->shop_located_inside;
 				
@@ -238,6 +329,9 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 				
 			}if($commercial_property_type=="Hospitality"){
 				$what_kind_of_hospitality =  $request->what_kind_of_hospitality;
+				$locality = $request->locality;
+				$located_inside = $request->located_inside;
+				
 				
 				
 				
@@ -259,7 +353,7 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 					}
                 }
 				
-				$property_status =  $request->propertyStatus;
+				$property_status =  $request->propertystatus;
 				
 				$pre_leased = $request->pre_leased;
 				$fire_noc_certified = $request->fire_noc_certified;
@@ -278,12 +372,37 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		if($sub_category=="IndustrialParkShades"){
 			$locality = $request->locality;
 			$located_inside = $request->located_inside;
-				
+			$number_of_washrooms =  $request->Industrialnumber_of_washrooms;
+			$area_details =  $request->IndustrialAreadetails;
+			$carpet_area =  $request->IndustrialCarpetarea;
+			$super_builtup_area =  $request->Industrialsuper_builtup_area;
+			$furnishing_detail =  $request->furnishing_detail;
+			$property_status =  $request->Industrialpropertystatus;
+			if($property_status=="Ready to move"){
+				$possession_date = "";
+				$age_of_property = 	$request->Industrialage_of_property;
+			}else{
+					$possession_date = $request->Industrialpossession_date;
+					$age_of_property = 	"";
+			}
+			
+				$pre_leased = $request->Industrialpre_leased;
+				$fire_noc_certified = $request->Industrialfire_noc_certified;	
 			
 		}
 		if($sub_category=="VacantLandPlotting"){
 			$locality = $request->locality;
 			$what_kind_of_vacantland =  $request->what_kind_of_vacantland;
+			$area_details =  $request->VacantLandPlottingAreadetails;
+			$plot_area =  $request->VacantLandPlottingCarpetarea;
+			$property_status =  $request->VacantLandPlottingpropertystatus;
+			if($property_status=="Ready to move"){
+				$possession_date = "";
+				$age_of_property = 	$request->VacantLandPlottingage_of_property;
+			}else{
+					$possession_date = $request->VacantLandPlottingpossession_date;
+					$age_of_property = 	"";
+			}
 		}
 		
 		$Properties->commercial_property_type =  $commercial_property_type;

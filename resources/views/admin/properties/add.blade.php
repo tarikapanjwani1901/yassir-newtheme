@@ -385,14 +385,14 @@ label {
                 
            		<div class="col-md-6">
                 	<div class="form-group">
-                    	<label>Area details</label>
-                        <input type="text" placeholder="Area details" name="VacantLandPlottingAreadetails" class="form-control" />
+                    	<label>Area details <span class="required_field">*</span></label>
+                        <input type="text" placeholder="Area details" name="VacantLandPlottingAreadetails" class="form-control required number" />
                     </div>	
                 </div>
                 <div class="col-md-6">
                 	<div class="form-group">
-                    	<label>Ploat area </label>
-                        <input type="text" placeholder="Ploat area" name="VacantLandPlottingCarpetarea" class="form-control" />
+                    	<label>Ploat area <span class="required_field">*</span> </label>
+                        <input type="text" placeholder="Ploat area" name="VacantLandPlottingCarpetarea" class="form-control required number" />
                     </div>	
                 </div>
                
@@ -450,26 +450,26 @@ label {
            		<div class="col-md-3">
                 	<div class="form-group">
                     	<label>No of washrooms <span class="required_field">*</span></label>
-                        <input type="text" placeholder="No of washrooms" name="Industrialnumber_of_washrooms" class="form-control required" />
+                        <input type="text" placeholder="No of washrooms" name="Industrialnumber_of_washrooms" class="form-control number required" />
                     </div>	
                 </div>
                 
            		<div class="col-md-3">
                 	<div class="form-group">
                     	<label>Area details <span class="required_field">*</span></label>
-                        <input type="text" placeholder="Area details" name="IndustrialAreadetails" class="form-control required" />
+                        <input type="text" placeholder="Area details" name="IndustrialAreadetails" class="form-control number required" />
                     </div>	
                 </div>
                 <div class="col-md-3">
                 	<div class="form-group">
                     	<label>Carpet area <span class="required_field">*</span></label>
-                        <input type="text" placeholder="Carpet area" name="IndustrialCarpetarea" class="form-control required" />
+                        <input type="text" placeholder="Carpet area" name="IndustrialCarpetarea" class="form-control number required" />
                     </div>	
                 </div>
                 <div class="col-md-3">
                 	<div class="form-group">
                     	<label>Super built-up area <span class="required_field">*</span></label>
-                        <input type="text" placeholder="Super built-up area" name="Industrialsuper_builtup_area" class="form-control required" />
+                        <input type="text" placeholder="Super built-up area" name="Industrialsuper_builtup_area" class="form-control number required" />
                     </div>	
                 </div>
            </div>  
@@ -543,25 +543,25 @@ label {
   <div class="col-md-3">
     <div class="form-group">
       <label>Add room Details <span class="required_field">*</span></label>
-      <input type="text" placeholder="Add room Details" name="HospitalityAddroomDetails" class="form-control required" />
+      <input type="text" placeholder="Add room Details" name="HospitalityAddroomDetails" class="form-control number required" />
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
       <label>No of Rooms <span class="required_field">*</span></label>
-      <input type="text" placeholder="No of Rooms" name="Hospitalitynumber_of_rooms" class="form-control required" />
+      <input type="text" placeholder="No of Rooms" name="Hospitalitynumber_of_rooms" class="form-control number required" />
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
       <label>No of washrooms <span class="required_field">*</span></label>
-      <input type="text" placeholder="No of washrooms"  name="Hospitalitynumber_of_washrooms" class="form-control required" />
+      <input type="text" placeholder="No of washrooms"  name="Hospitalitynumber_of_washrooms" class="form-control number required" />
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
       <label>No of Balconies <span class="required_field">*</span></label>
-      <input type="text" name="Hospitalitynumber_of_balconies" placeholder="No of Balconies" class="form-control required" />
+      <input type="text" name="Hospitalitynumber_of_balconies" placeholder="No of Balconies" class="form-control number required" />
     </div>
   </div>
 </div>
@@ -569,19 +569,19 @@ label {
   <div class="col-md-4">
     <div class="form-group">
       <label>Plot Area<span class="required_field">*</span> </label>
-      <input type="text" placeholder="Plot Area" name="Hospitalityplot_area" class="form-control required" />
+      <input type="text" placeholder="Plot Area" name="Hospitalityplot_area" class="form-control number required" />
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <label>Carpet Area <span class="required_field">*</span></label>
-      <input type="text" placeholder="Carpet Area" name="Hospitalitycarpet_area" class="form-control required" />
+      <input type="text" placeholder="Carpet Area" name="Hospitalitycarpet_area" class="form-control number required" />
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <label>Super Built-up Area <span class="required_field">*</span></label>
-      <input type="text" placeholder="Super Built-up Area" name="Hospitalitysuper_builtup_area" class="form-control required" />
+      <input type="text" placeholder="Super Built-up Area" name="Hospitalitysuper_builtup_area" class="form-control number required" />
     </div>
   </div>
 </div>
@@ -729,42 +729,42 @@ label {
 <div class="row hospitality_prop_hide">
    <div class="col-md-6">
       <div class="form-group">
-         <label>Carpet Area</label>
-         <input type="text" placeholder="Carpet Area" name="carpet_area" class="form-control" />
+         <label>Carpet Area <span class="required_field">*</span></label>
+         <input type="text" placeholder="Carpet Area" name="carpet_area" class="form-control required number" />
       </div>
    </div>
    <div class="col-md-6">
       <div class="form-group">
-         <label>Super Built-up Area </label>
-         <input type="text" placeholder="Super Built-up Area" name="super_builtup_area" class="form-control" />
+         <label>Super Built-up Area <span class="required_field">*</span></label>
+         <input type="text" placeholder="Super Built-up Area" name="super_builtup_area" class="form-control required number" />
       </div>
    </div>
 </div>
 <div class="row hospitality_prop_hide">
            		<div class="col-md-3 retail_type">
                 	<div class="form-group">
-                    	<label>Entrance width</label>
-                        <input type="text" name="entrance_width" class="form-control" />
+                    	<label>Entrance width <span class="required_field">*</span></label>
+                        <input type="text" name="entrance_width" class="form-control required number" />
                     </div>	
                 </div>
                 
            		<div class="col-md-3 retail_type">
                 	<div class="form-group">
-                    	<label>Ceiling Heights</label>
-                        <input type="text" name="ceiling_heights" class="form-control" />
+                    	<label>Ceiling Heights <span class="required_field">*</span></label>
+                        <input type="text" name="ceiling_heights" class="form-control required number" />
                     </div>	
                 </div>
            
    <div class="col-md-3">
       <div class="form-group">
-         <label>No of Private Washroom</label>
-         <input type="text" placeholder="No of Private Washroom" name="number_of_private_washroom" class="form-control" />
+         <label>No of Private Washroom <span class="required_field">*</span></label>
+         <input type="text" placeholder="No of Private Washroom" name="number_of_private_washroom" class="form-control required number" />
       </div>
    </div>
    <div class="col-md-3">
       <div class="form-group">
-         <label>No of Shared Washroom</label>
-         <input type="text" placeholder="No of Shared Washroom" name="number_of_shared_washroom" class="form-control" />
+         <label>No of Shared Washroom <span class="required_field">*</span></label>
+         <input type="text" placeholder="No of Shared Washroom" name="number_of_shared_washroom" class="form-control required number" />
       </div>
    </div>
    <div class="col-md-3 retail_type_hide">
@@ -815,34 +815,34 @@ label {
 <div class="row hospitality_prop_hide">
    <div class="col-md-3">
       <div class="form-group">
-         <label>No of floor</label>
-         <input type="text" placeholder="No of floor" name="number_of_floor" class="form-control" />
+         <label>No of floor <span class="required_field">*</span></label>
+         <input type="text" placeholder="No of floor" name="number_of_floor" class="form-control required number" />
       </div>
    </div>
    <div class="col-md-3">
       <div class="form-group">
-         <label>No of Passenger lifts</label>
-         <input type="text" placeholder="No of Passenger lifts" name="number_of_passenger_lifts" class="form-control" />
+         <label>No of Passenger lifts <span class="required_field">*</span></label>
+         <input type="text" placeholder="No of Passenger lifts" name="number_of_passenger_lifts" class="form-control required number" />
       </div>
    </div>
    <div class="col-md-3">
       <div class="form-group">
-         <label>No of Service Lift</label>
-         <input type="text" placeholder="No of Service Lift" name="number_of_service_lift" class="form-control" />
+         <label>No of Service Lift <span class="required_field">*</span></label>
+         <input type="text" placeholder="No of Service Lift" name="number_of_service_lift" class="form-control required number" />
       </div>
    </div>
    <div class="col-md-3">
       <div class="form-group">
-         <label>No of Staircases</label>
-         <input type="text" placeholder="No of Staircases" name="number_of_staircases" class="form-control" />
+         <label>No of Staircases <span class="required_field">*</span></label>
+         <input type="text" placeholder="No of Staircases" name="number_of_staircases" class="form-control required number" />
       </div>
    </div>
 </div>
 <div class="row hospitality_prop_hide">
    <div class="col-md-3">
       <div class="form-group">
-         <label>No of parking allotted</label>
-         <input type="text" placeholder="No of parking allotted" name="number_of_parking_allotted" class="form-control" />
+         <label>No of parking allotted <span class="required_field">*</span></label>
+         <input type="text" placeholder="No of parking allotted" name="number_of_parking_allotted" class="form-control required number" />
       </div>
    </div>
    <div class="col-md-3">
@@ -1306,7 +1306,7 @@ html +='<th width="100">Action</th>';
 html +='</tr>';
 html +='</thead>';
 html +='<tbody>';
-html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][]" class="form-control required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][]" class="form-control required" placeholder="Super Built-up Area"></td><td><div data-id="'+length+'" class="delelteItem" data-type="'+property_type+'"><i class="fa fa-times"></i></div></td></tr>';
+html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+length+'" data-value="'+value+'" class="delelteItem" data-type="'+property_type+'"><i class="fa fa-times"></i></div></td></tr>';
 
 html +='</tbody>';
 html +='</table>';
@@ -1326,7 +1326,7 @@ html +='<th width="100">Action</th>';
 html +='</tr>';
 html +='</thead>';
 html +='<tbody>';
-html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][plot_area][]" class="form-control required" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][]" class="form-control required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][]" class="form-control required" placeholder="Super Built-up Area" value=""></td><td><div  data-type="'+property_type+'" data-id="'+length+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][plot_area][0]" class="plot_area_txt form-control number required" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area" value=""></td><td><div  data-type="'+property_type+'" data-id="'+length+'" data-value="'+value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
 
 html +='</tbody>';
 html +='</table>';
@@ -1339,14 +1339,14 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
             html += '<label class="control-label">';
                 html += 'No of Bedrooms <span class="required_field">*</span>';
                 html += '</label>';
-                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_bedrooms]" class="form-control required" placeholder="No of Bedrooms" value="">';
+                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_bedrooms]" class="form-control number required" placeholder="No of Bedrooms" value="">';
                 html += '</div>';
                 html += '<div class="col-sm-4">';
             
                 html += '<label class="control-label">';
                 html += 'No of Bathrooms <span class="required_field">*</span>';
                 html += '</label>';
-                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_bathrooms]" class="form-control required" placeholder="No of Bathrooms" value="">';
+                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_bathrooms]" class="form-control number required" placeholder="No of Bathrooms" value="">';
                 html += '</div>';
             
                 html += '<div class="col-sm-4">';
@@ -1354,7 +1354,7 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
                 html += '<label class="control-label">';
                 html += 'No of Balconies <span class="required_field">*</span>';
                 html += '</label>';
-                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_balconies]" class="form-control required" placeholder="No of Balconies" value="">';
+                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_balconies]" class="form-control number required" placeholder="No of Balconies" value="">';
                 html += '</div>';
             html += '</div>';
 
@@ -1363,11 +1363,11 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
                 html += 'Other Rooms (optional)';
                 html += '</label>';
                 html += '<div class="col-sm-10">';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][pooja_room]" value="Pooja Room">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][other_room][]" value="Pooja Room">';
                 html += '&nbsp;<label>Pooja Room</label>&nbsp;&nbsp;&nbsp;';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][servant_room]" value="Servant Room">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][other_room][]" value="Servant Room">';
                 html += '&nbsp;<label>Servant Room</label>&nbsp;&nbsp;&nbsp;';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][store_room]"  value="store_room">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][other_room][]"  value="Store Room">';
                 html += '&nbsp;<label>Store Room</label>&nbsp;&nbsp;&nbsp;';
                 html += '</div>';
             html += '</div>';
@@ -1377,11 +1377,11 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
                 html += 'Furnishing';
                 html += '</label>';
                 html += '<div class="col-sm-10">';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][Furnished]" value="Furnished">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][furnished_details][]" value="Furnished">';
                 html += '&nbsp;<label>Furnished</label>&nbsp;&nbsp;&nbsp;';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][SemiFurnished]" value="Semi-furnished">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][furnished_details][]" value="Semi-furnished">';
                 html += '&nbsp;<label>Semi-furnished</label>&nbsp;&nbsp;&nbsp;';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][Unfurnished]" value="Un furnished">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][furnished_details][]" value="Un furnished">';
                 html += '&nbsp;<label>Un furnished</label>&nbsp;&nbsp;&nbsp;';
                 html += '</div>';
             html += '</div>';
@@ -1391,25 +1391,25 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
                 html += 'Reserved Parking (optional)';
                 html += '</label>';
                 html += '<div class="col-sm-10">';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][covered_parking]" value="Covered Parking">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][reserved_parking][]" value="Covered Parking">';
                 html += '&nbsp;<label>Covered Parking</label>&nbsp;&nbsp;&nbsp;';
-                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][open_parking]" value="Open Parking">';
+                html += '<input type="checkbox" name="propertyDetails['+property_type+']['+value+'][reserved_parking][]" value="Open Parking">';
                 html += '&nbsp;<label>Open Parking</label>&nbsp;&nbsp;&nbsp;';
                 html += '</div>';
             html += '</div>';
 
             html += '<div class="form-group row label-floating is-empty">';
                 html += '<div class="col-sm-6"><label class="control-label">No. of Floor <span class="required_field">*</span></label>';
-                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_floor]"  class="form-control required" placeholder="No. of Floor" value="">';
+                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_floor]"  class="form-control number required" placeholder="No. of Floor" value="">';
                 html += '</div>';
 				 if(property_type=="IndependentHouse" ||  property_type=="Farmhouse"){
 					html += '<div class="col-sm-6"><label class="control-label">Total Units <span class="required_field">*</span></label>';
-                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][total_units]"  class="form-control required" placeholder="Total Units" value="">';
+                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][total_units]"  class="form-control number required" placeholder="Total Units" value="">';
                 html += '</div>';
 				 	 
 				 }else{
                 html += '<div class="col-sm-6"><label class="control-label">No. of Blocks <span class="required_field">*</span></label>';
-                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_blocks]"  class="form-control required" placeholder="No. of Blocks" value="">';
+                html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][number_of_blocks]"  class="form-control number required" placeholder="No. of Blocks" value="">';
                 html += '</div>';
 				 }
             html += '</div>';
@@ -1432,7 +1432,7 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
                     html += 'Age of Property<span class="required_field">*</span>';
                 html += '</label>';
                 html += '<div class="col-sm-10">';
-                    html += '<select name="propertyDetails['+property_type+']['+value+'][age_of_property]" class="propertystatus required form-control" >';
+                    html += '<select name="propertyDetails['+property_type+']['+value+'][age_of_property]" class="propertystatus select2 required form-control" >';
                         html += '<option value="">Select</option>';
                         html += '<option value="0-1">0-1 Year</option>';
                         html += '<option value="1-5">1-5 Year</option>';
@@ -1459,7 +1459,8 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
             $(".property_type_accordion").append(html);
             getPropertyTypeDisable();
             $("#property_unit_type").prop("selectedIndex", 0); 
-           // $( ".possesion_by" ).datepicker();
+           jQuery(".select2").select2();
+		   // $( ".possesion_by" ).datepicker();
          }
         else{
             alert("Please select value");
@@ -1482,15 +1483,17 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
       var data_value = jQuery(this).attr("data-value");
       
      	var items_table_length = jQuery("."+data_type+"_items_table_"+data_id+" tbody tr").length+1;
+		var counterIndex= 0;
 		if(items_table_length==0){
 			items_table_length = 1;	
 		}
+		var counterIndex= items_table_length -1; 
 		
       if(data_type=="ApartmentAndFlat"){
-		var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area][]" class="form-control required" placeholder="Carpet Area" value=""></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area][]" class="form-control required" placeholder="Super Built-up Area" value=""></td><td><div data-id="'+data_id+'" data-type="'+data_type+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+		var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'"  class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
       }
       if(data_type=="IndependentHouse" || data_type=="Farmhouse" ){
-      var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][plot_area][]" class="form-control required" placeholder="Plot Area" value=""></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area][]" class="form-control required" placeholder="Carpet Area" value=""></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area][]" class="form-control required" placeholder="Super Built-up Area" value=""></td><td><div  data-id="'+data_id+'" data-type="'+data_type+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+      var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][plot_area]['+counterIndex+']" class="plot_area_txt form-control required number" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div  data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
       }
       jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:last").after(html);	
 		
@@ -1500,6 +1503,7 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
 jQuery(document).on("click",".delelteItem",function() {
 	var data_id = jQuery(this).attr("data-id");
 	var data_type = jQuery(this).attr("data-type");
+	var data_value = jQuery(this).attr("data-value");
    var items_table_length = jQuery("."+data_type+"_items_table_"+data_id+" tbody tr").length ;
 	if(items_table_length==1){alert("Sorry you can't delete this item.");return false;}
 	$(this).closest('tr').remove();
@@ -1509,6 +1513,9 @@ jQuery(document).on("click",".delelteItem",function() {
 	for(var i=0;i<items_table_length;i++){
 		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .counter").html(j)
 		j++;
+		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .plot_area_txt").attr("name","propertyDetails["+data_type+"]["+data_value+"][plot_area]["+i+"]");
+		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .carpet_area_txt").attr("name","propertyDetails["+data_type+"]["+data_value+"][carpet_area]["+i+"]");
+		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .super_builtup_area_txt").attr("name","propertyDetails["+data_type+"]["+data_value+"][super_builtup_area]["+i+"]");
 	}
 });
 	

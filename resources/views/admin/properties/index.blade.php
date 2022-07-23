@@ -32,7 +32,10 @@
                                             <td><?php echo $value->project_name; ?></td>
                                             <td><?php echo $value->company_name; ?></td>
                                             <td><?php echo $value->property_for; ?></td>
-                                            <td><?php echo $value->category; ?></td>
+                                            <td><?php if($value->category=="IndustrialParkShades"){echo "Industrial Park/Shades";}
+											else if($value->category=="VacantLandPlotting"){echo "Vacant Land/ Plotting";}else{
+												echo $value->category;
+												} ?></td>
                                             <td><?php echo $value->sub_category; ?></td>
                                             <td><?php echo $value->city_name; ?></td>
                                             <td><?php echo $value->sub_city_name; ?></td>

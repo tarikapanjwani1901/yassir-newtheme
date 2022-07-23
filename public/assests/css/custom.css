@@ -124,3 +124,15 @@ body input[type="submit"]:hover{
 	padding: 5px 10px !important;
 	border-color: #ccc !important;
 }
+.table tbody tr td {
+	font-size: 12px;
+	color: #000;
+}
+.table thead tr th {
+	color: #000;
+	font-size: 13px;
+}
+.text-sm.text-gray-700.leading-5 {
+	font-size: 12px;
+	color: #000;
+}
