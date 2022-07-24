@@ -24,7 +24,7 @@
                                 <div class="form-group row label-floating is-empty">
                                     <label class="control-label col-md-2 col-sm-3" for="state">State <span style="color:red"> * </span> </label>    
                                     <div class="col-md-10 col-sm-9">
-                                        <select name="state" id="state" class="form-control">
+                                        <select name="state" id="state" class="form-control select2">
                                             <option value="">Please select state</option>
                                         </select>
                                         <span class="help-block">{{ $errors->first('state', ':message') }}</span>
@@ -34,7 +34,7 @@
                                 <div class="form-group row label-floating is-empty">
                                     <label class="control-label col-md-2 col-sm-3" for="city">City <span style="color:red"> * </span> </label>    
                                     <div class="col-md-10 col-sm-9">
-                                        <select name="city" id="city" class="form-control">
+                                        <select name="city" id="city" class="select2 form-control">
                                             <option value="">Please select city</option>
                                         </select>
                                         <span class="help-block">{{ $errors->first('city', ':message') }}</span>
@@ -74,8 +74,11 @@
 @endsection
 
 @section('customjs')
+    <script type="text/javascript">
     jQuery(document).ready(function () {
 
+        $(".select2").select2();
+        
         $('#addcity').validate({
             rules: {
                 country: {
@@ -91,6 +94,15 @@
                     minlength: 2,
                     required: true
                 },
+            },
+            errorPlacement: function (error, element) {
+                if(element.attr("name")=='country' || element.attr("name")=='state' || element.attr("name")=='city'
+                || element.attr("name")=='status'){
+                    error.insertAfter(element.next('.select2'));
+                }
+                else{
+                    error.insertAfter(element);
+                }
             },
             highlight: function (element) {
                 $(element).closest('.control-group').removeClass('success').addClass('error');
@@ -156,4 +168,6 @@
         });
 
     });
-@stop
+</script>
+
+@endsection
