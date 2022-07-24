@@ -112,7 +112,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/areas/edit/{id}', [AreasController::class, 'editAreas']);
         Route::post('/admin/areas/edit/{id}', [AreasController::class, 'editPostAreas']);
         Route::post('/admin/areas/delete/{id}', [AreasController::class, 'delete']);
-
+        Route::get('/admin/areas_search',[AreasController::class, 'search_areas']);
     });
 });
 
