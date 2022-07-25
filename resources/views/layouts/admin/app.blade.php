@@ -32,7 +32,7 @@
     <link href="/assests/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
     
     <link rel="stylesheet" href="/assests/vendor/select2/css/select2.min.css">
-
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="/assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="/assests/css/style.css" rel="stylesheet">
     <link href="/assests/css/custom.css" rel="stylesheet">
@@ -150,6 +150,7 @@
     <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>
     	<script src="/assests/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
+          <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     
     
 

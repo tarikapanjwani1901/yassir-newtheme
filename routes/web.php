@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/properties/edit/{id}', [PropertiesController::class, 'editProperties']);
         Route::post('/admin/properties/edit/{id}', [PropertiesController::class, 'editPostProperties']);
         Route::post('/admin/properties/delete/{id}', [PropertiesController::class, 'delete']);
+		Route::get('/admin/properties_search',[PropertiesController::class, 'properties_search']);
 		
 		Route::get('/admin/getState',[CommonController::class,'getStateByCountry']);
 		Route::get('/admin/getCity',[CommonController::class,'getCityByState']);

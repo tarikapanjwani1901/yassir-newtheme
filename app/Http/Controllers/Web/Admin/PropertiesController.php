@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Properties;
 use App\Models\PropertyUnits;
 use App\Models\PropertyUnitsAreas;
+use App\Models\PropertiesImages;
+
 
 
 use App\Models\Common;
@@ -21,8 +23,62 @@ class PropertiesController extends Controller
     {
         //Get all the propertiess
         $properties = Properties::getAllProperties();
+		
+		$CommonModel = new Common;
+		
+		$vendors =$CommonModel->getVendorList();
+		$search_keyword = $search_vendor = $search_for = $search_sub_category = "";
+		$propertyFor[''] = "Property For";
+		$propertyFor['Sell'] = "Sell";
+		$propertyFor['Rent'] = "Rent";
+		
+		
+		$SubCategory[''] = "Sub Category";
+		$SubCategory['Residential'] = "Residential";
+		$SubCategory['Commercial'] = "Commercial";
+		$SubCategory['IndustrialParkShades'] = "Industrial Park/Shades";
+		$SubCategory['VacantLandPlotting'] = "Vacant Land/ Plotting";
+		
+		
+		
+		
 
-        return view('admin.properties.index')->with('properties', $properties);
+        return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
+    
+    }
+	public function properties_search(Request $request)
+    {
+		
+		$search_keyword = $request->get('search_keyword');
+        $search_vendor = $request->get('search_vendor');
+        $search_for = $request->get('search_for');
+		$search_sub_category = $request->get('search_sub_category');
+		
+		$propertyFor[''] = "Property For";
+		$propertyFor['Sell'] = "Sell";
+		$propertyFor['Rent'] = "Rent";
+		
+		
+		$SubCategory[''] = "Sub Category";
+		$SubCategory['Residential'] = "Residential";
+		$SubCategory['Commercial'] = "Commercial";
+		$SubCategory['IndustrialParkShades'] = "Industrial Park/Shades";
+		$SubCategory['VacantLandPlotting'] = "Vacant Land/ Plotting";
+		
+		
+		
+		
+	  
+        //Get all the propertiess
+        $properties = Properties::getAllProperties($search_keyword,$search_vendor,$search_for,$search_sub_category);
+		
+		$CommonModel = new Common;
+		
+		$vendors =$CommonModel->getVendorList();
+		
+	   return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
+    
+      
     }
 
     public function add() {
@@ -51,8 +107,94 @@ class PropertiesController extends Controller
         }               
 
         $properties = DB::table('properties')->where('id','=',$id)->get()->toArray();
+		$property_units = DB::table('property_units')->where('property_id','=',$id)->get()->toArray();
+		$properties_unit_type_area = DB::table('property_unit_type_area')->where('property_id','=',$id)->get()->toArray();
+		$property_images = DB::table('property_images')->where('property_id','=',$id)->get()->toArray();
+		$vendors = $country = array();
+		$CommonModel = new Common;
+		$country = $CommonModel->countryList();
+		$vendors =$CommonModel->getVendorList();
+		
+		$p = $properties[0];
+		
+		$propertyFor[''] = "Property For";
+		$propertyFor['Sell'] = "Sell";
+		$propertyFor['Rent'] = "Rent";
+		
+		$category[''] = "Select Category";
+		$category['For Builder'] = "For Builder";
+		$category['For owner'] = "For owner";
+		
+		
+		$SubCategory[''] = "Select Sub Category";
+		$SubCategory['Residential'] = "Residential";
+		$SubCategory['Commercial'] = "Commercial";
+		$SubCategory['IndustrialParkShades'] = "Industrial Park/Shades";
+		$SubCategory['VacantLandPlotting'] = "Vacant Land/ Plotting";
+		
+		$property_type[''] = "Select Type";
+		$property_type['Apartment And Flat'] = "Apartment/Flat";
+		$property_type['IndependentHouse'] = "Independent House/ Bunglows/villas";
+		$property_type['Farmhouse'] = "Farmhouse";
+		
+		$commercial_property_type[''] = "Select Type";
+		$commercial_property_type['Office'] = "Office";
+		$commercial_property_type['Retail'] = "Retail";
+		$commercial_property_type['Hospitality'] = "Hospitality";
+	
+		$what_kind_of_vacantland['Commercial Land'] = "Commercial Land";
+		$what_kind_of_vacantland['Agriculture Land'] = "Agriculture Land";
+		$what_kind_of_vacantland['Industrial Land'] = "Industrial Land";
+		
+		
+		$what_kind_of_hospitality['Hotel / Resort'] = "Hotel / Resort";
+		$what_kind_of_hospitality['Guesthouse / Banquet Hall'] = "Guesthouse / Banquet Hall";
+		
+		
+		$retail_type['Commercial shops'] = "Commercial shops";
+		$retail_type['Commercial showrooms'] = "Commercial showrooms";
+	
+		$shop_located_inside['Mall'] = "Mall";
+		$shop_located_inside['Commercial Project'] = "Commercial Project";
+		$shop_located_inside['Residencial Project'] = "Residencial Project";
+		
+		$located_inside['IT Park'] = "IT Park";
+		$located_inside['Business Park'] = "Business Park";
+		
+		$age_of_property[''] = "Select";
+		$age_of_property['0-1 Year'] = "0-1 Year";
+		$age_of_property['1-5 Year'] = "1-5 Year";
+		$age_of_property['5-10 Year'] = "5-10 Year";
+		$age_of_property['10+ Year'] = "10+ Year";
+		
+		
+		
+		
+		$CommonModel=  new Common;	
+		$state = $CommonModel->getStateByCountry($p->country);
+		$city = $CommonModel->getCityByState($p->state);
+		$sub_city = $CommonModel->getSubCityByCity($p->city);
+		$area = $CommonModel->getAreaBySubCity($p->sub_city);
+		
+		$amenties = array('Power Backup','Lift','24*7 Water Supply','24*7 Security Service','Parking Space','Vaastu Compliant Design','Ventilation','Fitness Center / GYM','Spa'
+		,'Yoga','Swimming Pool','Playground','Community Center','Media Room'
+		,'Party Room','Community events and classes','Outdoor Areas','Jogging/walking','Eco Friendly','Proximity Area','On Site Maintenance','Electric car charging stations'
+		,'Pets Allowed','Wood Flooring','Storage in unit','Wi-Fi','High-Speed Internet','Cable TV','Close to schools','Babysitting Services'
+		,'CCTV Surveillance','Doorman','Gated Access','Valet Trash','Recycling Center','Doorstep Recycling Collection','Laundry Facility','Dance studio'
+		,'Video Door Phone','Gas Connection','Main Entrance Door','Wi- Fi Smart Homes','Customized Wi- Fi Smart Homes','Terrace Garden','Garden GYM'
+		,'Senior Citizen Seating','Indoor Games','Celebration Lawn','Rest Room','River Facing','Basement','Fire Safety','Management Office','Library','School Drop off Zone'
+		,'Earthquake Resistance RCC Structure','Indoor Games Club House','Guest waiting Room','Hydro. Pressure Pump','Z+ Security System','Adequate Street Light','Steam Bathroom','Splash Pool'
+		,'Basketball Hoop','Skating Area');
+		$unitAreas = array();
+		if(!empty($properties_unit_type_area)){
+			foreach($properties_unit_type_area as $single){
+				$unitAreas[$single->property_unit_id][] = $single;	
+			}	
+		}	
+		
+         return view('admin.properties.edit',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
+		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','p','property_units','unitAreas','properties_unit_type_area','property_images','vendors','country'));
 
-        return view('admin.properties.edit')->with('properties', $properties);
     }
 
     public function manage_properties(Request $request)
@@ -72,38 +214,6 @@ class PropertiesController extends Controller
        // return view('admin/properties',compact('propertiess',$propertiess));
     }
 
-    public function editPostProperties(Request $request,$id) {
-        
-        $image = request()->file('inputFile');
-        if($image) {
-
-        $target_dir = "images/properties/".$id;
-
-        if (!file_exists($target_dir))
-        {
-            mkdir($target_dir, 0777, true);
-        }
-
-        $photo = $request->file('inputFile');
-        $imagename = $photo->getClientOriginalName();  
-        $destinationPath = public_path().'/images/properties/'.$id;
-        $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
-        $thumb_img->save($destinationPath.'/'.$imagename,80);
-
-           $properties = DB::table('site_propertiess')
-            ->where('t_id', $id)
-            ->update(['t_rating' => $_POST['rating'], 't_quote' => $_POST['message'], 't_name' => $_POST['name'], 't_company' => $_POST['company'],'t_image' => $imagename , 'created_by' => '1','updated_at' => date('Y-m-d h:i:s')]);
-                
-        }else{
-
-            $properties = DB::table('site_propertiess')
-            ->where('t_id', $id)
-            ->update(['t_rating' => $_POST['rating'], 't_quote' => $_POST['message'], 't_name' => $_POST['name'], 't_company' => $_POST['company'],'created_by' => '1','updated_at' => date('Y-m-d h:i:s')]);
-        }
-           
-        return redirect('admin/propertiess');
-
-    }
 
     public function addProperties(Request $request) {
 		
@@ -127,9 +237,10 @@ class PropertiesController extends Controller
     }
 	public function propertyDataUpdate($id,$request){
 		
-		DB::table('property_units')->where('property_id', '=', $id)->delete();
-		DB::table('property_unit_type_area')->where('property_id', '=', $id)->delete();
-        
+		if($request->stepNumber==1){
+			DB::table('property_units')->where('property_id', '=', $id)->delete();
+			DB::table('property_unit_type_area')->where('property_id', '=', $id)->delete();
+		}
 		
 		
 		$Properties = Properties::find($id);
@@ -209,8 +320,9 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 								$PropertyUnits->age_of_property = "";
 								$PropertyUnits->possession_date = $singleBhkData['possession_date'];	
 							}
-							
-							$PropertyUnits->save();
+							if($request->stepNumber==1){
+								$PropertyUnits->save();
+							}
 							$PropertiesUnitID = $PropertyUnits->id;
 							
 							if(!empty($singleBhkData['carpet_area'])){	
@@ -228,8 +340,9 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 									if(isset($singleBhkData['plot_area'][$singleAreaKey])){
 										$PropertyUnitsAreas->plot_area = $singleBhkData['plot_area'][$singleAreaKey];
 									}
-									
-									$PropertyUnitsAreas->save();
+									if($request->stepNumber==1){
+										$PropertyUnitsAreas->save();
+									}
 								}
 							}
 							
@@ -320,7 +433,7 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 				$property_status =  $request->propertystatus;
 				
 				if(!empty($request->suitable_business_type)){
-					$suitable_business_type =  implode(",",$request->suitable_business_type);
+					$suitable_business_type =  implode(", ",$request->suitable_business_type);
 				}
 				$pre_leased = $request->pre_leased;
 				$fire_noc_certified = $request->fire_noc_certified;
@@ -347,9 +460,14 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 				}
 				$super_builtup_area =  $request->Hospitalitysuper_builtup_area;
 				$furnishing_detail =  $request->furnishing_detail;
-                if($furnishing_detail=="Furnished" || $furnishing_detail=="Semi furnished"){
+                if($furnishing_detail=="Furnished"){
                 	if(!empty($request->furnished_data)){
 						$furnished_data =  implode(", ",$request->furnished_data);
+					}
+                }
+				if($furnishing_detail=="Semi furnished"){
+                	if(!empty($request->semifurnished_data)){
+						$furnished_data =  implode(", ",$request->semifurnished_data);
 					}
                 }
 				
@@ -474,13 +592,86 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		}else{
 			$Properties->other_features =  "";	
 		}
-		//$Properties->location_advantages =  $request->location_advantages;
+		$Properties->location_advantages =  $request->location_advantages;
 		$Properties->suggestions =  $request->suggestions;
 		
 		//step 4
-		$Properties->video_toor =  $request->video_toor;
-		$Properties->pdf_brochure =  $request->pdf_brochure;
 		$Properties->sample_house_video =  $request->sample_house_video;
+		
+		
+		
+			
+        $target_dir = "images/properties/".$id;
+		
+		if($request->stepNumber=="3" && $request->stepDirection=="last_step"){
+		
+        if (!file_exists($target_dir))
+        {
+            mkdir($target_dir, 0777, true);
+        }
+		$destinationPath = public_path().'/images/properties/'.$id;
+		if($request->file('pdf_brochure')){	
+		  $pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
+           move_uploaded_file($_FILES["pdf_brochure"]["tmp_name"], $target_dir."/".$pdf_brochure_name);
+		   $Properties->pdf_brochure =  $pdf_brochure_name;
+		}
+		
+		if($request->file('video_toor')){	
+		  $video_toor_name = time().basename($request->file('video_toor')->getClientOriginalName());
+           move_uploaded_file($_FILES["video_toor"]["tmp_name"], $target_dir."/".$video_toor_name);
+		   $Properties->video_toor =  $video_toor_name;
+		}
+			
+			if($request->file('project_gallery')){
+				for($i=0;$i<count($request->file('project_gallery'));$i++){		
+					$project_gallery = $request->file('project_gallery')[$i];
+					$project_gallery_name = $project_gallery->getClientOriginalName();  
+					$thumb_img = Image::make($project_gallery->getRealPath())->resize(200, 200);
+					$thumb_img->save($destinationPath.'/'.$project_gallery_name,80);
+					
+					$PropertiesImages = new PropertiesImages();
+					$PropertiesImages->property_id =  $id;
+					$PropertiesImages->image =  $project_gallery_name;
+					$PropertiesImages->type =  'project_gallery';
+					$PropertiesImages->save();
+					
+				}
+			}
+			
+			if($request->file('floor_plan_gallery')){
+				for($i=0;$i<count($request->file('floor_plan_gallery'));$i++){		
+					$floor_plan_gallery = $request->file('floor_plan_gallery')[$i];
+					$floor_plan_gallery_name = $floor_plan_gallery->getClientOriginalName();  
+					$thumb_img = Image::make($floor_plan_gallery->getRealPath())->resize(200, 200);
+					$thumb_img->save($destinationPath.'/'.$floor_plan_gallery_name,80);
+					
+					$PropertiesImages = new PropertiesImages();
+					$PropertiesImages->property_id =  $id;
+					$PropertiesImages->image =  $floor_plan_gallery_name;
+					$PropertiesImages->type =  'floor_plan_gallery';
+					$PropertiesImages->save();
+					
+				}
+			}
+			
+			if($request->file('project_status_gallery')){
+				for($i=0;$i<count($request->file('project_status_gallery'));$i++){		
+					$project_status_gallery = $request->file('project_status_gallery')[$i];
+					$project_status_gallery_name = $project_status_gallery->getClientOriginalName();  
+					$thumb_img = Image::make($project_status_gallery->getRealPath())->resize(200, 200);
+					$thumb_img->save($destinationPath.'/'.$project_status_gallery_name,80);
+					
+					$PropertiesImages = new PropertiesImages();
+					$PropertiesImages->property_id =  $id;
+					$PropertiesImages->image =  $project_status_gallery_name;
+					$PropertiesImages->type =  'project_status_gallery';
+					$PropertiesImages->save();
+					
+				}
+			}
+			
+			
+		}
 		$Properties->save();
 
 	}

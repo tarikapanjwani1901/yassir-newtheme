@@ -37,7 +37,7 @@ a.btn-default, ul.pager li a, .fileinput-new span.btn, span.btn-file, a.fileinpu
 body input[type="submit"],
 body input[type="submit"],
 body input[type="button"]{
-    color: #fff;
+/*    color: #fff;
     font-size: 14px;
     line-height: 14px;
     font-weight: 700;
@@ -49,13 +49,13 @@ body input[type="button"]{
     -webkit-transition: all 0.3s ease;
     display: inline-block;
     margin: 0 5px;
-    border: 0;
+    border: 0;*/
 }
 
 body input[type="submit"]:hover,
 body input[type="submit"]:hover{
-    background: #620a21 !important;
-    color: #fff;
+  /*  background: #620a21 !important;
+    color: #fff;*/
 }
 
 .thumbnail
