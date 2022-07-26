@@ -28,7 +28,11 @@
     <link href="/assests/vendor/jasny-bootstrap/css/jasny-bootstrap.css" rel="stylesheet">
     <link href="/assests/vendor/daterangepicker/css/daterangepicker.css" rel="stylesheet" type="text/css" />
     <link href="/assests/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-
+    
+    <link href="/assests/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assests/vendor/select2/css/select2.min.css">
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="/assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="/assests/css/style.css" rel="stylesheet">
     <link href="/assests/css/custom.css" rel="stylesheet">
@@ -141,14 +145,14 @@
 
     <script src="/assests/vendor/iCheck/js/icheck.js"></script>
     <script src="/assests/vendor/jasny-bootstrap/js/jasny-bootstrap.js"  type="text/javascript"></script>
-    <!-- <script src="/assests/vendor/select2/js/select2.full.min.js" type="text/javascript"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" type="text/javascript"></script>
     <script src="/assests/vendor/bootstrapwizard/jquery.bootstrap.wizard.js" type="text/javascript"></script>
     <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>
+    <script src="/assests/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     
-    <script type="text/javascript">
-        @yield('customjs')
-    </script>
+    @yield('customjs')
 
 	<script>
 		function carouselReview(){
