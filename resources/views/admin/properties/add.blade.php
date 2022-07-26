@@ -920,7 +920,7 @@ label {
                            <div class="form-group">
                               <div class="col-sm-12">
                                  <label class="control-label" for="amenities" >Amenities:</label>
-                                 <select class="form-control multi_select" name="amenities[]" style="width:100%" multiple="multiple" id="multi_select">
+                                 <select class="form-control select2" name="amenities[]" style="width:100%" multiple="multiple">
                                      <?php foreach($amenties as $v){ ?>
                                     <option value="<?php echo $v ?>"><?php echo $v; ?></option>
                                     <?php } ?>
@@ -1084,8 +1084,7 @@ label {
          
   jQuery(".select2").select2();
  
-  jQuery(".multi_select").select2();
- 
+  
     $(document).on("change",".propertystatus",function(){
         var data_id = jQuery(this).attr("data-id");
 		var data_type = jQuery(this).attr("data-type");

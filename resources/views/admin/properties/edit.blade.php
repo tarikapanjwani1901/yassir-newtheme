@@ -1199,7 +1199,7 @@ label {
 										}
 							  		?>
                                    
-                                 <select class="form-control multi_select" name="amenities[]" style="width:100%" multiple="multiple" id="multi_select">
+                                 <select class="form-control select2" name="amenities[]" style="width:100%" multiple="multiple">
                                     <?php foreach($amenties as $v){ ?>
                                     <option value="<?php echo $v ?>" <?php echo in_array($v,$amenities_data_array)?'selected':"" ?>><?php echo $v; ?></option>
                                     <?php } ?>
@@ -1434,8 +1434,7 @@ if(hash=="#step4" || hash=="#step3" || hash=="#step2"){
  $( ".possesion_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
          
   jQuery(".select2").select2();
- 
-  jQuery(".multi_select").select2();
+
  
     $(document).on("change",".propertystatus",function(){
         var data_id = jQuery(this).attr("data-id");
