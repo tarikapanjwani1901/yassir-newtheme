@@ -25,6 +25,7 @@ class Common extends Model
 		 $allvendors = DB::table('users')
 				->where("user_role",env('VENDOR_ROLE_ID'))
 				->whereNull('deleted_at')
+				->whereNotNull('company_name')
 				->orderBy('users.company_name','asc')
 				->get()
 				->toArray();
