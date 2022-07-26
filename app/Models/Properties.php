@@ -29,10 +29,21 @@ class Properties extends Model
 		if($search_sub_category!=""){
 	  		$properties =  $properties->where('properties.sub_category','=',$search_sub_category);
 		}
-       $properties = $properties->orderBy('properties.id', 'DESC');
-    	  $properties =  $properties->paginate(10);
+       	$properties = $properties->orderBy('properties.id', 'DESC');
+		$properties =  $properties->paginate(10);
 
         return $properties;
         
     }
+
+	public static function getPropertiesList(){
+
+		$query = Properties::query();
+		$query = $query->orderBy('project_name','asc');
+
+		$response = $query->get();
+
+		return $response;
+
+	}
 }

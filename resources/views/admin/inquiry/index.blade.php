@@ -17,10 +17,10 @@
                                         <option value="">Select Vendor</option>
                                         @if (!empty($vendors_info))
                                             @foreach($vendors_info as $d)
-                                                @if ($vendors == $d->vl_id)
-                                                <option value="{{$d->vl_id}}" selected="selected">{{$d->l_title}}</option>
+                                                @if ($vendors == $d->id)
+                                                <option value="{{$d->id}}" selected="selected">{{$d->company_name}}</option>
                                                 @else
-                                                <option value="{{$d->vl_id}}" >{{$d->l_title}}</option>
+                                                <option value="{{$d->id}}" >{{$d->company_name}}</option>
                                                 @endif  
                                             @endforeach
                                         @endif
@@ -58,12 +58,14 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Vendor Name</th>
                                     <th>Property Name</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Info</th>
                                     <th>Date & Time</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,16 +74,20 @@
                                     @foreach($inquires as $inquire)
                                         <tr id="tr_{{$inquire->id}}">
                                             <td> {{$i++}}</td>
-                                            <td> {{ ucfirst($inquire->l_title) }} </td>
+                                            <td> {{$inquire->company_name}} </td> 
+                                            <td> {{ ucfirst($inquire->project_name) }} </td>
                                             <td> {{ ucfirst($inquire->name) }} </td>
                                             <td> {{ ucfirst($inquire->email) }} </td>
                                             <td> {{ $inquire->contact }} </td>
                                             <td> {{ $inquire->message }} </td>
                                             <td> <?php echo date('M j h:ia', strtotime($inquire->created_at)) ?> </td>
+                                            <td>
+                                                <a href="#" data-toggle="modal" data-target="#bookvisit_delete_confirm"  data-id="{{ $inquire->id }}" class="onclick btn btn-danger shadow btn-xs sharp"><i class="fas fa-trash-alt"></i></a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else
-                                <td colspan="7">No Result Found</td>
+                                <td colspan="9">No Result Found</td>
                                 @endif
                             </tbody>
                         </table>
@@ -91,22 +97,27 @@
             
         </div>
     </div>
+    </div>
+</div>
 
-    <div class="modal-dialog" role="document" id="state_delete_confirm" style="display: none;">
-    <div class="modal-content">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Delete State</h4>
-    </div>
-    <div class="modal-body">
-        Are you sure?
-    </div>
-    <input type="hidden" name="deleted_id" id="deleted_id" value=""/>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" id="btn_ok_1" class="btn btn-primary">OK</button>
-    </div>
-    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Remove Item</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this item?</p>
+                </div>
+                <input type="hidden" name="id" id="id" value="">
+                <div class="modal-footer">
+                    <button type="button" id="btn_ok_1" class="btn btn-primary">Sure</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection
@@ -115,24 +126,35 @@
 <script type="text/javascript">
     $(".select2").select2();
     
+    jQuery('#datetimepicker6').datepicker({ dateFormat: 'yy-mm-dd' });
+    jQuery('#datetimepicker7').datepicker({ dateFormat: 'yy-mm-dd' });
+
+    $(document).on("click", ".close", function () {
+        $('#myModal').modal('hide');
+    });
+
     $(document).on("click", ".onclick", function () {
-         var ID = $(this).data('id');
-         $(".modal-dialog #deleted_id").val( ID );
+        var id = $(this).data('id');
+        $(".modal-dialog #id").val( id );
+        $('#myModal').modal('show');
     });
 
     jQuery("#btn_ok_1").on('click',function(){
-        var DeletedID = jQuery("#deleted_id").val();
+        var token = $('meta[name="csrf_token"]').attr('content');
+        var id = jQuery("#id").val();
         $.ajax({
-           type:'POST',
-           url:'state/delete/'+DeletedID,
-           data:'_token = <?php echo csrf_token() ?>',
-           success:function(data){
+            type:'POST',
+            url:'/admin/inquiry/delete/'+id,
+            data:{_token: token},
+            success:function(data){
                 if (data == 'success') {
                     $( ".close" ).trigger( "click" );
-                    $("#tr_"+DeletedID).css('display','none');
+                    $("#tr_"+id).css('display','none');
+                    window.location.reload();
                 }
-           }
+            }
         });
     });
+
 </script>
-@stop
+@endsection 

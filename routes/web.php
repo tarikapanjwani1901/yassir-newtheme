@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Inquiry
         Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
         Route::post('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
+        Route::post('/admin/inquiry/delete/{id}', [InquiryController::class, 'destroy'])->name('destroy');
 
         // Book Visit
         Route::get('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');

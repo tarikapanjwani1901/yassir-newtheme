@@ -13,14 +13,14 @@
                             <div class="row">
                                 
                                 <div class="col-md-3">
-                                    <select class="default-select size-1 form-control wide mb-3" id="vendors" name="vendors" >
+                                    <select class="select2 size-1 form-control wide mb-3" id="vendors" name="vendors" >
                                         <option value="">Select Vendor</option>
                                         @if (!empty($vendors_info))
                                             @foreach($vendors_info as $d)
-                                                @if ($vendors == $d->vl_id)
-                                                    <option value="{{$d->vl_id}}" selected="selected">{{$d->l_title}}</option>
+                                                @if ($vendors == $d->id)
+                                                    <option value="{{$d->id}}" selected="selected">{{$d->company_name}}</option>
                                                 @else
-                                                    <option value="{{$d->vl_id}}" >{{$d->l_title}}</option>
+                                                    <option value="{{$d->id}}" >{{$d->company_name}}</option>
                                                 @endif  
                                             @endforeach
                                         @endif
@@ -32,11 +32,19 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input id="datetimepicker6" style="" name="from" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="" placeholder="Start date"/>
+                                    @if(isset($start_date) && isset($start_date)!='')
+                                        <input id="datetimepicker6" style="" name="from" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="{{$start_date}}" placeholder="Start date"/>
+                                    @else
+                                        <input id="datetimepicker6" style="" name="from" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="" placeholder="Start date"/>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input id="datetimepicker7" name="to" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="" placeholder="End date"/>
+                                    @if(isset($end_date) && isset($end_date)!='')
+                                    <input id="datetimepicker7" name="to" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="{{$end_date}}"  placeholder="End date"/>
+                                    @else
+                                    <input id="datetimepicker7" name="to" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value=""  placeholder="End date"/>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-1">
@@ -44,7 +52,7 @@
                                 </div>
 
                                 <div class="col-md-1">
-                                    <a href="{{url('/')}}/admin/inquiry" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                    <a href="{{url('/')}}/admin/bookvisit" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </form>    
@@ -57,6 +65,7 @@
                         <table class="table table-responsive-md table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Vendor Name</th>
                                     <th>Property Name</th>
                                     <th>User Name</th>
                                     <th>Email</th>
@@ -71,18 +80,22 @@
                                 @if(count($bookvisit))
                                     @foreach($bookvisit as $bv)
                                         <tr id="tr_{{$bv->id}}">
-                                        <td>{{$bv->l_title}}</td> 
+                                        <td>{{$bv->company_name}}</td> 
+                                        <td>{{$bv->project_name}}</td> 
                                         <td>{{$bv->name}}</td> 
                                         <td>{{$bv->email}}</td> 
                                         <td>{{$bv->contact}}</td> 
                                         <td>{{date("d/M/Y", strtotime($bv->book_date))}}</td> 
                                         <td>{{date("h:i A", strtotime($bv->book_from_time))}} - {{ date("h:i A", strtotime($bv->book_to_time)) }}</td> 
-                                        <td><a href="#" class="btn btn-danger btn-info btn-lg onclick" data-id="{{ $bv->id }}" data-toggle="modal" data-target="#myModal">Delete</a></td>
+                                        <td>
+                                            
+                                            <a href="#" data-toggle="modal" data-target="#bookvisit_delete_confirm"  data-id="{{ $bv->id }}" class="onclick btn btn-danger shadow btn-xs sharp"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
                                         </tr>
                                     @endforeach
                                 @else
                                 <tr>
-                                <td colspan="7">No result found</td>
+                                <td colspan="9">No result found</td>
                                 @endif
                             </tbody>
                         </table>
@@ -93,6 +106,9 @@
         </div>
     </div>
 
+        </div>
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -100,14 +116,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Remove Book Visit</h4>
+                    <h4 class="modal-title">Remove Item</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure?</p>
+                    <p>Are you sure you want to delete this item?</p>
                 </div>
-                <input type="hidden" name="bookId" id="bookId" value="">
+                <input type="hidden" name="id" id="id" value="">
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                     <button type="button" id="btn_ok_1" class="btn btn-primary">Sure</button>
                 </div>
             </div>
@@ -120,31 +135,38 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         
-        jQuery('#datetimepicker6').datetimepicker();
-        jQuery('#datetimepicker7').datetimepicker();
+        $(".select2").select2();
+
+        jQuery('#datetimepicker6').datepicker({ dateFormat: 'yy-mm-dd' });
+        jQuery('#datetimepicker7').datepicker({ dateFormat: 'yy-mm-dd' });
 
 
-        jQuery(document).on("click", ".onclick", function () {
-            var myBookId = $(this).data('id');
-            jQuery(".modal-dialog #bookId").val( myBookId );
-            jQuery("#myModal").dialog("open");
+        $(document).on("click", ".close", function () {
+            $('#myModal').modal('hide');
+        });
 
+        $(document).on("click", ".onclick", function () {
+            var id = $(this).data('id');
+            $(".modal-dialog #id").val( id );
+            $('#myModal').modal('show');
         });
 
         jQuery("#btn_ok_1").on('click',function(){
-            var bvID = jQuery("#bookId").val();
+            var token = $('meta[name="csrf_token"]').attr('content');
+            var id = jQuery("#id").val();
             $.ajax({
                 type:'POST',
-                url:'bookvisit/delete/'+bvID,
-                data:'_token = <?php echo csrf_token() ?>',
+                url:'/admin/bookvisit/delete/'+id,
+                data:{_token: token},
                 success:function(data){
-                        if (data == 'success') {
-                            $( ".close" ).trigger( "click" );
-                            $("#tr_"+bvID).css('display','none');
-                        }
+                    if (data == 'success') {
+                        $( ".close" ).trigger( "click" );
+                        $("#tr_"+id).css('display','none');
+                        window.location.reload();
+                    }
                 }
             });
         });
     });
 </script>
-@stop
+@endsection
