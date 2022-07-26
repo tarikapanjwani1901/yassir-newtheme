@@ -1,7 +1,18 @@
 @extends('layouts.admin.app')
 @section('content')
 <style>
-.sw-btn-group-extra{ display:none;position: absolute;right: 6px;bottom: 12px;padding: 17px 20px !important;border-radius: .25rem !important;background: #1EAAE7 !important;font-weight: 400 !important;border: 0 !important;}
+.sw-btn-group-extra {
+	display: none;
+	position: absolute;
+	right: 3px;
+	bottom: 12px;
+	padding: 11px 20px !important;
+	border-radius: .25rem !important;
+	background: #1EAAE7 !important;
+	font-weight: 400 !important;
+	border: 0 !important;
+	color: #fff;
+}
 label {
 	font-size: 12px;
 	font-weight:bold;
@@ -1175,7 +1186,7 @@ label {
                         </div>
                      </div>
                      <div id="step3" class="tab-pane" role="tabpanel">
-                        <div class="row">
+                        <div class="row residential_prop">
                            <div class="form-group">
                               <div class="col-sm-12">
                                  <label class="control-label" for="amenities" >Amenities:</label>
@@ -1196,7 +1207,7 @@ label {
                               </div>
                            </div>
                         </div>
-                        <div class="row">
+                        <div class="row residential_prop">
                            <div class="form-group">
                               <div class="col-sm-12 PropertyFeatures">
                                  <label class="control-label">Property Features:</label>
@@ -1281,36 +1292,73 @@ label {
                      </div>
                      <div id="step4" class="tab-pane" role="tabpanel">
                         <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                               <div class="form-group" id="gallery_images">
                                  <div class="row">
                                     <label class="control-label p-0" for="form-file-multiple-input"> Project Gallery (Render images)</label>
                                     <div class="form-file p-0">
-                                       <input type="file" name="project_gallery[]" multiple="multiple" class="form-file-input form-control">
+                                       <input type="file" name="project_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
                                     </div>
+                                    
                                  </div>
+                                 @if(!empty($images['project_gallery']))
+                                 	<div class="row">
+                                    @foreach($images['project_gallery'] as $i)
+                                    <div class="col-md-2 border m-1 p-0 gallery_images_block">
+                                    <div  class="delelte_gallery"><i class="fa fa-times"></i></div>
+                                    <img src="/images/properties/{{$p->id}}/{{$i['image']}}" class="gallery_images"/>
+                                    <input type="hidden" name="project_gallery_hidden[]"  value="{{$i['id']}}"/>
+                                   	</div>
+                                    @endforeach
+                                    </div>
+                                    
+                                  @endif
                               </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                               <div class="form-group">
                                  <div class="row">
                                     <label class="control-label  p-0" for="form-file-multiple-input">Floor Plan Gallery</label>
                                     <div class="form-file p-0">
-                                       <input type="file" name="floor_plan_gallery[]" multiple="multiple" class="form-file-input form-control">
+                                       <input type="file" name="floor_plan_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
                                     </div>
                                  </div>
+                                  @if(!empty($images['floor_plan_gallery']))
+                                 	<div class="row">
+                                    @foreach($images['floor_plan_gallery'] as $i)
+                                    <div class="col-md-2 border m-1 p-0 gallery_images_block">
+                                    <div  class="delelte_gallery"><i class="fa fa-times"></i></div>
+                                    <img src="/images/properties/{{$p->id}}/{{$i['image']}}" class="gallery_images"/>
+                                    <input type="hidden" name="floor_plan_gallery_hidden[]"  value="{{$i['id']}}"/>
+                                   	</div>
+                                    @endforeach
+                                    </div>
+                                    
+                                  @endif
                               </div>
                            </div>
                         </div>
                         <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                               <div class="form-group">
                                  <div class="row">
                                     <label class="control-label  p-0" >Project Status Gallery</label>
                                     <div class="form-file p-0">
-                                       <input type="file" name="project_status_gallery[]" multiple="multiple" class="form-file-input form-control">
+                                       <input type="file" name="project_status_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
                                     </div>
                                  </div>
+                                  @if(!empty($images['project_status_gallery']))
+                                 	<div class="row">
+                                    @foreach($images['project_status_gallery'] as $i)
+                                    <div class="col-md-2 border m-1 p-0 gallery_images_block">
+                                    <div  class="delelte_gallery"><i class="fa fa-times"></i></div>
+                                    <img src="/images/properties/{{$p->id}}/{{$i['image']}}" class="gallery_images"/>
+                                    <input type="hidden" name="project_status_gallery_hidden[]"  value="{{$i['id']}}"/>
+                                   	</div>
+                                    @endforeach
+                                    </div>
+                                    
+                                  @endif
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -1318,24 +1366,39 @@ label {
                                  <div class="row">
                                     <label class="control-label  p-0" >Video Toor</label>
                                     <div class="form-file p-0">
-                                       <input type="file" name="video_toor" class="form-file-input form-control">
+                                       <input type="file" name="video_toor" accept="video/mp4,video/x-m4v,video/*" class="form-file-input form-control">
                                     </div>
                                  </div>
+                                 @if($p->video_toor!="")
+                                 <div class="GroupRow">
+                                 <input type="hidden" name="video_toor_hidden" value="{{$p->video_toor}}" />
+                                  <a href="/images/properties/{{$p->id}}/{{$p->video_toor}}" download class="btn btn-primary">Download</a>
+                                 <a href="javascript:void(0)" class="btn btn-danger delete_doc">Delete</a>
+                                 </div>
+                                 @endif
                               </div>
                            </div>
-                        </div>
-                        <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
                                  <div class="row">
                                     <label class="control-label  p-0" > PDF Brochure</label>
                                     <div class="form-file p-0">
-                                       <input type="file" name="pdf_brochure" class="form-file-input form-control">
+                                       <input type="file" name="pdf_brochure" accept=".pdf" class="form-file-input form-control">
                                     </div>
                                  </div>
+                                 @if($p->pdf_brochure!="")
+                                 <div class="GroupRow">
+                                 <input type="hidden" name="pdf_brochure_hidden" value="{{$p->pdf_brochure}}" />
+                                  <a href="/images/properties/{{$p->id}}/{{$p->pdf_brochure}}" download class="btn btn-primary">Download</a>
+                                 <a href="javascript:void(0)" class="btn btn-danger delete_doc">Delete</a>
+                                 </div>
+                                 @endif
                               </div>
                            </div>
-                           <div class="col-md-6">
+                        </div>
+                        <div class="row">
+                           
+                           <div class="col-md-12">
                               <div class="form-group">
                                  <div class="row">
                                     <label class="control-label  p-0" >Sample house video(Youtube URL)</label>
@@ -1357,74 +1420,18 @@ label {
 </div>
 
     </div>
+    <div class="overlayLoader" style="display: none;"> <div class="loaderBlock"></div> </div>
 @endsection
 
 @section('customjs')
 <script>
   $(document).ready(function(){
 	  
-
+var hash = window.location.hash;
+if(hash=="#step4" || hash=="#step3" || hash=="#step2"){
+	window.location="{{url('/admin/properties/edit')}}/{{$p->id}}";	
+}
  $( ".possesion_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
-   var navListItems = $('div.setup-panel div a'),
-              allWells = $('.setup-content'),
-              allNextBtn = $('.nextBtn');
-          allPrevBtn = $('.prevBtn');
-
-          allWells.hide();
-
-          navListItems.click(function(e) {
-              e.preventDefault();
-              var $target = $($(this).attr('href')),
-                  $item = $(this);
-
-              if (!$item.hasClass('disabled')) {
-                  navListItems.removeClass('btn-primary').addClass('btn-default');
-                  $item.addClass('btn-primary');
-                  allWells.hide();
-                  $target.show();
-                  $target.find('input:eq(0)').focus();
-              }
-          });
-          allNextBtn.click(function() {
-              var curStep = $(this).closest(".setup-content"),
-                  curStepBtn = curStep.attr("id"),
-                  nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                  curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],input[type='number'],select,textarea"),
-                  isValid = true;
-				  if(curStepBtn=="step-1"){
-					  
-					  var property_type = jQuery("#property_type").val().replace(/\s+/g, ''); 
-     				 jQuery(".accordion-item").hide();
-					jQuery(".property_type_"+property_type).show();
-		
-					 jQuery("#step-2").attr("data-id",property_type);  
-				  }
-
-              $(".form-group").removeClass("has-error");
-              for (var i = 0; i < curInputs.length; i++) {
-                  if (!curInputs[i].validity.valid) {
-                      isValid = false;
-                      console.log(curInputs[i]);
-                      $(curInputs[i]).closest(".form-group").addClass("has-error");
-                  }
-              }
-
-              if (isValid)
-                  nextStepWizard.removeAttr('disabled').trigger('click');
-          });
-          allPrevBtn.click(function() {
-
-              var curStep = $(this).closest(".setup-content"),
-
-                  curStepBtn = curStep.attr("id"),
-
-                  prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-              prevStepWizard.removeAttr('disabled').trigger('click');
-
-          });
-
-          $('div.setup-panel div a.btn-primary').trigger('click');
          
   jQuery(".select2").select2();
  
@@ -1925,6 +1932,7 @@ $(document).ready(function(){
  		});
         
        	jQuery(document).on("click",".sw-btn-group-extra",function(){
+		jQuery(".overlayLoader").show();
 		
 		var formData = new FormData($('#propertyForm')[0]);
         formData.append('stepNumber', '3');
@@ -1945,6 +1953,8 @@ $(document).ready(function(){
 						window.location = "{{url('/admin/properties')}}";
                     },
                     error: function (xhr, status) {
+						jQuery(".overlayLoader").hide();
+		
 					}
                 });
         
@@ -1999,6 +2009,41 @@ function checkPropertyTypeUnit(){
 		 getPropertyTypeDisable();
 		
 }
+
+function getPropertyFor(){
+	var property_for = jQuery("#property_for").val();
+	var category = '{{$p->category}}';
+	if(property_for=="Rent"){
+		$("#category").empty();
+		 $("#category").append('<option value="For owner">For owner</option>');
+		
+	}else{
+		 $("#category").empty();
+		 var selected_owner =selected_builder = "";
+		 if(category=="For owner"){
+		 	selected_owner = "selected";	 
+		 }
+		  if(category=="For Builder"){
+		 	selected_builder = "selected";	 
+		 }	
+		 $("#category").append('<option value="For Builder" '+selected_builder+'>For Builder</option><option value="For owner" '+selected_owner+'>For owner</option>');
+	}
+}
+
+jQuery(document).on("change","#property_for",function(){
+	getPropertyFor();	
+});
+getPropertyFor();
+	
+jQuery(document).on("click",".delelte_gallery",function(){
+	jQuery(this).parent().remove();
+});
+
+jQuery(document).on("click",".delete_doc",function(){
+	jQuery(this).parent().remove();
+});
+		
+		  
 		  
 </script>
 @endsection

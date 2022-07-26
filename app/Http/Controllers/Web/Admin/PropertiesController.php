@@ -87,13 +87,24 @@ class PropertiesController extends Controller
 		$country = $CommonModel->countryList();
 		$vendors =$CommonModel->getVendorList();
 		
-         return view('admin.properties.add',compact('vendors','country'));
+			$amenties = array('Power Backup','Lift','24*7 Water Supply','24*7 Security Service','Parking Space','Vaastu Compliant Design','Ventilation','Fitness Center / GYM','Spa'
+		,'Yoga','Swimming Pool','Playground','Community Center','Media Room'
+		,'Party Room','Community events and classes','Outdoor Areas','Jogging/walking','Eco Friendly','Proximity Area','On Site Maintenance','Electric car charging stations'
+		,'Pets Allowed','Wood Flooring','Storage in unit','Wi-Fi','High-Speed Internet','Cable TV','Close to schools','Babysitting Services'
+		,'CCTV Surveillance','Doorman','Gated Access','Valet Trash','Recycling Center','Doorstep Recycling Collection','Laundry Facility','Dance studio'
+		,'Video Door Phone','Gas Connection','Main Entrance Door','Wi- Fi Smart Homes','Customized Wi- Fi Smart Homes','Terrace Garden','Garden GYM'
+		,'Senior Citizen Seating','Indoor Games','Celebration Lawn','Rest Room','River Facing','Basement','Fire Safety','Management Office','Library','School Drop off Zone'
+		,'Earthquake Resistance RCC Structure','Indoor Games Club House','Guest waiting Room','Hydro. Pressure Pump','Z+ Security System','Adequate Street Light','Steam Bathroom','Splash Pool'
+		,'Basketball Hoop','Skating Area');
+		
+         return view('admin.properties.add',compact('vendors','country','amenties'));
     }
 
     public function delete($id) {
         DB::table('properties')->where('id', '=', $id)->delete();
 		DB::table('property_units')->where('property_id', '=', $id)->delete();
 		DB::table('property_unit_type_area')->where('property_id', '=', $id)->delete();
+		DB::table('property_images')->where('property_id', '=', $id)->delete();
         return 'success';
     }
 
@@ -191,9 +202,15 @@ class PropertiesController extends Controller
 				$unitAreas[$single->property_unit_id][] = $single;	
 			}	
 		}	
+		$images = array();
+		if(!empty($property_images)){
+			foreach($property_images as $single){
+				$images[$single->type][] = (array)$single;
+			}	
+		}
 		
          return view('admin.properties.edit',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
-		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','p','property_units','unitAreas','properties_unit_type_area','property_images','vendors','country'));
+		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','p','property_units','unitAreas','properties_unit_type_area','images','vendors','country'));
 
     }
 
@@ -350,11 +367,18 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 				}
 			}
 		}
-		
+		$Properties->amenities =  "";
+		$Properties->property_features =  "";
 		if($sub_category=="Residential"){
 			$rera_number =  $request->rera_number;
 			$rera_link =  $request->rera_link;
-	
+			if(!empty($request->amenities)){
+				$Properties->amenities =  implode(", ",$request->amenities);
+			}
+			if(!empty($request->property_features)){
+				$Properties->property_features =  implode(", ",$request->property_features);
+			}
+		
 		}
 		
 		if($sub_category=="Commercial"){
@@ -573,19 +597,9 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		$Properties->suitable_business_type =  $suitable_business_type;
 		
 		//step 3
-		if(!empty($request->amenities)){
-			$Properties->amenities =  implode(", ",$request->amenities);
-		}else{
-			$Properties->amenities =  "";
-		}
 		$Properties->project_features =  $request->project_features;
 		$Properties->additional_features =  $request->additional_features;
 		
-		if(!empty($request->property_features)){
-			$Properties->property_features =  implode(", ",$request->property_features);
-		}else{
-			$Properties->property_features =  "";	
-		}
 		
 		if(!empty($request->other_features)){
 			$Properties->other_features =  implode(", ",$request->other_features);
@@ -605,6 +619,25 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		
 		if($request->stepNumber=="3" && $request->stepDirection=="last_step"){
 		
+		if(!empty($request->project_gallery_hidden)){
+			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->whereNotIn('id', $request->project_gallery_hidden)->delete();
+			
+		}else{
+			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->delete();
+		}
+		if(!empty($request->floor_plan_gallery_hidden)){
+			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','floor_plan_gallery')->whereNotIn('id', $request->floor_plan_gallery_hidden)->delete();
+			
+		}else{
+			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','floor_plan_gallery')->delete();
+		}
+		if(!empty($request->project_status_gallery_hidden)){
+			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_status_gallery')->whereNotIn('id', $request->project_status_gallery_hidden)->delete();
+			
+		}else{
+			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_status_gallery')->delete();
+		}		
+		
         if (!file_exists($target_dir))
         {
             mkdir($target_dir, 0777, true);
@@ -614,12 +647,24 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		  $pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
            move_uploaded_file($_FILES["pdf_brochure"]["tmp_name"], $target_dir."/".$pdf_brochure_name);
 		   $Properties->pdf_brochure =  $pdf_brochure_name;
+		}else{
+			if(!empty($request->pdf_brochure_hidden)){
+					$Properties->pdf_brochure =  $request->pdf_brochure_hidden;
+				}else{
+					$Properties->pdf_brochure = "";
+				}
 		}
 		
 		if($request->file('video_toor')){	
-		  $video_toor_name = time().basename($request->file('video_toor')->getClientOriginalName());
+		   $video_toor_name = time().basename($request->file('video_toor')->getClientOriginalName());
            move_uploaded_file($_FILES["video_toor"]["tmp_name"], $target_dir."/".$video_toor_name);
 		   $Properties->video_toor =  $video_toor_name;
+		}else{
+				if(!empty($request->video_toor_hidden)){
+					$Properties->video_toor =  $request->video_toor_hidden;
+				}else{
+					$Properties->video_toor = "";
+				}
 		}
 			
 			if($request->file('project_gallery')){
