@@ -13,7 +13,7 @@
                             <div class="row">
                                 
                                 <div class="col-md-3">
-                                    <select class="default-select size-1 form-control wide mb-3" id="vendors" name="vendors" >
+                                    <select class="select2 size-1 form-control wide mb-3" id="vendors" name="vendors" >
                                         <option value="">Select Vendor</option>
                                         @if (!empty($vendors_info))
                                             @foreach($vendors_info as $d)
@@ -113,6 +113,8 @@
 
 @section('customjs')
 <script type="text/javascript">
+    $(".select2").select2();
+    
     $(document).on("click", ".onclick", function () {
          var ID = $(this).data('id');
          $(".modal-dialog #deleted_id").val( ID );

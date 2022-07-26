@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="page-titles">
-            <a href="javascript:void(0)">All States</a>
+            <a href="javascript:void(0)">All Cities</a>
         </div>
 
         <div class="row">
@@ -18,18 +18,18 @@
                                     <div class="col-md-3">
                                     {!! Form::select('search_country', $countries,$search_country,['class' => 'select2 form-control search_country', 'id' => 'search_country']) !!}
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                     {!! Form::select('search_state', $states,$search_state,['class' => 'select2 form-control search_state', 'id' => 'search_state']) !!}
                                     </div>
                                     <div class="col-md-2">
                                     {!! Form::select('search_status', $status,$search_status,['class' => 'select2 form-control search_status', 'id' => 'search_status']) !!}
                                     </div>              
                                     
-                                    <div class="col-md-2">
-                                    <input type="submit" value="Submit">
+                                    <div class="col-md-1">
+                                        <input type="submit" class="btn btn-primary"  value="Submit">
                                     </div>
                                     <div class="col-md-1">
-                                    <a href="{{url('/admin/cities')}}" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                        <a href="{{url('/')}}/admin/cities" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                                     </div>
         	                    </div>
                             </form>

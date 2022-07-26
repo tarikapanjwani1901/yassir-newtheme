@@ -37,11 +37,11 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <input type="submit" value="Submit">
+                                        <input type="submit" class="btn btn-primary" value="Submit">
                                     </div>                                        
 
                                     <div class="col-md-1">
-                                        <a href="{{url('/admin/areas')}}" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                    <a href="{{url('/')}}/admin/areas" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                                    </div>
 
                                 </div>

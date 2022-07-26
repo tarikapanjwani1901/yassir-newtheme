@@ -24,12 +24,12 @@
                                         {!! Form::select('search_status', $status,$search_status,['class' => 'select2 form-control search_status size-1 form-control wide', 'id' => 'search_status']) !!}
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <input type="submit" class="btn btn-primary" value="Submit">
                                     </div>
 
                                     <div class="col-md-1">
-                                        <a href="{{url('/admin/states')}}" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                        <a href="{{url('/admin/states')}}" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             
