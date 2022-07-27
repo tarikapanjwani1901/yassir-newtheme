@@ -1,79 +1,78 @@
 @extends('layouts.admin.app')
 @section('content')
     <div class="container-fluid">
-        <div class="page-titles">
-            <a href="javascript:void(0)">Edit Area</a>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 p-0">
+     
+        <div class="row p-0">
+            <div class="col-lg-12">
                 <div class="card">
+                
+                	  <div class="card-header pb-3 pt-3 text-uppercase">
+                    	Edit Area
+                        </div>
+              
                     <div class="card-body">
-                        <form method="post" id="addareas" enctype="multipart/form-data">
-                            <fieldset>
-                                <!-- Name input-->
-                                
-                                <div class="form-group row label-floating is-empty">
-                                        <label class="control-label col-md-2 col-sm-3" for="country">Country <span style="color:red"> * </span> </label>    
-                                        <div class="col-md-10 col-sm-9">
-                                            {!! Form::select('country', $countries, $areas[0]->country_id,['class' => 'form-control select2', 'id' => 'country']) !!}
-                                            <span class="help-block">{{ $errors->first('country', ':message') }}</span>
-                                        </div>
-                                </div>
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="state">State <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('state', $states,$areas[0]->state_id,['class' => 'form-control select2', 'id' => 'state']) !!}   
-                                        <span class="help-block">{{ $errors->first('state', ':message') }}</span>
+                        <form method="post" id="addcity" enctype="multipart/form-data">
+                           
+                           <div class="row p-0">
+                                	<div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Country<span class="required_field">*</span> </label>    
+                                        {!! Form::select('country', $countries, $areas[0]->country_id,['class' => 'select2 form-control required', 'id' => 'country']) !!}
+                                    </div> 	
                                     </div>
-                                </div>
+                                	<div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">State<span class="required_field">*</span> </label>    
+                                        {!! Form::select('state', $states,$areas[0]->state_id,['class' => 'form-control required select2', 'id' => 'state']) !!}   
+                                      
+                                    </div> 	
+                                    </div>
+                                    <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">City<span class="required_field">*</span> </label>    
+                                         {!! Form::select('city', $cities,$areas[0]->city_id,['class' => 'form-control required select2', 'id' => 'city']) !!}
                                     
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="city">City <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('city', $cities,$areas[0]->city_id,['class' => 'form-control select2', 'id' => 'city']) !!}
-                                        <span class="help-block">{{ $errors->first('city', ':message') }}</span>
+                                       
+                                    </div> 	
                                     </div>
-                                </div>
+                                    <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Sub City<span class="required_field">*</span> </label>    
+                                         {!! Form::select('sub_city', $sub_cities,$areas[0]->sub_city_id,['class' => 'form-control required select2', 'id' => 'sub_city']) !!}
+                                       
+                                       
+                                    </div> 	
+                                    </div>
                                     
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="sub_city">Sub City <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('sub_city', $sub_cities,$areas[0]->sub_city_id,['class' => 'form-control select2', 'id' => 'sub_city']) !!}
-                                        <span class="help-block">{{ $errors->first('city', ':message') }}</span>
+                                    <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Area Name<span class="required_field">*</span> </label>    
+                                       <input id="name" name="name" type="text" value="{{ $areas[0]->area_name}}" class="form-control required" autocomplete="off">
+                                       
+                                    </div> 	
                                     </div>
-                                </div>
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="name">Area Name <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        <input id="name" name="name" type="text" class="form-control" value="{{ $areas[0]->area_name}}" autocomplete="off" required>
+                                      <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Pincode<span class="required_field">*</span> </label>    
+                                       <input id="pincode" name="pincode" value="{{ $areas[0]->area_pincode}}" type="text" class="form-control required" autocomplete="off">
+                                       
+                                    </div> 	
                                     </div>
+                                    <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Status<span class="required_field">*</span> </label>    
+                                        {!! Form::select('status', $status, $areas[0]->status,['class' => 'select2 form-control required', 'id' => 'status']) !!}
+                                    </div> 	
+                                    </div>	
                                 </div>
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="pincode">Pincode<span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        <input id="pincode" name="pincode" type="text" class="form-control" value="{{ $areas[0]->area_pincode}}" autocomplete="off" required>
-                                    </div>
-                                </div>
-                                   
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="status">Status<span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('status', $status,$areas[0]->status,['class' => 'form-control select2', 'id' => 'status']) !!}
-                                        <span class="help-block">{{ $errors->first('status', ':message') }}</span>
-                                    </div>
-                                </div>
-<!-- Form actions -->
-                                <div class="form-group">
+                              <div class="form-group text-center">
                                     <div class=" text-right">
-                                        <input type="submit" value="Submit" name="submit">
+                                        <input type="submit" class="btn btn-primary text-uppercase" value="Submit" name="submit">
+                                        <a href="{{url('/admin/areas')}}"  data-toggle="tooltip" title="Cancel"><input type="button" class="btn btn-danger text-uppercase" value="Cancel"></a>
                                     </div>
                                 </div>
-
-                            </fieldset>
+                          
+                            
                             <input type="hidden" name="id" value="{{ $areas[0]->area_id}}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
@@ -91,46 +90,14 @@
 
             $(".select2").select2();
 
-            $('#addareas').validate({
-                rules: {
-                    country: {
-                        required: true
-                    },
-                    state: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    sub_city: {
-                        required: true
-                    },
-                    name: {
-                        minlength: 2,
-                        required: true
-                    },
-                    pincode: {
-                        minlength: 4,
-                        required: true
-                    },
-                },      
-                errorPlacement: function (error, element) {
-                    if(element.attr("name")=='country' || element.attr("name")=='state' || element.attr("name")=='status'
-                    || element.attr("name")=='city' || element.attr("name")=='sub_city' ){
-                        error.insertAfter(element.next('.select2'));
-                    }
-                    else{
-                        error.insertAfter(element);
-                    }
-                },  
-                highlight: function (element) {
-                    $(element).closest('.control-group').removeClass('success').addClass('error');
-                },
-                success: function (element) {
-                    element.text('OK!').addClass('valid')
-                        .closest('.control-group').removeClass('error').addClass('success');
-                }
-            });
+           jQuery(document).on("submit","#addcity",function(e){
+					if($('#addcity').valid()){
+						$('#addcity').submit();
+						return true;	
+					}else{
+						return false;		
+					}	
+				});
         });
 
         $("#country").on('change',function(){

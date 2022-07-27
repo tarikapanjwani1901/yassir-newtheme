@@ -81,10 +81,13 @@ label {
 
     <div class="container-fluid">
         
-        <div class="row">
-   <div class="col-lg-12 p-0">
+        <div class="row p-0">
+   <div class="col-lg-12">
       <div class="card">
-      	<div class="card-header">Add Properties</div>
+      	
+        	<div class="card-header pb-3 pt-3 text-uppercase">
+                
+        Add Property</div>
          <div class="card-body">
             <form method="post" id="propertyForm" enctype="multipart/form-data">
                <input type="hidden" name="property_id" id="property_id" value="" />

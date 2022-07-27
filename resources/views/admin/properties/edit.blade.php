@@ -81,10 +81,12 @@ label {
 
     <div class="container-fluid">
         <?php //echo "<pre>";print_r($properties); ?>
-        <div class="row">
-   <div class="col-lg-12 p-0">
+        <div class="row p-0">
+   <div class="col-lg-12">
       <div class="card">
-      	<div class="card-header">Edit Properties</div>
+      	
+        	<div class="card-header pb-3 pt-3 text-uppercase">
+                Edit Property</div>
          <div class="card-body">
             <form method="post" id="propertyForm" enctype="multipart/form-data">
                <input type="hidden" name="property_id" id="property_id" value="{{$p->id}}" />
@@ -1961,6 +1963,7 @@ $(document).ready(function(){
 		});
 	    $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
    			checkPropertyTypeUnit();
+			
 			if ($('#propertyForm').valid()) {
        			
 		var formData = new FormData($('#propertyForm')[0]);

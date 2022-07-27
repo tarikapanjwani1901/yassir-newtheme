@@ -8,10 +8,6 @@ form.reportform select, form.reportform .datebox
     max-width:150px;
 }
 
-.btn-danger{
-    padding:6px 12px;
-    font-size:14px !important;
-}
 
 .table td img.testimonial-user{
     width: 50px;
@@ -19,18 +15,11 @@ form.reportform select, form.reportform .datebox
 }
 a.btn-default, ul.pager li a, .fileinput-new span.btn, span.btn-file, a.fileinput-exists, .form-actions input.btn-default, button.btn-success
 {
-    color: #fff;
-    font-size: 14px;
-    line-height: 14px;
-    font-weight: 700;
     border-radius: 28px;
-    padding: 7px 27px;
-    background-color: #515763;
     box-shadow: none;
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     display: inline-block;
-    margin: 0 5px;
     border: 0;
 }
 
@@ -197,4 +186,16 @@ background: rgba(0, 0, 0, 0.7); z-index:1000;
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.control-label {
+  font-size: 12px;
+  color: #000;
+}
+.required_field {
+  color: red;
+  font-size: 20px;
+  padding-left: 2px;
+  position: relative;
+  top: 7px;
 }

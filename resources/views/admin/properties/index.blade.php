@@ -2,12 +2,16 @@
 @section('content')
     <div class="container-fluid">
        
-        <div class="row">
-            <div class="col-lg-12 p-0">
-              
+        <div class="row  p-0">
+            <div class="col-lg-12">
                 <div class="card">
-                 	<div class="card-header">Properties</div> 
-                    <div class="card-body">
+                <div class="card-header pb-3 pt-3 text-uppercase">
+                    	Properties
+                        	        <a href="{{url('/admin/properties/add')}}" class="btn btn btn-success text-uppercase" data-toggle="tooltip" title="Add New Property">Add New Property</a>
+                         
+                        </div>
+                  
+                 	<div class="card-body">
        					 <form method="get" class="padd15" name="search" action="properties_search"  autocomplete="off">
                         <div class="row p-0">
                         	<div class="col-md-2">
@@ -83,11 +87,9 @@
                                             
                                             <td><?php echo $value->area_name; ?></td>
                                             
-                                            <td>
-                                                <div class="d-flex">
+                                            <td align="center">
                                                     <a href="properties/edit/{{ $value->id }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                                     <a href="#" data-toggle="modal" data-target="#tes_delete_confirm"  data-id="{{ $value->id }}" class="onclick btn btn-danger shadow btn-xs sharp"><i class="fas fa-trash-alt"></i></a>
-                                                </div>
                                             </td>
                                         </tr>
                                     <?php } ?>

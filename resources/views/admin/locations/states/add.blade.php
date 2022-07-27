@@ -1,49 +1,43 @@
 @extends('layouts.admin.app')
 @section('content')
     <div class="container-fluid">
-        <div class="page-titles">
-            <a href="javascript:void(0)">Add State</a>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 p-0">
+      
+        <div class="row  p-0">
+            <div class="col-lg-12">
                 <div class="card">
+                	<div class="card-header pb-3 pt-3 text-uppercase">
+                    	Add State
+                        </div>
+                       
                     <div class="card-body">
                         <form method="post" id="addstate" enctype="multipart/form-data">
-                            <fieldset>
-                                <!-- Name input-->
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="name">Country <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('country', $countries, '',['class' => 'select2 size-1 form-control wide mb-3', 'id' => 'countries']) !!}
-                                        <span class="help-block">{{ $errors->first('country', ':message') }}</span>
+                             	<div class="row p-0">
+                                	<div class="col-md-4">
+                                   		<div class="form-group">
+                                         <label class="control-label">Country<span class="required_field">*</span> </label>    
+                                        {!! Form::select('country', $countries, '',['class' => 'select2 form-control required', 'id' => 'countries']) !!}
+                                    </div> 	
                                     </div>
-                                </div>
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="name">State Name <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        <input id="name" name="name" type="text" class="form-control" autocomplete="off" >
+                                	<div class="col-md-4">
+                                   		<div class="form-group">
+                                         <label class="control-label">State Name<span class="required_field">*</span> </label>    
+                                         <input id="name" name="name" type="text" class="form-control required" autocomplete="off" >
+                                    </div> 	
                                     </div>
+                                    <div class="col-md-4">
+                                   		<div class="form-group">
+                                         <label class="control-label">Status<span class="required_field">*</span> </label>    
+                                        {!! Form::select('status', $status, '',['class' => 'select2 form-control required', 'id' => 'status']) !!}
+                                    </div> 	
+                                    </div>	
                                 </div>
-                                
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="name">Status <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('status', $status, '',['class' => 'select2 size-1 form-control wide mb-3', 'id' => 'status']) !!}
-                                        <span class="help-block">{{ $errors->first('status', ':message') }}</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Form actions -->
-                                <div class="form-group">
+                              <div class="form-group text-center">
                                     <div class=" text-right">
-                                        <input type="submit" value="Submit" name="submit">
+                                        <input type="submit" class="btn btn-primary text-uppercase" value="Submit" name="submit">
+                                        <a href="{{url('/admin/states')}}"  data-toggle="tooltip" title="Cancel"><input type="button" class="btn btn-danger text-uppercase" value="Cancel"></a>
                                     </div>
                                 </div>
 
-                            </fieldset>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
                     </div>
@@ -57,35 +51,16 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         jQuery(".select2").select2();
-
-        $('#addstate').validate({
-            rules: {
-                name: {
-                    minlength: 2,
-                    required: true
-                },
-                country: {
-                    required: true
-                },
-                status: {
-                    required: true
-                },
-            },
-            errorPlacement: function (error, element) {
-                if(element.attr("name")=='country' || element.attr("name")=='status'){
-                    error.insertAfter(element.next('.select2'));
-                }
-                else{
-                    error.insertAfter(element);
-                }
-            },
-            highlight: function (element) {
-                $(element).closest('.control-group').removeClass('success').addClass('error');
-            },
-            success: function (element) {
-                element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
-            }
-        });
+		jQuery(document).on("submit","#addstate",function(e){
+			
+			if($('#addstate').valid()){
+				$('#addstate').submit();
+				return true;	
+			}else{
+				return false;		
+			}	
+		});
+       
     });
 </script>
 @endsection
