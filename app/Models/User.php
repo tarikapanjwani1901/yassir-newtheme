@@ -45,4 +45,17 @@ class User extends Authenticatable
     public static function verifyOTP($otp,$mobile_number){
 
     }
+
+    public static function getVendors()
+    {
+        $vendor_role_id = env('VENDOR_ROLE_ID');
+
+        $query = User::query();
+		$query = $query->orderBy('company_name','asc');
+        $query = $query->where('users.user_role',$vendor_role_id);
+
+		$response = $query->get();
+
+		return $response;
+    }
 }

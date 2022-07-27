@@ -26,6 +26,8 @@ use App\Http\Controllers\Web\Admin\SubCitiesController;
 use App\Http\Controllers\Web\Admin\AreasController;
 
 use App\Http\Controllers\Web\Vendor\VendorDashboardController;
+use App\Http\Controllers\Web\Vendor\VendorInquiryController;
+use App\Http\Controllers\Web\Vendor\VendorBookVisitController;
 
 Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
 
@@ -47,6 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Inquiry
         Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
         Route::post('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
+        Route::post('/admin/inquiry/delete/{id}', [InquiryController::class, 'destroy'])->name('destroy');
 
         // Book Visit
         Route::get('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
@@ -123,6 +126,16 @@ Route::group(['middleware' => ['auth']], function () {
     {
         // Dashboard
         Route::get('/vendor/dashboard', [VendorDashboardController::class, 'index'])->name('vendordashboard');
+
+        // Inquiry
+        Route::get('/vendor/inquiry', [VendorInquiryController::class, 'index'])->name('vendors.inquiry.index');
+        Route::post('/vendor/inquiry', [VendorInquiryController::class, 'index'])->name('vendors.inquiry.index');
+        Route::post('/vendor/inquiry/delete/{id}', [VendorInquiryController::class, 'destroy'])->name('vendors.inquiry.destroy');
+
+        // Book Visit
+        Route::get('/vendor/bookvisit', [VendorBookVisitController::class, 'index'])->name('vendors.bookvisit.index');
+        Route::post('/vendor/bookvisit', [VendorBookVisitController::class, 'index'])->name('vendors.bookvisit.index');
+        Route::post('/vendor/bookvisit/delete/{id}', [VendorBookVisitController::class, 'destroy'])->name('vendors.bookvisit.destroy');
 
     });
 });

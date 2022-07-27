@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.vendor.app')
 @section('content')
     <div class="container-fluid">
         <div class="page-titles">
@@ -13,14 +13,14 @@
                             <div class="row">
                                 
                                 <div class="col-md-3">
-                                    <select class="select2 size-1 form-control wide mb-3" id="vendors" name="vendors" >
-                                        <option value="">Select Vendor</option>
-                                        @if (!empty($vendors_info))
-                                            @foreach($vendors_info as $d)
-                                                @if ($vendors == $d->id)
-                                                    <option value="{{$d->id}}" selected="selected">{{$d->company_name}}</option>
+                                    <select class="select2 size-1 form-control wide mb-3" id="properties" name="properties" >
+                                        <option value="">Select Property</option>
+                                        @if (!empty($properties_info))
+                                            @foreach($properties_info as $d)
+                                                @if ($properties == $d->id)
+                                                    <option value="{{$d->id}}" selected="selected">{{$d->project_name}}</option>
                                                 @else
-                                                    <option value="{{$d->id}}" >{{$d->company_name}}</option>
+                                                    <option value="{{$d->id}}" >{{$d->project_name}}</option>
                                                 @endif  
                                             @endforeach
                                         @endif
@@ -52,7 +52,7 @@
                                 </div>
 
                                 <div class="col-md-1">
-                                    <a href="{{url('/')}}/admin/bookvisit" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                    <a href="{{url('/')}}/vendor/bookvisit" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </form>    
@@ -65,7 +65,6 @@
                         <table class="table table-responsive-md table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Vendor Name</th>
                                     <th>Property Name</th>
                                     <th>User Name</th>
                                     <th>Email</th>
@@ -80,7 +79,6 @@
                                 @if(count($bookvisit))
                                     @foreach($bookvisit as $bv)
                                         <tr id="tr_{{$bv->id}}">
-                                        <td>{{$bv->company_name}}</td> 
                                         <td>{{$bv->project_name}}</td> 
                                         <td>{{$bv->name}}</td> 
                                         <td>{{$bv->email}}</td> 
@@ -156,7 +154,7 @@
             var id = jQuery("#id").val();
             $.ajax({
                 type:'POST',
-                url:'/admin/bookvisit/delete/'+id,
+                url:'/vendor/bookvisit/delete/'+id,
                 data:{_token: token},
                 success:function(data){
                     if (data == 'success') {
