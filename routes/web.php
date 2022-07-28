@@ -30,6 +30,7 @@ use App\Http\Controllers\Web\Vendor\VendorDashboardController;
 use App\Http\Controllers\Web\Vendor\VendorInquiryController;
 use App\Http\Controllers\Web\Vendor\VendorBookVisitController;
 use App\Http\Controllers\Web\Vendor\VendorAdvertiseController;
+use App\Http\Controllers\Web\Vendor\VendorPropertiesController;
 
 Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
 
@@ -68,7 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
 		
 		
-        // Testimonial
+        // Properties
         Route::get('/admin/properties', [PropertiesController::class, 'index']);
         Route::get('/admin/properties/add', [PropertiesController::class, 'add']);
         Route::post('/admin/properties/postProperty', [PropertiesController::class, 'addProperties']);
@@ -148,6 +149,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/vendor/bookvisit', [VendorBookVisitController::class, 'index'])->name('vendors.bookvisit.index');
         Route::post('/vendor/bookvisit', [VendorBookVisitController::class, 'index'])->name('vendors.bookvisit.index');
         Route::post('/vendor/bookvisit/delete/{id}', [VendorBookVisitController::class, 'destroy'])->name('vendors.bookvisit.destroy');
+		
+		  // Properties
+        Route::get('/vendor/properties', [VendorPropertiesController::class, 'index']);
+        Route::get('/vendor/properties/add', [VendorPropertiesController::class, 'add']);
+        Route::post('/vendor/properties/postProperty', [VendorPropertiesController::class, 'addProperties']);
+        Route::get('/vendor/properties/edit/{id}', [VendorPropertiesController::class, 'editProperties']);
+        Route::post('/vendor/properties/edit/{id}', [VendorPropertiesController::class, 'editPostProperties']);
+        Route::post('/vendor/properties/delete/{id}', [VendorPropertiesController::class, 'delete']);
+		Route::get('/vendor/properties_search',[VendorPropertiesController::class, 'properties_search']);
+		
+		Route::get('/vendor/getState',[CommonController::class,'getStateByCountry']);
+		Route::get('/vendor/getCity',[CommonController::class,'getCityByState']);
+		Route::get('/vendor/getSubCity',[CommonController::class,'getSubCityByCity']);
+		Route::get('/vendor/getArea',[CommonController::class,'getAreaBySubCity']);	
+
+	
 
         // advertise
         Route::get('/vendor/advertise', [VendorAdvertiseController::class, 'index'])->name('vendor.advertise.index');

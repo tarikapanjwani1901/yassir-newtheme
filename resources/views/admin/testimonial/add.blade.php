@@ -46,7 +46,7 @@
                                     </div> 	
                                     <div class="col-md-12">
                                    		<div class="form-group">
-                                         <label class="control-label">Image<span class="required_field">*</span> </label>    
+                                         <label class="control-label" style="vertical-align:top;">Image<span class="required_field">*</span> </label>    
                                			<div class="fileinput fileinput-new" data-provides="fileinput">
                                         
                                             <div>
@@ -54,10 +54,11 @@
                                             <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
                                             <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control"/>
                                         </span>
-                                        <a href="#" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
+                                           <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+                                       	<br />
+                                        <a href="#" style="margin-left:90px;" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
                                             </div>
-                                      	   <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
-                                            
+                                      	     
                                         </div>
                                        
                                     </div> 	

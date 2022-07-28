@@ -54,7 +54,7 @@
                                     </div> 	
                                     <div class="col-md-12">
                                    		<div class="form-group">
-                                         <label class="control-label">Image<span class="required_field">*</span> </label>    
+                                         <label class="control-label" style="vertical-align:top;">Image<span class="required_field">*</span> </label>    
                                			<div class="fileinput <?php echo (!empty($testimonials[0]->t_image))?"fileinput-exists":"fileinput-new" ?> " data-provides="fileinput">
                                         
                                             <div>
@@ -62,14 +62,7 @@
                                             <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
                                             <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control"/>
                                         </span>
-                                        @if(!empty($testimonials[0]->t_image))
-                                        <a href="#" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
-                                         @else
-                                        <a href="#" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
-                                        
-                                         @endif 
-                                            </div>
-                                      	   <div class="fileinput-preview thumbnail" style="max-width: 200px; max-height: 200px;">
+                                        <div class="fileinput-preview thumbnail" style="max-width: 200px; max-height: 200px;">
                                            	  @if($testimonials[0]->t_image)
                                                         @if((substr($testimonials[0]->t_image, 0,5)) == 'https')
                                                             <img src="{{ $testimonials[0]->t_image }}" alt="img" class="img-responsive"/>
@@ -78,6 +71,15 @@
                                                         @endif
                                                     @endif
                                            </div>
+                                        <br />
+                                        @if(!empty($testimonials[0]->t_image))
+                                        <a href="#" style="margin-left:90px;" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
+                                         @else
+                                        <a href="#" style="margin-left:90px;" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
+                                        
+                                         @endif 
+                                            </div>
+                                      	   
                                             
                                         </div>
                                        
