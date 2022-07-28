@@ -14,14 +14,10 @@
                     <span class="nav-text">Locations</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('admin/states') }}" >All States</a></li>
-                    <li><a href="{{ URL::to('admin/states/add') }}" >Add State</a></li>
-                    <li><a href="{{ URL::to('admin/cities') }}" >All Cities</a></li>
-                    <li><a href="{{ URL::to('admin/cities/add') }}" >Add City</a></li>
-                    <li><a href="{{ URL::to('admin/sub_cities') }}" >All Sub Cities</a></li>
-                    <li><a href="{{ URL::to('admin/sub_cities/add') }}" >Add Sub City</a></li>
-                    <li><a href="{{ URL::to('admin/areas') }}" >All Areas</a></li>
-                    <li><a href="{{ URL::to('admin/areas/add') }}" >Add Area</a></li>
+                    <li><a href="{{ URL::to('admin/states') }}" >States List</a></li>
+                    <li><a href="{{ URL::to('admin/cities') }}" >All Cities  List</a></li>
+                    <li><a href="{{ URL::to('admin/sub_cities') }}" >Sub Cities  List</a></li>
+                    <li><a href="{{ URL::to('admin/areas') }}" >Areas List</a></li>
                 </ul>
             </li>
 
@@ -31,8 +27,7 @@
                     <span class="nav-text">Testimonial</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('admin/testimonials') }}" >Testimonial</a></li>
-                    <li><a href="{{ URL::to('admin/testimonials/add') }}" >Add Testimonial</a></li>
+                    <li><a href="{{ URL::to('admin/testimonials') }}" >Testimonial List</a></li>
                 </ul>
             </li>
              <li>
@@ -41,8 +36,7 @@
                     <span class="nav-text">Properties</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('admin/properties') }}" >Properties</a></li>
-                    <li><a href="{{ URL::to('admin/properties/add') }}" >Add Proprty</a></li>
+                    <li><a href="{{ URL::to('admin/properties') }}" >Properties List</a></li>
                 </ul>
             </li>
             <li>

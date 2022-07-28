@@ -8,17 +8,15 @@
                 </a>
             </li>
 
-            <li>
+           <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-television"></i>
+                    <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Properties</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="#" >Properties List</a></li>
-                    <li><a href="#" >Add Property</a></li>
+                    <li><a href="{{ URL::to('vendor/properties') }}" >Properties List</a></li>
                 </ul>
             </li>
-
             <li>
                 <a href="{{ URL::to('vendor/bookvisit') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>

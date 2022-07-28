@@ -9,6 +9,8 @@
 	
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
+	
 	
 	<meta property="og:image" content="social-image.png"/>
 	<meta name="format-detection" content="telephone=no">

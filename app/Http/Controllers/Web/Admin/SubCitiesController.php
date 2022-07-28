@@ -132,7 +132,7 @@ class SubCitiesController extends Controller
         ->join('countries', 'countries.id', '=', 'states.country_id');
  
         if($search_keyword!=""){
-            $sub_cities = $sub_cities->where('cities.name','like','%'.$search_keyword.'%');
+            $sub_cities = $sub_cities->where('sub_cities.name','like','%'.$search_keyword.'%');
         }
         if($search_country>0){
             $sub_cities = $sub_cities->where('countries.id',$search_country);

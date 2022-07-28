@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\Web\Vendor;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,6 +8,8 @@ use App\Models\Properties;
 use App\Models\PropertyUnits;
 use App\Models\PropertyUnitsAreas;
 use App\Models\PropertiesImages;
+
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -17,12 +19,12 @@ use Sentinel;
 use DB;
 use Image;
 
-class PropertiesController extends Controller
+class VendorPropertiesController extends Controller
 {
     public function index()
     {
         //Get all the propertiess
-        $properties = Properties::getAllProperties();
+        $properties = Properties::getAllProperties('',Auth::id());
 		
 		$CommonModel = new Common;
 		
@@ -43,14 +45,13 @@ class PropertiesController extends Controller
 		
 		
 
-        return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
+        return view('vendor.properties.index',compact('properties','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
     
     }
 	public function properties_search(Request $request)
     {
 		
 		$search_keyword = $request->get('search_keyword');
-        $search_vendor = $request->get('search_vendor');
         $search_for = $request->get('search_for');
 		$search_sub_category = $request->get('search_sub_category');
 		
@@ -70,22 +71,20 @@ class PropertiesController extends Controller
 		
 	  
         //Get all the propertiess
-        $properties = Properties::getAllProperties($search_keyword,$search_vendor,$search_for,$search_sub_category);
+        $properties = Properties::getAllProperties($search_keyword,Auth::id(),$search_for,$search_sub_category);
 		
 		$CommonModel = new Common;
 		
-		$vendors =$CommonModel->getVendorList();
 		
-	   return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
+	   return view('vendor.properties.index',compact('properties','propertyFor','SubCategory','search_keyword','search_for','search_sub_category'));
     
       
     }
 
     public function add() {
-		$vendors = $country = array();
+		 $country = array();
 		$CommonModel = new Common;
 		$country = $CommonModel->countryList();
-		$vendors =$CommonModel->getVendorList();
 		
 			$amenties = array('Power Backup','Lift','24*7 Water Supply','24*7 Security Service','Parking Space','Vaastu Compliant Design','Ventilation','Fitness Center / GYM','Spa'
 		,'Yoga','Swimming Pool','Playground','Community Center','Media Room'
@@ -97,7 +96,7 @@ class PropertiesController extends Controller
 		,'Earthquake Resistance RCC Structure','Indoor Games Club House','Guest waiting Room','Hydro. Pressure Pump','Z+ Security System','Adequate Street Light','Steam Bathroom','Splash Pool'
 		,'Basketball Hoop','Skating Area');
 		
-         return view('admin.properties.add',compact('vendors','country','amenties'));
+         return view('vendor.properties.add',compact('country','amenties'));
     }
 
     public function delete($id) {
@@ -121,10 +120,9 @@ class PropertiesController extends Controller
 		$property_units = DB::table('property_units')->where('property_id','=',$id)->get()->toArray();
 		$properties_unit_type_area = DB::table('property_unit_type_area')->where('property_id','=',$id)->get()->toArray();
 		$property_images = DB::table('property_images')->where('property_id','=',$id)->get()->toArray();
-		$vendors = $country = array();
+		$country = array();
 		$CommonModel = new Common;
 		$country = $CommonModel->countryList();
-		$vendors =$CommonModel->getVendorList();
 		
 		$p = $properties[0];
 		
@@ -209,12 +207,13 @@ class PropertiesController extends Controller
 			}	
 		}
 		
-         return view('admin.properties.edit',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
-		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','p','property_units','unitAreas','properties_unit_type_area','images','vendors','country'));
+         return view('vendor.properties.edit',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
+		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','p','property_units','unitAreas','properties_unit_type_area','images','country'));
 
     }
 
     
+
     public function addProperties(Request $request) {
 		
 		if($request->property_id!=""){
@@ -222,7 +221,7 @@ class PropertiesController extends Controller
 		}else{
 				$Properties = new Properties();	
 		}
-		$Properties->property_vendor = $request->property_vendor;
+		$Properties->property_vendor = Auth::id();
 		$Properties->property_for = $request->property_for; 
 		$Properties->category = $request->category; 
 		$Properties->sub_category = $request->sub_category; 
@@ -233,7 +232,7 @@ class PropertiesController extends Controller
 		$this->propertyDataUpdate($PropertiesID,$request);
 		
 		return $PropertiesID;
-	   // return redirect('admin/propertiess');
+	   // return redirect('vendor/propertiess');
     }
 	public function propertyDataUpdate($id,$request){
 		
@@ -249,7 +248,7 @@ class PropertiesController extends Controller
 		
 		//step 1
 		
-		$Properties->property_vendor = $request->property_vendor;
+		$Properties->property_vendor = Auth::id();
 		$Properties->property_for = $request->property_for; 
 		$Properties->category = $request->category; 
 		$Properties->sub_category = $request->sub_category; 

@@ -84,9 +84,6 @@
                                             </div>
 
                                         </form>
-                                        <div class="new-account mt-3">
-                                            <p class="text-white">Don't have an account? <a class="text-white" href="#">Sign up</a></p>
-                                        </div>
                                     @endif
                                 </div>
                             </div>

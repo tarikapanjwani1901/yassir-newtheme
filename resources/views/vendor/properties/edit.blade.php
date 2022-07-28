@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.vendor.app')
 @section('content')
 <style>
 .sw-btn-group-extra {
@@ -113,21 +113,7 @@ label {
                      <div id="step1" class="tab-pane" role="tabpanel">
                         <div class="col-md-12 paddleft0">
                            <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group">
-                                    <label class="control-label">Vendor <span class="required_field">*</span></label>
-                                    <select name="property_vendor" id="property_vendor" class="form-control select2 required" >
-                                       <option value="">Select Vendor</option>
-                                       @foreach($vendors as $v)
-                                       @if($p->property_vendor==$v->id)
-                                       <option value="{{$v->id}}" selected="selected">{{$v->company_name}}</option>
-                                      	@else
-                                        <option value="{{$v->id}}">{{$v->company_name}}</option>
-                                        @endif
-                                       @endforeach
-                                    </select>
-                                 </div>
-                              </div>
+                              
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Property For <span class="required_field">*</span></label>
@@ -141,7 +127,7 @@ label {
                                     
                                  </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Property Sub Category <span class="required_field">*</span></label>
                                     
@@ -149,28 +135,28 @@ label {
                                 
                                  </div>
                               </div>
-                              <div class="col-md-3 residential_prop">
+                              <div class="col-md-4 residential_prop">
                                  <div class="form-group">
                                     <label class="control-label">Property Type <span class="required_field">*</span></label>
                                    {!! Form::select('property_type', $property_type,$p->property_type,['class' => 'select2 required form-control', 'id' => 'property_type']) !!}
                                 
                                  </div>
                               </div>
-                              <div class="col-md-3 commercial_prop">
+                              <div class="col-md-4 commercial_prop">
                                  <div class="form-group">
                                     <label class="control-label">Property Type <span class="required_field">*</span></label>
                                       {!! Form::select('commercial_property_type', $commercial_property_type,$p->commercial_property_type,['class' => 'select2 required form-control', 'id' => 'commercial_property_type']) !!}
                                 
                                  </div>
                               </div>
-                              <div class="col-md-3 vacantlandplotting_prop">
+                              <div class="col-md-4 vacantlandplotting_prop">
                                  <div class="form-group">
                                     <label class="control-label">What kind of vacant land/ plotting is it?</label>
                                        {!! Form::select('what_kind_of_vacantland', $what_kind_of_vacantland,$p->what_kind_of_vacantland,['class' => 'select2 required form-control', 'id' => 'what_kind_of_vacantland']) !!}
                                 
                                  </div>
                               </div>
-                              <div class="col-md-6" id="ProjectNameApartmentName">
+                              <div class="col-md-8" id="ProjectNameApartmentName">
                                  <div class="form-group">
                                     <label class="control-label">Project Name / Apartment Name/ Society Name  <span class="required_field">*</span></label>
                                     <input type="text" class="form-control required" value="{{$p->project_name}}" name="project_name"/>
@@ -601,7 +587,7 @@ label {
                            </div>
                            <div class="form-group row label-floating is-empty">
                               <label  class="col-sm-2 control-label"> Status </label>
-                              <div class="col-sm-10">
+                                  <div class="col-sm-10">
                                  <input type="radio"  name="VacantLandPlottingpropertystatus" data-id="0" data-type="VacantLandPlottingpropertyStatus" class="propertystatus" <?php echo ($p->property_status=="Ready to move")?"checked":""; ?> value="Ready to move">
                                  &nbsp;
                                  <label for="">Ready to move</label>
@@ -1431,7 +1417,7 @@ label {
 	  
 var hash = window.location.hash;
 if(hash=="#step4" || hash=="#step3" || hash=="#step2"){
-	window.location="{{url('/admin/properties/edit')}}/{{$p->id}}";	
+	window.location="{{url('/vendor/properties/edit')}}/{{$p->id}}";	
 }
  $( ".possesion_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
          
@@ -1731,7 +1717,7 @@ if (country !== '') {
     $.ajax({
         type:"GET",
         dataType: "json",
-        url:"{{url('/admin/getState')}}?country="+country,
+        url:"{{url('/vendor/getState')}}?country="+country,
         success:function(data){
             if ( data ) {
                 
@@ -1766,7 +1752,7 @@ if (state !== '') {
     $.ajax({
         type:"GET",
         dataType: "json",
-        url:"{{url('/admin/getCity')}}?state="+this.value,
+        url:"{{url('/vendor/getCity')}}?state="+this.value,
         success:function(data){
             if ( data ) {
                 
@@ -1795,7 +1781,7 @@ if (city !== '') {
     $.ajax({
         type:"GET",
         dataType: "json",
-        url:"{{url('/admin/getSubCity')}}?city="+this.value,
+        url:"{{url('/vendor/getSubCity')}}?city="+this.value,
         success:function(data){
             if ( data ) {
                 
@@ -1822,7 +1808,7 @@ if (sub_city !== '') {
     $.ajax({
         type:"GET",
         dataType: "json",
-        url:"{{url('/admin/getArea')}}?sub_city="+this.value,
+        url:"{{url('/vendor/getArea')}}?sub_city="+this.value,
         success:function(data){
             if ( data ) {
                 
@@ -1848,7 +1834,7 @@ HideShowDependsubCategory();
 function HideShowDependsubCategory(){
 var sub_category = jQuery("#sub_category").val();	
 
-		jQuery("#ProjectNameApartmentName").addClass("col-md-9").removeClass("col-md-6");
+		jQuery("#ProjectNameApartmentName").addClass("col-md-9").removeClass("col-md-6").removeClass("col-md-12");
 		jQuery(".locality_prop").addClass("col-md-6").removeClass("col-md-12");
 		jQuery(".locatedinside_prop").show();
 		
@@ -1883,16 +1869,18 @@ jQuery(".hospitality_prop").hide();
 	}
 	if(sub_category=="Residential"){
 		
-		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9");
+		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9").removeClass("col-md-12");
 		jQuery(".residential_prop").show();
 		jQuery(".commercial_prop").hide();	
 	}
 	if(sub_category=="IndustrialParkShades"){
+		jQuery("#ProjectNameApartmentName").addClass("col-md-12").removeClass("col-md-9").removeClass("col-md-6");
+		
 		jQuery(".industrial_prop").show();		
 	}
 	
 	if(sub_category=="VacantLandPlotting"){
-		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9");
+		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9").removeClass("col-md-12");
 		jQuery(".industrial_prop").show();
 		jQuery(".locality_prop").addClass("col-md-12").removeClass("col-md-6");
 		jQuery(".locatedinside_prop,.industrial_prop_hide").hide();
@@ -1901,6 +1889,7 @@ jQuery(".hospitality_prop").hide();
 		
 				
 	}
+	
 	
 }
 jQuery(document).on("change","#sub_category,#commercial_property_type",function(e) {
@@ -1942,7 +1931,7 @@ $(document).ready(function(){
 				
         
 		jQuery.ajax({
-                   url:"{{url('/admin/properties/postProperty')}}",
+                   url:"{{url('/vendor/properties/postProperty')}}",
                     enctype: 'multipart/form-data',
                     method: 'post',
                     dataType: 'JSON',
@@ -1951,7 +1940,7 @@ $(document).ready(function(){
                     cache: false,
                     data: formData,                    
                     success: function (data) {
-						window.location = "{{url('/admin/properties')}}";
+						window.location = "{{url('/vendor/properties')}}";
                     },
                     error: function (xhr, status) {
 						jQuery(".overlayLoader").hide();
@@ -1973,7 +1962,7 @@ $(document).ready(function(){
 				
         
 		jQuery.ajax({
-                   url:"{{url('/admin/properties/postProperty')}}",
+                   url:"{{url('/vendor/properties/postProperty')}}",
                     enctype: 'multipart/form-data',
                     method: 'post',
                     dataType: 'JSON',

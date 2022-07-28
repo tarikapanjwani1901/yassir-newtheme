@@ -25,7 +25,7 @@
                                     </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                           <div class="form-group">
                                         {!! Form::select('search_state', $states,$search_state,['class' => 'select2 form-control search_state', 'id' => 'search_state']) !!}
                                     </div>
@@ -37,7 +37,7 @@
                                     </div>
                                     </div>
 
-                               <div class="col-md-3">
+                               <div class="col-md-2">
                             	<input type="submit" class="btn btn-primary text-uppercase" value="Submit">
                                 <a href="{{url('/admin/sub_cities')}}"  data-toggle="tooltip" title="Reset"><input type="button" class="btn btn-light text-uppercase" value="Reset"></a>
                             </div>
