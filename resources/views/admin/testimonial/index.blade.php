@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <div class="card">
         
-  <div class="card-header pb-3 pt-3 text-uppercase">
+                        <div class="card-header pb-3 pt-3 text-uppercase">
                     	Testimonial
                         	        <a href="{{url('/admin/testimonials/add')}}" class="btn btn btn-success text-uppercase" data-toggle="tooltip" title="Add New Testimonial">Add New Testimonial</a>
                          

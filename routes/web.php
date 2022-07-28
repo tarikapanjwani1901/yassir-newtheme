@@ -24,16 +24,19 @@ use App\Http\Controllers\Web\CommonController;
 use App\Http\Controllers\Web\Admin\StateController;
 use App\Http\Controllers\Web\Admin\SubCitiesController;
 use App\Http\Controllers\Web\Admin\AreasController;
+use App\Http\Controllers\Web\Admin\AdvertiseController;
 
 use App\Http\Controllers\Web\Vendor\VendorDashboardController;
 use App\Http\Controllers\Web\Vendor\VendorInquiryController;
 use App\Http\Controllers\Web\Vendor\VendorBookVisitController;
+use App\Http\Controllers\Web\Vendor\VendorAdvertiseController;
 
 Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
 
 // Admin Login
 Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'generateOTP'])->name('generateOTP');
+Route::post('/login', [LoginController::class, 'vendorgenerateOTP'])->name('vendorgenerateOTP');
 Route::post('/postOtp', [LoginController::class, 'otpSubmit'])->name('otpSubmit');
 Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP');
 Route::get('backtologin', [LoginController::class, 'backtologin'])->name('backtologin');
@@ -117,6 +120,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/admin/areas/edit/{id}', [AreasController::class, 'editPostAreas']);
         Route::post('/admin/areas/delete/{id}', [AreasController::class, 'delete']);
         Route::get('/admin/areas_search',[AreasController::class, 'search_areas']);
+
+        // advertise
+        Route::get('/admin/advertise', [AdvertiseController::class, 'index'])->name('admin.advertise.index');
+        Route::get('/admin/advertise/create', [AdvertiseController::class, 'create'])->name('admin.advertise.create');
+        Route::post('/admin/advertise/store', [AdvertiseController::class, 'addAdvertise'])->name('admin.advertise.store');
+        Route::post('/admin/advertise/delete/{id}', [AdvertiseController::class, 'destroy'])->name('admin.advertise.destroy');
+        Route::get('/admin/advertise/edit/{id}', [AdvertiseController::class, 'edit'])->name('admin.advertise.edit');
+        Route::post('/admin/advertise/edit/{id}', [AdvertiseController::class, 'update'])->name('admin.advertise.update');
+        Route::post('/admin/advertise/delete_image',[AdvertiseController::class, 'advertise_delimage'])->name('admin.advertise.delimage');
     });
 });
 
@@ -137,5 +149,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/vendor/bookvisit', [VendorBookVisitController::class, 'index'])->name('vendors.bookvisit.index');
         Route::post('/vendor/bookvisit/delete/{id}', [VendorBookVisitController::class, 'destroy'])->name('vendors.bookvisit.destroy');
 
+        // advertise
+        Route::get('/vendor/advertise', [VendorAdvertiseController::class, 'index'])->name('vendor.advertise.index');
+        Route::get('/vendor/advertise/create', [VendorAdvertiseController::class, 'create'])->name('vendor.advertise.create');
+        Route::post('/vendor/advertise/store', [VendorAdvertiseController::class, 'addAdvertise'])->name('vendor.advertise.store');
+        Route::post('/vendor/advertise/delete/{id}', [VendorAdvertiseController::class, 'destroy'])->name('vendor.advertise.destroy');
+        Route::get('/vendor/advertise/edit/{id}', [VendorAdvertiseController::class, 'edit'])->name('vendor.advertise.edit');
+        Route::post('/vendor/advertise/edit/{id}', [VendorAdvertiseController::class, 'update'])->name('vendor.advertise.update');
+        Route::post('/vendor/advertise/delete_image',[VendorAdvertiseController::class, 'advertise_delimage'])->name('vendor.advertise.delimage');
+    
     });
 });

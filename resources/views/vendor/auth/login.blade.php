@@ -8,7 +8,7 @@
 	<meta name="author" content="" />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>YASSIR | Admin</title>
+    <title>YASSIR | Vendor</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="/assests/css/style.css" rel="stylesheet">
@@ -69,7 +69,7 @@
                                         </form>
                                     @else
                                         <h4 class="text-center mb-4 text-white">Sign in your account</h4>
-                                        <form method="post" id="login_form" action="{{ route('generateOTP') }}" autocomplete="off">
+                                        <form method="post" id="login_form" action="{{ route('vendorgenerateOTP') }}" autocomplete="off">
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label class="mb-1 text-white"><strong>Mobile No.</strong></label>

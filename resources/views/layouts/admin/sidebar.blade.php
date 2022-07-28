@@ -35,7 +35,7 @@
                     <li><a href="{{ URL::to('admin/testimonials/add') }}" >Add Testimonial</a></li>
                 </ul>
             </li>
-             <li>
+            <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Properties</span>
@@ -56,6 +56,16 @@
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Inquiry Listing</span>
                 </a>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Advertisement</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ URL::to('admin/advertise') }}" >Advertisement List</a></li>
+                    <li><a href="{{ URL::to('admin/advertise/add') }}" >Add Advertisement</a></li>
+                </ul>
             </li>
         </ul>
         

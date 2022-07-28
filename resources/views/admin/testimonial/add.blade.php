@@ -86,7 +86,7 @@
 <script type="text/javascript">
 jQuery(document).ready(function () {
   	$(".select2").select2();
-  jQuery(document).on("submit","#addtestimonail",function(e){
+        jQuery(document).on("submit","#addtestimonail",function(e){
 			
 			if($('#addtestimonail').valid()){
 				$('#addtestimonail').submit();
