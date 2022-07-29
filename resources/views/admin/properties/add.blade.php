@@ -1,10 +1,31 @@
 @extends('layouts.admin.app')
 @section('content')
 <style>
+.sw-btn-group-extra {
+	display: none;
+	position: absolute;
+	right: 3px;
+	bottom: 12px;
+	padding: 11px 20px !important;
+	border-radius: .25rem !important;
+	background: #1EAAE7 !important;
+	font-weight: 400 !important;
+	border: 0 !important;
+	color: #fff;
+}
 label {
 	font-size: 12px;
 	font-weight:bold;
 	color:#000;
+}
+.select2-search.select2-search--inline {
+	display: none;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+	border: 0;
+	background: #ccc;
+	border-radius: 6px;
+	padding: 1px 6px;
 }
 .required_field{ color:red;}
 .form-file {
@@ -59,13 +80,16 @@ label {
 </style>
 
     <div class="container-fluid">
-        <div class="page-titles">
-            <a href="javascript:void(0)">Add Properties</a>
-        </div>
 
-        <div class="row">
-   <div class="col-lg-12 p-0">
+        
+        <div class="row p-0">
+   <div class="col-lg-12">
       <div class="card">
+      	
+        	<div class="card-header pb-3 pt-3 text-uppercase">
+                
+        Add Property</div>
+
          <div class="card-body">
             <form method="post" id="propertyForm" enctype="multipart/form-data">
                <input type="hidden" name="property_id" id="property_id" value="" />
@@ -309,7 +333,9 @@ label {
                                        </label>
                                        <div class="row p-0">
                                           <div class="col-sm-5">
-                                             <select name="property_unit_type" id="property_unit_type" class="form-control" >
+
+                                             <select name="property_unit_type" id="property_unit_type" class="select2 form-control" >
+
                                                 <option value="">Select</option>
                                                 <option value="1BHK">1BHK</option>
                                                 <option value="2BHK">2BHK</option>
@@ -897,81 +923,20 @@ label {
                         </div>
                      </div>
                      <div id="step3" class="tab-pane" role="tabpanel">
-                        <div class="row">
+                        <div class="row residential_prop">
                            <div class="form-group">
                               <div class="col-sm-12">
                                  <label class="control-label" for="amenities" >Amenities:</label>
-                                 <select class="form-control multi_select" name="amenities[]" style="width:100%" multiple="multiple" id="multi_select">
-                                    <option value="1">Power Backup</option>
-                                    <option value="2">Lift</option>
-                                    <option value="3">24*7 Water Supply</option>
-                                    <option value="4">24*7 Security Service</option>
-                                    <option value="5">Parking Space</option>
-                                    <option value="6">Vaastu Compliant Design</option>
-                                    <option value="7">Ventilation</option>
-                                    <option value="9">Fitness Center / GYM</option>
-                                    <option value="10">Spa</option>
-                                    <option value="11">Yoga</option>
-                                    <option value="12">Swimming Pool</option>
-                                    <option value="13">Playground</option>
-                                    <option value="14">Community Center</option>
-                                    <option value="15">Media Room</option>
-                                    <option value="16">Party Room</option>
-                                    <option value="17">Community events and classes</option>
-                                    <option value="18">Outdoor Areas</option>
-                                    <option value="19">Jogging/walking</option>
-                                    <option value="20">Eco Friendly</option>
-                                    <option value="21">Proximity Area</option>
-                                    <option value="22">On Site Maintenance</option>
-                                    <option value="23">Electric car charging stations</option>
-                                    <option value="24">Pets Allowed</option>
-                                    <option value="25">Wood Flooring</option>
-                                    <option value="26">Storage in unit</option>
-                                    <option value="27">Wi-Fi</option>
-                                    <option value="28">High-Speed Internet</option>
-                                    <option value="29">Cable TV</option>
-                                    <option value="30">Close to schools</option>
-                                    <option value="31">Babysitting Services</option>
-                                    <option value="32">CCTV Surveillance</option>
-                                    <option value="33">Doorman</option>
-                                    <option value="34">Gated Access</option>
-                                    <option value="35">Valet Trash</option>
-                                    <option value="36">Recycling Center</option>
-                                    <option value="37">Doorstep Recycling Collection</option>
-                                    <option value="38">Laundry Facility</option>
-                                    <option value="39">Dance studio</option>
-                                    <option value="40">Video Door Phone</option>
-                                    <option value="41">Gas Connection</option>
-                                    <option value="42">Main Entrance Door</option>
-                                    <option value="43">Wi- Fi Smart Homes</option>
-                                    <option value="44">Customized Wi- Fi Smart Homes</option>
-                                    <option value="45">Terrace Garden</option>
-                                    <option value="46">Garden GYM</option>
-                                    <option value="47">Senior Citizen Seating</option>
-                                    <option value="48">Indoor Games</option>
-                                    <option value="49">Celebration Lawn</option>
-                                    <option value="50">Rest Room</option>
-                                    <option value="51">River Facing</option>
-                                    <option value="52">Basement</option>
-                                    <option value="53">Fire Safety</option>
-                                    <option value="54">Management Office</option>
-                                    <option value="55">Library</option>
-                                    <option value="56">School Drop off Zone</option>
-                                    <option value="57">Earthquake Resistance RCC Structure</option>
-                                    <option value="58">Indoor Games Club House</option>
-                                    <option value="59">Guest waiting Room</option>
-                                    <option value="60">Hydro. Pressure Pump</option>
-                                    <option value="61">Z+ Security System</option>
-                                    <option value="62">Adequate Street Light</option>
-                                    <option value="63">Steam Bathroom</option>
-                                    <option value="64">Splash Pool</option>
-                                    <option value="65">Basketball Hoop</option>
-                                    <option value="66">Skating Area</option>
+                                 <select class="form-control select2" name="amenities[]" style="width:100%" multiple="multiple">
+                                     <?php foreach($amenties as $v){ ?>
+                                    <option value="<?php echo $v ?>"><?php echo $v; ?></option>
+                                    <?php } ?>
                                  </select>
                               </div>
                            </div>
                         </div>
-                        <div class="row">
+
+                        <div class="row residential_prop">
                            <div class="form-group">
                               <div class="col-sm-12 PropertyFeatures">
                                  <label class="control-label">Property Features:</label>
@@ -1041,9 +1006,11 @@ label {
                            <div class="col-md-6">
                               <div class="form-group" id="gallery_images">
                                  <div class="row">
-                                    <label class="control-label" for="form-file-multiple-input"> Project Gallery (Render images)</label>
+
+                                    <label class="control-label p-0" for="form-file-multiple-input"> Project Gallery (Render images)</label>
                                     <div class="form-file p-0">
-                                       <input type="file" class="form-file-input form-control">
+                                       <input type="file" name="project_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
+
                                     </div>
                                  </div>
                               </div>
@@ -1051,31 +1018,11 @@ label {
                            <div class="col-md-6">
                               <div class="form-group">
                                  <div class="row">
-                                    <label class="control-label" for="form-file-multiple-input">Floor plan Gallery</label>
+
+                                    <label class="control-label  p-0" for="form-file-multiple-input">Floor Plan Gallery</label>
                                     <div class="form-file p-0">
-                                       <input type="file" class="form-file-input form-control">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <div class="row">
-                                    <label class="col-sm-12 control-label" >Project status Gallery</label>
-                                    <div class="form-file p-0">
-                                       <input type="file" name="" class="form-file-input form-control">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <div class="row">
-                                    <label class="col-sm-12 control-label" >Video Toor</label>
-                                    <div class="form-file p-0">
-                                       <input type="file" name="video_toor" class="form-file-input form-control">
+                                       <input type="file" name="floor_plan_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
+
                                     </div>
                                  </div>
                               </div>
@@ -1085,9 +1032,11 @@ label {
                            <div class="col-md-6">
                               <div class="form-group">
                                  <div class="row">
-                                    <label class="col-sm-12 control-label" > PDF Brochure</label>
+
+                                    <label class="control-label  p-0" >Project Status Gallery</label>
                                     <div class="form-file p-0">
-                                       <input type="file" name="pdf_brochure" class="form-file-input form-control">
+                                       <input type="file" name="project_status_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
+
                                     </div>
                                  </div>
                               </div>
@@ -1095,7 +1044,34 @@ label {
                            <div class="col-md-6">
                               <div class="form-group">
                                  <div class="row">
-                                    <label class="control-label" >Sample house video(Youtube URL)</label>
+
+                                    <label class="control-label  p-0" >Video Toor</label>
+                                    <div class="form-file p-0">
+                                       <input type="file" accept="video/mp4,video/x-m4v,video/*" name="video_toor" class="form-file-input form-control">
+
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <div class="row">
+
+                                    <label class="control-label  p-0" > PDF Brochure</label>
+                                    <div class="form-file p-0">
+                                       <input type="file" name="pdf_brochure" accept=".pdf,.doc" class="form-file-input form-control">
+                                    </div>
+                                 </div>
+
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <div class="row">
+
+                                    <label class="control-label  p-0" >Sample house video(Youtube URL)</label>
                                     <input type="text" class="form-control" name="sample_house_video">
                                  </div>
                               </div>
@@ -1103,8 +1079,10 @@ label {
                         </div>
                      </div>
                   </div>
+             	   <input type="button" name="submit_steps" class="sw-btn-group-extra" value="Finish" />
                </div>
                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
             </form>
          </div>
       </div>
@@ -1112,78 +1090,19 @@ label {
 </div>
 
     </div>
+        <div class="overlayLoader" style="display: none;"> <div class="loaderBlock"></div> </div>
 @endsection
 
 @section('customjs')
 <script>
   $(document).ready(function(){
+	  
 
-// $( ".possesion_date" ).datepicker();
-   var navListItems = $('div.setup-panel div a'),
-              allWells = $('.setup-content'),
-              allNextBtn = $('.nextBtn');
-          allPrevBtn = $('.prevBtn');
-
-          allWells.hide();
-
-          navListItems.click(function(e) {
-              e.preventDefault();
-              var $target = $($(this).attr('href')),
-                  $item = $(this);
-
-              if (!$item.hasClass('disabled')) {
-                  navListItems.removeClass('btn-primary').addClass('btn-default');
-                  $item.addClass('btn-primary');
-                  allWells.hide();
-                  $target.show();
-                  $target.find('input:eq(0)').focus();
-              }
-          });
-          allNextBtn.click(function() {
-              var curStep = $(this).closest(".setup-content"),
-                  curStepBtn = curStep.attr("id"),
-                  nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                  curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],input[type='number'],select,textarea"),
-                  isValid = true;
-				  if(curStepBtn=="step-1"){
-					  
-					  var property_type = jQuery("#property_type").val().replace(/\s+/g, ''); 
-     				 jQuery(".accordion-item").hide();
-					jQuery(".property_type_"+property_type).show();
-		
-					 jQuery("#step-2").attr("data-id",property_type);  
-				  }
-
-              $(".form-group").removeClass("has-error");
-              for (var i = 0; i < curInputs.length; i++) {
-                  if (!curInputs[i].validity.valid) {
-                      isValid = false;
-                      console.log(curInputs[i]);
-                      $(curInputs[i]).closest(".form-group").addClass("has-error");
-                  }
-              }
-
-              if (isValid)
-                  nextStepWizard.removeAttr('disabled').trigger('click');
-          });
-          allPrevBtn.click(function() {
-
-              var curStep = $(this).closest(".setup-content"),
-
-                  curStepBtn = curStep.attr("id"),
-
-                  prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-              prevStepWizard.removeAttr('disabled').trigger('click');
-
-          });
-
-          $('div.setup-panel div a.btn-primary').trigger('click');
+ $( ".possesion_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
          
   jQuery(".select2").select2();
  
-  jQuery(".multi_select").select2();
- 
+  
     $(document).on("change",".propertystatus",function(){
         var data_id = jQuery(this).attr("data-id");
 		var data_type = jQuery(this).attr("data-type");
@@ -1370,15 +1289,15 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
             html += '</div>';  
                 
 
-            html += '<div class="form-group row label-floating is-empty" id="age_property_div_'+property_type+"_"+length+'" style="display:block;">';
+            html += '<div class="form-group row label-floating is-empty" id="age_property_div_'+property_type+"_"+length+'">';
                 html += '<label class="col-sm-2 control-label">';
                     html += 'Age of Property<span class="required_field">*</span>';
                 html += '</label>';
                 html += '<div class="col-sm-10">';
                     html += '<select name="propertyDetails['+property_type+']['+value+'][age_of_property]" class="propertystatus select2 required form-control" >';
                         html += '<option value="">Select</option>';
-                        html += '<option value="0-1">0-1 Year</option>';
-                        html += '<option value="1-5">1-5 Year</option>';
+                        html += '<option value="0-1 Year">0-1 Year</option>';
+                        html += '<option value="1-5 Year">1-5 Year</option>';
                         html += '<option value="5-10 Year">5-10 Year</option>';
                         html += '<option value="10+ Year">10+ Year</option>';
                     html += '</select>';
@@ -1403,22 +1322,13 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
             getPropertyTypeDisable();
             $("#property_unit_type").prop("selectedIndex", 0); 
            jQuery(".select2").select2();
-		   // $( ".possesion_by" ).datepicker();
+		    $( ".possesion_by" ).datepicker({ dateFormat: 'yy-mm-dd' });
          }
         else{
             alert("Please select value");
         }
     });
-	jQuery(document).on("click",".stepwizard-step a",function(){
-		var href = jQuery(this).attr("href");
-		if(href=="#step-2"){
-		 var property_type = jQuery("#property_type").val().replace(/\s+/g, '');; 
-     	 jQuery(".accordion-item").hide();
-		 jQuery(".property_type_"+property_type).show();
-		 jQuery("#step-2").attr("data-id",property_type);
-		 getPropertyTypeDisable();
-		}
-	});
+	
 	
 	jQuery(document).on("click",".AddNewRow",function(){
       var data_id = jQuery(this).attr("data-id");
@@ -1464,10 +1374,9 @@ jQuery(document).on("click",".delelteItem",function() {
 	
 	
 });
-
-$("#country").on('change',function(){
-
+function getState(){
 var country = $('#country').val();
+
 $("#state").empty();
 $("#state").append('<option value="">Select State</option>');
  $("#city").empty();
@@ -1487,7 +1396,7 @@ if (country !== '') {
     $.ajax({
         type:"GET",
         dataType: "json",
-        url:"{{url('/admin/getState')}}?country="+this.value,
+        url:"{{url('/admin/getState')}}?country="+country,
         success:function(data){
             if ( data ) {
                 
@@ -1499,6 +1408,10 @@ if (country !== '') {
     })
   
 }
+	
+}
+$("#country").on('change',function(){
+getState();
 });
 $("#state").on('change',function(){
 
@@ -1684,8 +1597,38 @@ $(document).ready(function(){
             
  		});
         
-        $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
-   			if ($('#propertyForm').valid()) {
+       	jQuery(document).on("click",".sw-btn-group-extra",function(){
+		jQuery(".overlayLoader").show();
+		
+		var formData = new FormData($('#propertyForm')[0]);
+        formData.append('stepNumber', '3');
+        formData.append('stepDirection', 'last_step');
+        
+				
+        
+		jQuery.ajax({
+                   url:"{{url('/admin/properties/postProperty')}}",
+                    enctype: 'multipart/form-data',
+                    method: 'post',
+                    dataType: 'JSON',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: formData,                    
+                    success: function (data) {
+						window.location = "{{url('/admin/properties')}}";
+                    },
+                    error: function (xhr, status) {
+						jQuery(".overlayLoader").hide();
+		
+					}
+                });
+        
+			
+		});
+	    $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
+   			checkPropertyTypeUnit();
+			if ($('#propertyForm').valid()) {
        			
 		var formData = new FormData($('#propertyForm')[0]);
         formData.append('stepNumber', stepNumber);
@@ -1714,5 +1657,43 @@ $(document).ready(function(){
             }
 
 });
+
+$("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
+		checkPropertyTypeUnit();
+			if(stepNumber==2){
+				$('.sw-btn-group-extra').show(); // show the button extra only in the last page
+			}else{
+				$('.sw-btn-group-extra').hide();				
+			}
+
+	      });
+function checkPropertyTypeUnit(){
+		 var property_type = jQuery("#property_type").val().replace(/\s+/g, '');; 
+     	 jQuery(".accordion-item").hide();
+		 jQuery(".property_type_"+property_type).show();
+		 jQuery("#step-2").attr("data-id",property_type);
+		 getPropertyTypeDisable();
+		
+}
+getState();	
+
+function getPropertyFor(){
+	var property_for = jQuery("#property_for").val();
+	if(property_for=="Rent"){
+		$("#category").empty();
+		 $("#category").append('<option value="For owner">For owner</option>');
+		
+	}else{
+		 $("#category").empty();
+		 $("#category").append('<option value="For Builder">For Builder</option><option value="For owner">For owner</option>');
+	}
+}
+
+jQuery(document).on("change","#property_for",function(){
+	getPropertyFor();	
+});
+getPropertyFor();
+	  
+		  
 </script>
 @endsection

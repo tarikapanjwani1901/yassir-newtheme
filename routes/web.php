@@ -24,14 +24,28 @@ use App\Http\Controllers\Web\CommonController;
 use App\Http\Controllers\Web\Admin\StateController;
 use App\Http\Controllers\Web\Admin\SubCitiesController;
 use App\Http\Controllers\Web\Admin\AreasController;
+use App\Http\Controllers\Web\Admin\AdvertiseController;
 
 use App\Http\Controllers\Web\Vendor\VendorDashboardController;
+use App\Http\Controllers\Web\Vendor\VendorInquiryController;
+use App\Http\Controllers\Web\Vendor\VendorBookVisitController;
+use App\Http\Controllers\Web\Vendor\VendorAdvertiseController;
+use App\Http\Controllers\Web\Vendor\VendorPropertiesController;
 
-Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
+use App\Http\Controllers\Web\Marketing\MarketingDashboardController;
 
 // Admin Login
 Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'generateOTP'])->name('generateOTP');
+
+// Vendor Login
+Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
+Route::post('/vendorlogin', [LoginController::class, 'vendorgenerateOTP'])->name('vendorgenerateOTP');
+
+// Marketing Login
+Route::get('/marketing/login', [LoginController::class, 'showMarketingLoginForm'])->name('marketinglogin');
+Route::post('/marketinglogin', [LoginController::class, 'marketinggenerateOTP'])->name('marketinggenerateOTP');
+
 Route::post('/postOtp', [LoginController::class, 'otpSubmit'])->name('otpSubmit');
 Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP');
 Route::get('backtologin', [LoginController::class, 'backtologin'])->name('backtologin');
@@ -47,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Inquiry
         Route::get('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
         Route::post('/admin/inquiry', [InquiryController::class, 'index'])->name('index');
+        Route::post('/admin/inquiry/delete/{id}', [InquiryController::class, 'destroy'])->name('destroy');
 
         // Book Visit
         Route::get('/admin/bookvisit', [BookVisitController::class, 'index'])->name('index');
@@ -62,13 +77,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
 		
 		
-        // Testimonial
+        // Properties
         Route::get('/admin/properties', [PropertiesController::class, 'index']);
         Route::get('/admin/properties/add', [PropertiesController::class, 'add']);
         Route::post('/admin/properties/postProperty', [PropertiesController::class, 'addProperties']);
         Route::get('/admin/properties/edit/{id}', [PropertiesController::class, 'editProperties']);
         Route::post('/admin/properties/edit/{id}', [PropertiesController::class, 'editPostProperties']);
         Route::post('/admin/properties/delete/{id}', [PropertiesController::class, 'delete']);
+		Route::get('/admin/properties_search',[PropertiesController::class, 'properties_search']);
 		
 		Route::get('/admin/getState',[CommonController::class,'getStateByCountry']);
 		Route::get('/admin/getCity',[CommonController::class,'getCityByState']);
@@ -112,7 +128,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/areas/edit/{id}', [AreasController::class, 'editAreas']);
         Route::post('/admin/areas/edit/{id}', [AreasController::class, 'editPostAreas']);
         Route::post('/admin/areas/delete/{id}', [AreasController::class, 'delete']);
+        Route::get('/admin/areas_search',[AreasController::class, 'search_areas']);
 
+        // advertise
+        Route::get('/admin/advertise', [AdvertiseController::class, 'index'])->name('admin.advertise.index');
+        Route::get('/admin/advertise/create', [AdvertiseController::class, 'create'])->name('admin.advertise.create');
+        Route::post('/admin/advertise/store', [AdvertiseController::class, 'addAdvertise'])->name('admin.advertise.store');
+        Route::post('/admin/advertise/delete/{id}', [AdvertiseController::class, 'destroy'])->name('admin.advertise.destroy');
+        Route::get('/admin/advertise/edit/{id}', [AdvertiseController::class, 'edit'])->name('admin.advertise.edit');
+        Route::post('/admin/advertise/edit/{id}', [AdvertiseController::class, 'update'])->name('admin.advertise.update');
+        Route::post('/admin/advertise/delete_image',[AdvertiseController::class, 'advertise_delimage'])->name('admin.advertise.delimage');
     });
 });
 
@@ -123,5 +148,52 @@ Route::group(['middleware' => ['auth']], function () {
         // Dashboard
         Route::get('/vendor/dashboard', [VendorDashboardController::class, 'index'])->name('vendordashboard');
 
+        // Inquiry
+        Route::get('/vendor/inquiry', [VendorInquiryController::class, 'index'])->name('vendors.inquiry.index');
+        Route::post('/vendor/inquiry', [VendorInquiryController::class, 'index'])->name('vendors.inquiry.index');
+        Route::post('/vendor/inquiry/delete/{id}', [VendorInquiryController::class, 'destroy'])->name('vendors.inquiry.destroy');
+
+        // Book Visit
+        Route::get('/vendor/bookvisit', [VendorBookVisitController::class, 'index'])->name('vendors.bookvisit.index');
+        Route::post('/vendor/bookvisit', [VendorBookVisitController::class, 'index'])->name('vendors.bookvisit.index');
+        Route::post('/vendor/bookvisit/delete/{id}', [VendorBookVisitController::class, 'destroy'])->name('vendors.bookvisit.destroy');
+		
+		  // Properties
+        Route::get('/vendor/properties', [VendorPropertiesController::class, 'index']);
+        Route::get('/vendor/properties/add', [VendorPropertiesController::class, 'add']);
+        Route::post('/vendor/properties/postProperty', [VendorPropertiesController::class, 'addProperties']);
+        Route::get('/vendor/properties/edit/{id}', [VendorPropertiesController::class, 'editProperties']);
+        Route::post('/vendor/properties/edit/{id}', [VendorPropertiesController::class, 'editPostProperties']);
+        Route::post('/vendor/properties/delete/{id}', [VendorPropertiesController::class, 'delete']);
+		Route::get('/vendor/properties_search',[VendorPropertiesController::class, 'properties_search']);
+		
+		Route::get('/vendor/getState',[CommonController::class,'getStateByCountry']);
+		Route::get('/vendor/getCity',[CommonController::class,'getCityByState']);
+		Route::get('/vendor/getSubCity',[CommonController::class,'getSubCityByCity']);
+		Route::get('/vendor/getArea',[CommonController::class,'getAreaBySubCity']);	
+
+	
+
+        // advertise
+        Route::get('/vendor/advertise', [VendorAdvertiseController::class, 'index'])->name('vendor.advertise.index');
+        Route::get('/vendor/advertise/create', [VendorAdvertiseController::class, 'create'])->name('vendor.advertise.create');
+        Route::post('/vendor/advertise/store', [VendorAdvertiseController::class, 'addAdvertise'])->name('vendor.advertise.store');
+        Route::post('/vendor/advertise/delete/{id}', [VendorAdvertiseController::class, 'destroy'])->name('vendor.advertise.destroy');
+        Route::get('/vendor/advertise/edit/{id}', [VendorAdvertiseController::class, 'edit'])->name('vendor.advertise.edit');
+        Route::post('/vendor/advertise/edit/{id}', [VendorAdvertiseController::class, 'update'])->name('vendor.advertise.update');
+        Route::post('/vendor/advertise/delete_image',[VendorAdvertiseController::class, 'advertise_delimage'])->name('vendor.advertise.delimage');
+    
     });
+});
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::group( ['middleware' => 'marketing'], function()
+    {
+        // Dashboard
+        Route::get('/marketing/dashboard', [MarketingDashboardController::class, 'index'])->name('marketingdashboard');
+
+
+    });
+
 });

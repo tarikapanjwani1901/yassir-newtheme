@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PropertyBookVisit;
+use App\Models\Properties;
+use App\Models\User;
 use Sentinel;
 use DB;
 
@@ -28,10 +30,23 @@ class InquiryController extends Controller
         $inquires = PropertyBookVisit::getAllInquiries($inquiry_name,$vendors,$start_date,$end_date);
         $inquiresCount = PropertyBookVisit::getAllInquiriesCount('');
 
-        $vendors_info = DB::table('vendor_listing')->select('vl_id','l_title')->whereNotNull('l_title')->orderBy('l_title','asc')->get();      
+        //$vendors_info = DB::table('vendor_listing')->select('vl_id','l_title')->whereNotNull('l_title')->orderBy('l_title','asc')->get();      
 
-        return view('admin.inquiry.index')->with('inquires',$inquires)->with("vendors_info",$vendors_info)->with('vendors',$vendors)->with('inquiry_name',$inquiry_name)->with('total_inquity',$inquiresCount);
+        $vendors_info = User::getVendors();
+
+        return view('admin.inquiry.index')->with('inquires',$inquires)
+                                        ->with("vendors_info",$vendors_info)
+                                        ->with('vendors',$vendors)
+                                        ->with('inquiry_name',$inquiry_name)
+                                        ->with('total_inquity',$inquiresCount);
 
     }
 
+    public function destroy(PropertyBookVisit $bv,$bvID)
+    {
+        //Destroy product
+        PropertyBookVisit::destroyRecord($bvID);
+
+        return 'success';
+    }
 }

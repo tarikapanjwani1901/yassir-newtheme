@@ -55,6 +55,11 @@ class LoginController extends Controller
         return view('vendor.auth.login');
     }
 
+    public function showMarketingLoginForm()
+    {
+        return view('marketing.auth.login');
+    }
+
     public function generateOTP(Request $request)
     {
 
@@ -82,8 +87,8 @@ class LoginController extends Controller
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
             
-            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
-            //$otpResponse ='aaa';
+            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            $otpResponse ='aaa';
 
             DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
             
@@ -103,6 +108,92 @@ class LoginController extends Controller
 
         return back()->withInput($request->only('mobile_number'));
 
+    }
+
+    public function vendorgenerateOTP(Request $request){
+        $checkUser = DB::table('users')->select('*')->where('mobile', $_POST['mobile_number'])->first();
+       
+		if(empty( $checkUser)){
+			return redirect()->back()->with('error','Invalid mobile number.');
+		}
+        
+        $users_info = DB::table('users')
+            ->select('activations.completed','activations.user_id')
+            ->join('activations','activations.user_id','users.id')
+            ->groupby('activations.user_id')->distinct()
+            ->where('users.deleted_at','=',NULL)
+            ->where('users.id',$checkUser->id)->get();
+
+		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+			return redirect()->back()->with('error','Account not activated');
+		}else{
+		
+            $digits = 4;
+            $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
+            
+            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            $otpResponse ='aaa';
+
+            DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
+            
+            $user_otp = new UserOtp();
+            $user_otp->mobile = $_POST['mobile_number'];
+            $user_otp->otp = $otp;
+            $user_otp->created_at = date('Y-m-d H:i:s');
+            $user_otp->updated_at = date('Y-m-d H:i:s');
+            $user_otp->otp_api_response = $otpResponse;
+            $user_otp->save();
+
+            session(['mobile_number'=>$_POST['mobile_number']]);
+    
+            return Redirect::route("vendorlogin")->with('otp_send',  $request->mobile_number);		 
+			
+		}	
+
+        return back()->withInput($request->only('mobile_number'));
+    }
+
+    public function marketinggenerateOTP(Request $request){
+        $checkUser = DB::table('users')->select('*')->where('mobile', $_POST['mobile_number'])->first();
+       
+		if(empty( $checkUser)){
+			return redirect()->back()->with('error','Invalid mobile number.');
+		}
+        
+        $users_info = DB::table('users')
+            ->select('activations.completed','activations.user_id')
+            ->join('activations','activations.user_id','users.id')
+            ->groupby('activations.user_id')->distinct()
+            ->where('users.deleted_at','=',NULL)
+            ->where('users.id',$checkUser->id)->get();
+
+		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+			return redirect()->back()->with('error','Account not activated');
+		}else{
+		
+            $digits = 4;
+            $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
+            
+            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            $otpResponse ='aaa';
+
+            DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
+            
+            $user_otp = new UserOtp();
+            $user_otp->mobile = $_POST['mobile_number'];
+            $user_otp->otp = $otp;
+            $user_otp->created_at = date('Y-m-d H:i:s');
+            $user_otp->updated_at = date('Y-m-d H:i:s');
+            $user_otp->otp_api_response = $otpResponse;
+            $user_otp->save();
+
+            session(['mobile_number'=>$_POST['mobile_number']]);
+    
+            return Redirect::route("marketinglogin")->with('otp_send',  $request->mobile_number);		 
+			
+		}	
+
+        return back()->withInput($request->only('mobile_number'));
     }
 
     public function otpSubmit(Request $request)
@@ -131,6 +222,10 @@ class LoginController extends Controller
                 else if($user->user_role==env('VENDOR_ROLE_ID')){
                     session(['user_role'=>'vendor']);
                     return Redirect::route("vendordashboard");
+                }
+                else if($user->user_role==env('MARKETING_ROLE_ID')){
+                    session(['user_role'=>'marketing']);
+                    return Redirect::route("marketingdashboard");
                 }
                 else{
 
@@ -202,8 +297,15 @@ class LoginController extends Controller
         \Session::flush();
         \Auth::logout();
 
-        return redirect()->route('login');
-        
+        if(session('user_role')=='vendor'){
+            return redirect()->route('vendorlogin');
+        }
+        else if(session('user_role')=='marketing'){
+            return redirect()->route('marketinglogin');
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
 }

@@ -1,15 +1,60 @@
 @extends('layouts.admin.app')
 @section('content')
     <div class="container-fluid">
-        <div class="page-titles">
-            <a href="javascript:void(0)">Properties</a>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 p-0">
+       
+        <div class="row  p-0">
+            <div class="col-lg-12">
                 <div class="card">
+                <div class="card-header pb-3 pt-3 text-uppercase">
+                    	Properties
+                        	        <a href="{{url('/admin/properties/add')}}" class="btn btn btn-success text-uppercase" data-toggle="tooltip" title="Add New Property">Add New Property</a>
+                         
+                        </div>
                   
-                    <div class="card-body">
+                 	<div class="card-body">
+       					 <form method="get" class="padd15" name="search" action="properties_search"  autocomplete="off">
+                        <div class="row p-0">
+                        	<div class="col-md-2">
+                            	<div class="form-group">
+                                    <input type="text" placeholder="Property Name" value="{{$search_keyword}}" name="search_keyword" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            	<div class="form-group">
+                                
+                                     <select name="search_vendor" id="search_vendor" class="form-control select2" >
+                                       <option value="">Vendor</option>
+                                       @foreach($vendors as $v)
+                                       @if($search_vendor==$v->id)
+                                       <option value="{{$v->id}}" selected="selected">{{$v->company_name}}</option>
+                                       @else
+                                       <option value="{{$v->id}}">{{$v->company_name}}</option>
+                                       @endif
+                                       @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            	<div class="form-group">
+                                 {!! Form::select('search_for', $propertyFor,$search_for,['class' => 'select2 form-control', 'id' => 'search_for']) !!}
+                                
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            	<div class="form-group">
+                                   {!! Form::select('search_sub_category', $SubCategory,$search_sub_category,['class' => 'select2 form-control', 'id' => 'search_sub_category']) !!}
+                                   
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            	<input type="submit" class="btn btn-primary" value="Submit">
+                                
+                            	
+                                 <a href="{{url('/admin/properties')}}" data-toggle="tooltip" title="Reset"><input type="button" class="btn btn-light" value="Reset"></a>
+                            </div>
+                        </div>   
+                        </form>          	
                         <div class="table-responsive">
                             <table class="table table-responsive-md table-bordered">
                                 <thead>
@@ -42,11 +87,9 @@
                                             
                                             <td><?php echo $value->area_name; ?></td>
                                             
-                                            <td>
-                                                <div class="d-flex">
+                                            <td align="center">
                                                     <a href="properties/edit/{{ $value->id }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                                     <a href="#" data-toggle="modal" data-target="#tes_delete_confirm"  data-id="{{ $value->id }}" class="onclick btn btn-danger shadow btn-xs sharp"><i class="fas fa-trash-alt"></i></a>
-                                                </div>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -91,6 +134,7 @@
 @section('customjs')
 <script>
     jQuery(document).ready(function () {
+		$(".select2").select2();
         $(document).on("click", ".close", function () {
             $('#myModal').modal('hide');
         });

@@ -31,51 +31,53 @@ class AreasController extends Controller
         //Get all the cities
        
 	    $areas = DB::table('areas')
-    ->select('sub_cities.id as sub_city_id','sub_cities.name as sub_city_name','areas.id as area_id','areas.name as area_name','areas.pincode as area_pincode','areas.status as status','states.id as state_id','states.name as state_name','cities.name as city_name','cities.id as city_id','countries.name as country_name','countries.id as country_id')
-    ->join('sub_cities', 'sub_cities.id', '=', 'areas.sub_city_id')
-	->join('cities', 'cities.id', '=', 'areas.city_id')
-	->join('states', 'areas.state_id', '=', 'states.id')
-	->join('countries', 'countries.id', '=', 'areas.country_id')
+				->select('sub_cities.id as sub_city_id','sub_cities.name as sub_city_name','areas.id as area_id','areas.name as area_name','areas.pincode as area_pincode','areas.status as status','states.id as state_id','states.name as state_name','cities.name as city_name','cities.id as city_id','countries.name as country_name','countries.id as country_id')
+				->join('sub_cities', 'sub_cities.id', '=', 'areas.sub_city_id')
+				->join('cities', 'cities.id', '=', 'areas.city_id')
+				->join('states', 'areas.state_id', '=', 'states.id')
+				->join('countries', 'countries.id', '=', 'areas.country_id')
+   				->orderBy('areas.id',"DESC")		
+				->paginate(10);	
+
+		$search_keyword = "";
+		$search_pincode = "";
+		$search_country = "";
+		$search_state= "";
+		$search_city = ""; 
+		$search_sub_city ="";
+		$search_pincode  = "";
+		$search_status="";
+	 
+		$countries = $this->countryList();
 	
-   ->orderBy('areas.id',"DESC")		
-	->paginate(10);		
-	$search_keyword=$search_pincode = $search_country = $search_state=$search_city =$search_sub_city =$search_pincode  = $search_status="";
-	 
-	 
-	  	 	$countries = $this->countryList();
-		
-			$states[''] = 'Please select state';
-			$cities[''] = 'Please select city';
-			$sub_cities[''] = 'Please select sub city';
+		$states[''] = 'Please select state';
+		$cities[''] = 'Please select city';
+		$sub_cities[''] = 'Please select sub city';
 			
 		$status[''] = 'All';
 		$status['Active'] = 'Active';
 		$status['Deactive'] = 'Deactive';
-	    
-			
-	    return view('admin.locations.areas.areas',compact('areas','cities','sub_cities','search_keyword','search_pincode','search_sub_city','search_country','search_state','search_city','search_status','countries','states','status'));
+
+	    return view('admin.locations.areas.index',compact('areas','cities','sub_cities','search_keyword','search_pincode','search_sub_city','search_country','search_state','search_city','search_status','countries','states','status'));
     }
 
-    public function add() {
-       
-			$countries = $this->countryList();
+    public function add() 
+	{   
+		$countries = $this->countryList();
   
 		$status['Active'] = 'Active';
 		$status['Deactive'] = 'Deactive';
 		
-	     return view('admin.locations.areas.areasadd',compact('countries','status'));
+		return view('admin.locations.areas.add',compact('countries','status'));
     }
 
-    public function delete($id) {
+    public function delete($id) 
+	{
         DB::table('areas')->where('id', '=', $id)->delete();
         return 'success';
     }
 
     public function editAreas($id) {
-
-
-     
-	 
 
        $data =  Areas::where('id',$id)->firstOrFail();
   
@@ -85,64 +87,58 @@ class AreasController extends Controller
        }               
       
         $areas = DB::table('areas')
-    ->select('sub_cities.id as sub_city_id','sub_cities.name as sub_city_name','areas.id as area_id','areas.name as area_name','areas.pincode as area_pincode',
-	'areas.status as status','states.id as state_id','states.name as state_name','cities.name as city_name','cities.id as city_id','countries.name as country_name','countries.id as country_id')
-    ->join('sub_cities', 'sub_cities.id', '=', 'areas.sub_city_id')
-	->join('cities', 'cities.id', '=', 'areas.city_id')
-	->join('states', 'areas.state_id', '=', 'states.id')
-	->join('countries', 'countries.id', '=', 'areas.country_id')
-	->where('areas.id','=',$id)
-	                ->get()
-                    ->toArray();
-	
-	
-					
+				->select('sub_cities.id as sub_city_id','sub_cities.name as sub_city_name','areas.id as area_id','areas.name as area_name','areas.pincode as area_pincode',
+				'areas.status as status','states.id as state_id','states.name as state_name','cities.name as city_name','cities.id as city_id','countries.name as country_name','countries.id as country_id')
+				->join('sub_cities', 'sub_cities.id', '=', 'areas.sub_city_id')
+				->join('cities', 'cities.id', '=', 'areas.city_id')
+				->join('states', 'areas.state_id', '=', 'states.id')
+				->join('countries', 'countries.id', '=', 'areas.country_id')
+				->where('areas.id','=',$id)
+				->get()
+				->toArray();
+
 		$stateList = DB::table('states')
             ->select('states.name','states.id')
 			->where('states.country_id','=',$areas[0]->country_id)
-	
-           ->orderBy('states.name',"ASC")		
-	
+           	->orderBy('states.name',"ASC")		
 		    ->get();
-			$states[''] = 'Please select state';
+
+		$states[''] = 'Please select state';
 			
-			foreach($stateList as $single){
-				$states[$single->id] = $single->name;		
-			}
-			
+		foreach($stateList as $single){
+			$states[$single->id] = $single->name;		
+		}
 					
 		$citiesList = DB::table('cities')
             ->select('cities.name','cities.id')
 			->where('cities.state_id','=',$areas[0]->state_id)
-	
-           ->orderBy('cities.name',"ASC")		
-	
-		    ->get();
-			$cities[''] = 'Please select city';
+			->orderBy('cities.name',"ASC")		
+			->get();
 			
-			foreach($citiesList as $single){
-				$cities[$single->id] = $single->name;		
-			}
+		$cities[''] = 'Please select city';
 			
-			$subcitiesList = DB::table('sub_cities')
+		foreach($citiesList as $single){
+			$cities[$single->id] = $single->name;		
+		}
+			
+		$subcitiesList = DB::table('sub_cities')
             ->select('sub_cities.name','sub_cities.id')
 			->where('sub_cities.city_id','=',$areas[0]->city_id)
-	
-           ->orderBy('sub_cities.name',"ASC")		
-	
+			->orderBy('sub_cities.name',"ASC")		
 		    ->get();
-			$sub_cities[''] = 'Please select sub city';
+
+		$sub_cities[''] = 'Please select sub city';
 			
-			foreach($subcitiesList as $single){
-				$sub_cities[$single->id] = $single->name;		
-			}
+		foreach($subcitiesList as $single){
+			$sub_cities[$single->id] = $single->name;		
+		}
 			
-				$countries = $this->countryList();
+		$countries = $this->countryList();
   
 		$status['Active'] = 'Active';
 		$status['Deactive'] = 'Deactive';
  
-        return view('admin.locations.areas.areasedit',compact('cities','states','sub_cities','areas','countries','status'));
+        return view('admin.locations.areas.edit',compact('cities','states','sub_cities','areas','countries','status'));
     }
 	
 	
@@ -247,12 +243,12 @@ class AreasController extends Controller
 		}	
 	}
 	$status[''] = 'All';
-		$status['Active'] = 'Active';
-		$status['Deactive'] = 'Deactive';
+	$status['Active'] = 'Active';
+	$status['Deactive'] = 'Deactive';
 
 	
 
-       return view('admin.locations.areas.areas',compact('areas','sub_cities','search_keyword','search_pincode','search_sub_city','search_country','search_state','search_city','search_status','status','countries','states','cities'));
+       return view('admin.locations.areas.index',compact('areas','sub_cities','search_keyword','search_pincode','search_sub_city','search_country','search_state','search_city','search_status','status','countries','states','cities'));
     }
 
     public function editPostAreas(Request $request,$id) {

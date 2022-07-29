@@ -1,69 +1,64 @@
 @extends('layouts.admin.app')
 @section('content')
     <div class="container-fluid">
-        <div class="page-titles">
-            <a href="javascript:void(0)">Add SubCity</a>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 p-0">
+       
+        <div class="row p-0">
+            <div class="col-lg-12">
                 <div class="card">
+                  <div class="card-header pb-3 pt-3 text-uppercase">
+                    	Add Sub City
+                        </div>
+              
                     <div class="card-body">
                         <form method="post" id="addcity" enctype="multipart/form-data">
-                            <fieldset>
-                                <!-- Name input-->
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="country">Country <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('country', $countries, '',['class' => 'form-control select2', 'id' => 'country']) !!}
-                                        <span class="help-block">{{ $errors->first('country', ':message') }}</span>
+                           <div class="row p-0">
+                                	<div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Country<span class="required_field">*</span> </label>    
+                                        {!! Form::select('country', $countries, '',['class' => 'select2 form-control required', 'id' => 'country']) !!}
+                                    </div> 	
                                     </div>
-                                </div>
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="state">State <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        <select name="state" id="state" class="form-control">
+                                	<div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">State<span class="required_field">*</span> </label>    
+                                      <select name="state" id="state" class="form-control required select2">
                                             <option value="">Please select state</option>
                                         </select>
-                                        <span class="help-block">{{ $errors->first('state', ':message') }}</span>
+                                       
+                                    </div> 	
                                     </div>
-                                </div>
-
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="city">City <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        <select name="city" id="city" class="form-control">
+                                    <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">City<span class="required_field">*</span> </label>    
+                                     <select name="city" id="city" class="select2 required form-control">
                                             <option value="">Please select city</option>
                                         </select>
-                                        <span class="help-block">{{ $errors->first('city', ':message') }}</span>
+                                       
+                                    </div> 	
                                     </div>
-                                </div>
-                                
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="name">Sub City Name <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        <input id="name" name="name" type="text" class="form-control" autocomplete="off" required>
+                                    <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Sub City Name<span class="required_field">*</span> </label>    
+                                       <input id="name" name="name" type="text" class="form-control required" autocomplete="off">
+                                       
+                                    </div> 	
                                     </div>
+                                    <div class="col-md-6">
+                                   		<div class="form-group">
+                                         <label class="control-label">Status<span class="required_field">*</span> </label>    
+                                        {!! Form::select('status', $status, '',['class' => 'select2 form-control required', 'id' => 'status']) !!}
+                                    </div> 	
+                                    </div>	
                                 </div>
-                                    
-                                <div class="form-group row label-floating is-empty">
-                                    <label class="control-label col-md-2 col-sm-3" for="status">Status <span style="color:red"> * </span> </label>    
-                                    <div class="col-md-10 col-sm-9">
-                                        {!! Form::select('status', $status, '',['class' => 'form-control select2', 'id' => 'status']) !!}
-                                        <span class="help-block">{{ $errors->first('status', ':message') }}</span>
-                                    </div>
-                                </div>
-                                    
-                                <!-- Form actions -->
-                                <div class="form-group">
+                              <div class="form-group text-center">
                                     <div class=" text-right">
-                                        <input type="submit" value="Submit" name="submit">
+                                        <input type="submit" class="btn btn-primary text-uppercase" value="Submit" name="submit">
+                                        <a href="{{url('/admin/sub_cities')}}"  data-toggle="tooltip" title="Cancel"><input type="button" class="btn btn-danger text-uppercase" value="Cancel"></a>
                                     </div>
                                 </div>
-
-                            </fieldset>
+                             
+                            
+                            
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
                     </div>
@@ -74,31 +69,18 @@
 @endsection
 
 @section('customjs')
+    <script type="text/javascript">
     jQuery(document).ready(function () {
 
-        $('#addcity').validate({
-            rules: {
-                country: {
-                    required: true
-                },
-                state: {
-                    required: true
-                },
-                city: {
-                    required: true
-                },
-                name: {
-                    minlength: 2,
-                    required: true
-                },
-            },
-            highlight: function (element) {
-                $(element).closest('.control-group').removeClass('success').addClass('error');
-            },
-            success: function (element) {
-                element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
-            }
-        });
+        $(".select2").select2();
+			jQuery(document).on("submit","#addcity",function(e){
+					if($('#addcity').valid()){
+						$('#addcity').submit();
+						return true;	
+					}else{
+						return false;		
+					}	
+				});
 
         $("#country").on('change',function(){
 
@@ -156,4 +138,6 @@
         });
 
     });
-@stop
+</script>
+
+@endsection
