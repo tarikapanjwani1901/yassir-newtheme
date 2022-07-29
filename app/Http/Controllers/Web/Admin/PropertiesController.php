@@ -479,8 +479,34 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		
 		//step 4
 		$Properties->video_toor =  $request->video_toor;
-		$Properties->pdf_brochure =  $request->pdf_brochure;
-		$Properties->sample_house_video =  $request->sample_house_video;
+		
+		
+		
+			
+        $target_dir = "images/properties/".$id;
+
+        if (!file_exists($target_dir))
+        {
+            mkdir($target_dir, 0777, true);
+        }
+		$destinationPath = public_path().'/images/properties/'.$id;
+		if($request->file('pdf_brochure')){	
+			$pdf_brochure = $request->file('pdf_brochure');
+       	 	$pdf_brochure_name = $photo->getClientOriginalName();  
+        
+       	 $thumb_img = Image::make($pdf_brochure->getRealPath())->resize(200, 200);
+       	 $thumb_img->save($destinationPath.'/'.$pdf_brochure_name,80);
+		 $Properties->pdf_brochure =  $pdf_brochure_name;
+
+		}
+		
+		if($request->file('sample_house_video')){	
+			$sample_house_video = $request->file('sample_house_video');
+       	 	$sample_house_video_name = $sample_house_video->getClientOriginalName();  
+        	$thumb_img = Image::make($sample_house_video->getRealPath())->resize(200, 200);
+       		 $thumb_img->save($destinationPath.'/'.$sample_house_video_name,80);
+			$Properties->sample_house_video =  $sample_house_video_name;
+		}
 		$Properties->save();
 
 	}
