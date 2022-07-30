@@ -9,7 +9,7 @@ class Properties extends Model
 {
     protected $table = 'properties';
 
-    public static function getAllProperties($search_keyword="",$search_vendor="",$search_for="",$search_sub_category="")
+    public static function getAllProperties($search_keyword="",$search_vendor="",$search_for="",$search_sub_category="",$search_completed_property="",$search_status="")
     {
         $properties = DB::table('properties')
 		 ->leftJoin('users', 'properties.property_vendor', '=', 'users.id')
@@ -28,6 +28,14 @@ class Properties extends Model
 		}
 		if($search_sub_category!=""){
 	  		$properties =  $properties->where('properties.sub_category','=',$search_sub_category);
+		}
+		
+		if($search_completed_property!=""){
+	  		$properties =  $properties->where('properties.completed_property','=',$search_completed_property);
+		}
+		
+		if($search_status!=""){
+	  		$properties =  $properties->where('properties.status','=',$search_status);
 		}
        	$properties = $properties->orderBy('properties.id', 'DESC');
 		$properties =  $properties->paginate(10);

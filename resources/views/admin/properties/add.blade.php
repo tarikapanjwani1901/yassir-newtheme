@@ -116,6 +116,15 @@ label {
                      <div id="step1" class="tab-pane" role="tabpanel">
                         <div class="col-md-12 paddleft0">
                            <div class="row">
+                              <div class="col-md-2">
+                                 <div class="form-group">
+                                    <label class="control-label">Status <span class="required_field">*</span></label>
+                                    <select name="status" id="status" class="form-control select2 required" >
+                                       <option value="Active">Active</option>
+                                       <option value="Inactive">Inactive</option>
+                                    </select>
+                                 </div>
+                              </div>
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Vendor <span class="required_field">*</span></label>
@@ -127,7 +136,7 @@ label {
                                     </select>
                                  </div>
                               </div>
-                              <div class="col-md-4">
+                              <div class="col-md-2">
                                  <div class="form-group">
                                     <label class="control-label">Property For <span class="required_field">*</span></label>
                                     <select name="property_for" id="property_for" class="form-control select2 required" >
@@ -300,9 +309,7 @@ label {
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Area <span class="required_field">*</span></label>
-                                    <select class="form-control required select2" name="area" id="area">
-                                       <option value="">Select Area</option>
-                                    </select>
+                                 	<input type="text" class="form-control required"  name="area" id="area" placeholder="Area"  >
                                  </div>
                               </div>
                               <div class="col-md-4">
@@ -1385,9 +1392,7 @@ $("#city").append('<option value="">Select City</option>');
   $("#sub_city").empty();
   $("#sub_city").append('<option value="">Select Sub City</option>');
 
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
-
+ 
   
                   
 if (country !== '') {
@@ -1421,9 +1426,7 @@ var state = $('#state').val();
   
   $("#sub_city").empty();
   $("#sub_city").append('<option value="">Select Sub City</option>');
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
-
+ 
                
 if (state !== '') {
 
@@ -1451,8 +1454,6 @@ $("#city").on('change',function(){
 var city = $('#city').val();
   $("#sub_city").empty();
   $("#sub_city").append('<option value="">Select Sub City</option>');
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
                
 if (city !== '') {
 
@@ -1475,31 +1476,6 @@ if (city !== '') {
 });
 
 
-$("#sub_city").on('change',function(){
-
-var sub_city = $('#sub_city').val();
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
-               
-if (sub_city !== '') {
-
-    //Populate Sub Category Drop Down
-    $.ajax({
-        type:"GET",
-        dataType: "json",
-        url:"{{url('/admin/getArea')}}?sub_city="+this.value,
-        success:function(data){
-            if ( data ) {
-                
-                $.each( data, function( key, value ) {
-                    $("#area").append('<option value="'+key+'">'+value+'</option>');
-                });
-            }
-        }
-    })
-  
-}
-});
 
 function getPropertyTypeDisable(){
 	var property_type = jQuery("#property_type").val().replace(/\s+/g, '');

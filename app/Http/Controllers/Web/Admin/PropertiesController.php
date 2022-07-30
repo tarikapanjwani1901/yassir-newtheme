@@ -27,7 +27,7 @@ class PropertiesController extends Controller
 		$CommonModel = new Common;
 		
 		$vendors =$CommonModel->getVendorList();
-		$search_keyword = $search_vendor = $search_for = $search_sub_category = "";
+		$search_keyword = $search_vendor = $search_for = $search_sub_category =$search_completed_property = $search_status = "";
 		$propertyFor[''] = "Property For";
 		$propertyFor['Sell'] = "Sell";
 		$propertyFor['Rent'] = "Rent";
@@ -41,9 +41,22 @@ class PropertiesController extends Controller
 		
 		
 		
+		$completed_property[''] = "Completed Property";
+		$completed_property['Yes'] = "Yes";
+		$completed_property['No'] = "No";
+		
+		
+		$status[''] = "Status";
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
+		
+		
+		
+		
 		
 
-        return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
+        return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','completed_property','status','search_completed_property','search_status','search_keyword','search_vendor','search_for','search_sub_category'));
     
     }
 	public function properties_search(Request $request)
@@ -53,6 +66,8 @@ class PropertiesController extends Controller
         $search_vendor = $request->get('search_vendor');
         $search_for = $request->get('search_for');
 		$search_sub_category = $request->get('search_sub_category');
+		$search_completed_property = $request->get('search_completed_property');
+		$search_status = $request->get('search_status');
 		
 		$propertyFor[''] = "Property For";
 		$propertyFor['Sell'] = "Sell";
@@ -66,17 +81,28 @@ class PropertiesController extends Controller
 		$SubCategory['VacantLandPlotting'] = "Vacant Land/ Plotting";
 		
 		
+		$completed_property[''] = "Completed Property";
+		$completed_property['Yes'] = "Yes";
+		$completed_property['No'] = "No";
+		
+		
+		$status[''] = "Status";
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
+		
+		
 		
 		
 	  
         //Get all the propertiess
-        $properties = Properties::getAllProperties($search_keyword,$search_vendor,$search_for,$search_sub_category);
+        $properties = Properties::getAllProperties($search_keyword,$search_vendor,$search_for,$search_sub_category,$search_completed_property,$search_status);
 		
 		$CommonModel = new Common;
 		
 		$vendors =$CommonModel->getVendorList();
 		
-	   return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
+	   return view('admin.properties.index',compact('properties','vendors','propertyFor','SubCategory','completed_property','status','search_completed_property','search_status','search_keyword','search_vendor','search_for','search_sub_category'));
     
       
     }
@@ -107,6 +133,14 @@ class PropertiesController extends Controller
 		DB::table('property_images')->where('property_id', '=', $id)->delete();
         return 'success';
     }
+	public function status($id,$status) {
+      $Properties = Properties::find($id);
+	  $Properties->status = $status;
+	  $Properties->save();
+	  
+	     return 'success';
+    }
+	
 
     public function editProperties($id) 
     {
@@ -180,6 +214,9 @@ class PropertiesController extends Controller
 		
 		
 		
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
 		
 		$CommonModel=  new Common;	
 		$state = $CommonModel->getStateByCountry($p->country);
@@ -210,7 +247,7 @@ class PropertiesController extends Controller
 		}
 		
          return view('admin.properties.edit',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
-		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','p','property_units','unitAreas','properties_unit_type_area','images','vendors','country'));
+		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','status','p','property_units','unitAreas','properties_unit_type_area','images','vendors','country'));
 
     }
 
@@ -226,6 +263,7 @@ class PropertiesController extends Controller
 		$Properties->property_for = $request->property_for; 
 		$Properties->category = $request->category; 
 		$Properties->sub_category = $request->sub_category; 
+		$Properties->status = $request->status;
 		$Properties->save();
 		
 		$PropertiesID = $Properties->id;

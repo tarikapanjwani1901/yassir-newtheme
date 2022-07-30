@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/admin/properties/edit/{id}', [PropertiesController::class, 'editPostProperties']);
         Route::post('/admin/properties/delete/{id}', [PropertiesController::class, 'delete']);
 		Route::get('/admin/properties_search',[PropertiesController::class, 'properties_search']);
+		Route::post('/admin/properties/status/{id}/{status}', [PropertiesController::class, 'status']);
 		
 		Route::get('/admin/getState',[CommonController::class,'getStateByCountry']);
 		Route::get('/admin/getCity',[CommonController::class,'getCityByState']);

@@ -198,7 +198,7 @@ class LoginController extends Controller
 
     public function otpSubmit(Request $request)
     {
-
+		
 		if($_POST['otp']==""){
 			return redirect('login')->with('error',trans('Please enter otp.'));
 		}else{
@@ -214,7 +214,7 @@ class LoginController extends Controller
                 
                 $user = Auth::user();
                 $_SESSION['user'] = $user;
-
+			
                 if($user->user_role==env('ADMIN_ROLE_ID')){
                     session(['user_role'=>'admin']);
                     return Redirect::route("admindashboard");
