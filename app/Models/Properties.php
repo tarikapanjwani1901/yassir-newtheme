@@ -54,4 +54,34 @@ class Properties extends Model
 		return $response;
 
 	}
+
+	public static function getFavouritePropertyListById($user_id){
+
+        $query = Properties::query();
+        $query = $query->join('vendor_listing_favourite','vendor_listing_favourite.vl_id','=','properties.id');
+        $query = $query->select('properties.project_name','properties.address','properties.possesion_date','properties.id');
+        $query = $query->orderBy('properties.id','desc');
+        $query = $query->where('vendor_listing_favourite.u_id',$user_id);
+        $response = $query->get();
+
+        return $response;
+        
+    }
+
+	public static function getPropertyByUserID($user_id,$limit)
+	{
+		$query = Properties::query();
+		$query = $query->select('properties.project_name','properties.address','properties.possesion_date',
+		'properties.id');
+        $query = $query->orderBy('properties.id','desc');
+		$query = $query->where('properties.property_vendor',$user_id);
+
+		if(isset($limit) && $limit>0)
+        	$query= $query->limit($limit);
+			
+        $response = $query->get();
+
+		return $response;
+	}
+
 }
