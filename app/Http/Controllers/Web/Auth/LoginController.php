@@ -55,9 +55,9 @@ class LoginController extends Controller
         return view('vendor.auth.login');
     }
 
-    public function showMarketingLoginForm()
+    public function showSalesLoginForm()
     {
-        return view('marketing.auth.login');
+        return view('sales.auth.login');
     }
 
     public function generateOTP(Request $request)
@@ -74,15 +74,21 @@ class LoginController extends Controller
 		}
         
         $users_info = DB::table('users')
-            ->select('activations.completed','activations.user_id')
+            ->select('activations.completed','activations.user_id','users.user_role')
             ->join('activations','activations.user_id','users.id')
             ->groupby('activations.user_id')->distinct()
             ->where('users.deleted_at','=',NULL)
             ->where('users.id',$checkUser->id)->get();
 
+        $admin_role_id = env('ADMIN_ROLE_ID');
+
 		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
 			return redirect()->back()->with('error','Account not activated');
-		}else{
+		}
+        else if(isset($users_info[0]->user_role) && $users_info[0]->user_role!=$admin_role_id){
+            return redirect()->back()->with('error','Invalid Mobile Number');
+        }
+        else{
 		
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
@@ -118,15 +124,21 @@ class LoginController extends Controller
 		}
         
         $users_info = DB::table('users')
-            ->select('activations.completed','activations.user_id')
+            ->select('activations.completed','activations.user_id','users.user_role')
             ->join('activations','activations.user_id','users.id')
             ->groupby('activations.user_id')->distinct()
             ->where('users.deleted_at','=',NULL)
             ->where('users.id',$checkUser->id)->get();
 
+        $vendor_role_id = env('VENDOR_ROLE_ID');
+
 		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
 			return redirect()->back()->with('error','Account not activated');
-		}else{
+		}
+        else if(isset($users_info[0]->user_role) && $users_info[0]->user_role!=$vendor_role_id){
+            return redirect()->back()->with('error','Invalid Mobile Number');
+        }
+        else{
 		
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
@@ -153,7 +165,10 @@ class LoginController extends Controller
         return back()->withInput($request->only('mobile_number'));
     }
 
-    public function marketinggenerateOTP(Request $request){
+    public function salesgenerateOTP(Request $request)
+    {
+        $sales_role_id = env('SALES_ROLE_ID');
+
         $checkUser = DB::table('users')->select('*')->where('mobile', $_POST['mobile_number'])->first();
        
 		if(empty( $checkUser)){
@@ -161,15 +176,20 @@ class LoginController extends Controller
 		}
         
         $users_info = DB::table('users')
-            ->select('activations.completed','activations.user_id')
+            ->select('activations.completed','activations.user_id','users.user_role')
             ->join('activations','activations.user_id','users.id')
             ->groupby('activations.user_id')->distinct()
             ->where('users.deleted_at','=',NULL)
             ->where('users.id',$checkUser->id)->get();
 
+       
 		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
 			return redirect()->back()->with('error','Account not activated');
-		}else{
+		}
+        else if(isset($users_info[0]->user_role) && $users_info[0]->user_role!=$sales_role_id){
+            return redirect()->back()->with('error','Invalid Mobile Number');
+        }
+        else{
 		
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
@@ -189,7 +209,7 @@ class LoginController extends Controller
 
             session(['mobile_number'=>$_POST['mobile_number']]);
     
-            return Redirect::route("marketinglogin")->with('otp_send',  $request->mobile_number);		 
+            return Redirect::route("saleslogin")->with('otp_send',  $request->mobile_number);		 
 			
 		}	
 
@@ -223,9 +243,9 @@ class LoginController extends Controller
                     session(['user_role'=>'vendor']);
                     return Redirect::route("vendordashboard");
                 }
-                else if($user->user_role==env('MARKETING_ROLE_ID')){
-                    session(['user_role'=>'marketing']);
-                    return Redirect::route("marketingdashboard");
+                else if($user->user_role==env('SALES_ROLE_ID')){
+                    session(['user_role'=>'sales']);
+                    return Redirect::route("salesdashboard");
                 }
                 else{
 

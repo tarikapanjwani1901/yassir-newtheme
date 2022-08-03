@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MarketingMiddleware
+class SalesMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class MarketingMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if( Auth::check() && Auth::user()->user_role==env('MARKETING_ROLE_ID'))
+        if( Auth::check() && Auth::user()->user_role==env('SALES_ROLE_ID'))
         {
             return $next($request);
         }

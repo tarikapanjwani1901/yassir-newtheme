@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Marketing;
+namespace App\Http\Controllers\Web\Sales;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserOtp;
@@ -12,12 +12,12 @@ use Redirect;
 use DB;
 use App\Models\User;
 
-class MarketingDashboardController extends Controller
+class SalesDashboardController extends Controller
 {
 
     public function index()
     {
-        return view('marketing.dashboard');
+        return view('sales.dashboard');
     }
 
 }
