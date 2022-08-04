@@ -52,7 +52,7 @@
                                             <div>
                                         <span class="btn btn-default btn-file">
                                             <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
-                                            <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control"/>
+                                            <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control required"/>
                                         </span>
                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
                                        	<br />

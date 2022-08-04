@@ -32,40 +32,52 @@
                                     <input id="title" name="title" type="text" value="{{ $advertise->title }}"  class="form-control required"  autocomplete="off">
                                     </div> 	
                                 </div>
-                                     	
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Image<span class="required_field">*</span> </label>    
+                                     
+                                    <div class="col-md-12">
+                                   		<div class="form-group">
+                                         <label class="control-label" style="vertical-align:top;">Image<span class="required_field">*</span> </label>    
                                			<div class="fileinput <?php echo (!empty($advertise->file_name))?"fileinput-exists":"fileinput-new" ?> " data-provides="fileinput">
+                                        
                                             <div>
-                                                <span class="btn btn-default btn-file">
-                                                    <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
-                                                    <input id="image" accept="image/*" name="image" type="file" class="form-control "/>
-                                                </span>
-                                                @if(!empty($advertise->file_name))
-                                                    <a href="#" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase adv_image" data-dismiss="fileinput">Remove</a>
-                                                @else
-                                                    <a href="#" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
-                                                @endif 
-                                            </div>
-                                      	    <div class="fileinput-preview thumbnail" style="max-width: 200px; max-height: 200px;">
-                                                @if($advertise->file_name)
-                                                    @if((substr($advertise->file_name, 0,5)) == 'https')
-                                                        <img src="{{ $advertise->file_name }}" alt="img" class="img-responsive"/>
-                                                    @else
-                                                        <img src="{!! url('/').'/images/advertise/'.$advertise->id .'/'. $advertise->file_name!!}" alt="img" class="img-responsive"/>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
+                                            @if($advertise->file_name)
+                                          	  <input id="inputFile" accept="image/*" name="image" type="file" class="form-control"/>
+                                          
+                                            @else
+                                            <input id="inputFile" accept="image/*" name="image" type="file" class="form-control requiresd"/>
+                                            @endif
+                                        </span>
+                                        <div class="fileinput-preview thumbnail" style="max-width: 200px; max-height: 200px;">
+                                           	  @if($advertise->file_name)
+                                                        @if((substr($advertise->file_name, 0,5)) == 'https')
+                                                            <img src="{{ $advertise->file_name }}" alt="img" class="img-responsive"/>
+                                                        @else
+                                                            <img src="{!! url('/').'/images/advertise/'.$advertise->id .'/'. $advertise->file_name!!}" alt="img" class="img-responsive"/>
+                                                        @endif
                                                     @endif
-                                                @endif
+                                           </div>
+                                        <br />
+                                        @if(!empty($advertise->file_name))
+                                        <a href="#" style="margin-left:90px;" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
+                                         @else
+                                        <a href="#" style="margin-left:90px;" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
+                                        
+                                         @endif 
                                             </div>
+                                      	   
+                                            
                                         </div>
+                                       
                                     </div> 	
-                                </div>
+                                    </div> 	
+                                
                                 		
                                 </div>
                                 <div class="form-group text-center">
                                     <div class=" text-right">
                                         <input type="submit" class="btn btn-primary text-uppercase" value="Submit" name="submit">
-                                        <a href="{{url('/admin/testimonials')}}"  data-toggle="tooltip" title="Cancel"><input type="button" class="btn btn-danger text-uppercase" value="Cancel"></a>
+                                        <a href="{{url('/admin/advertise')}}"  data-toggle="tooltip" title="Cancel"><input type="button" class="btn btn-danger text-uppercase" value="Cancel"></a>
                                     </div>
                                 </div>
 

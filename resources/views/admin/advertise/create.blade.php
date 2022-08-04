@@ -30,26 +30,30 @@
                                 </div>
                                      	
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Image<span class="required_field">*</span> </label>    
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                   		<div class="form-group">
+                                         <label class="control-label" style="vertical-align:top;">Image<span class="required_field">*</span> </label>    
+                               			<div class="fileinput fileinput-new" data-provides="fileinput">
+                                        
                                             <div>
-                                                <span class="btn btn-default btn-file">
-                                                    <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
-                                                    <input id="image" accept="image/*" name="image" type="file" class="required form-control"/>
-                                                </span>
-                                                <a href="#" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
+                                            <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control required"/>
+                                        </span>
+                                           <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+                                       	<br />
+                                        <a href="#" style="margin-left:90px;" class="btn btn-danger fileinput-exists mb-1 btn btn-danger text-uppercase" data-dismiss="fileinput">Remove</a>
                                             </div>
-                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+                                      	     
                                         </div>
+                                       
                                     </div> 	
-                                </div>
+                                    </div>
                                 		
                                 </div>
                                 <div class="form-group text-center">
                                     <div class=" text-right">
                                         <input type="submit" class="btn btn-primary text-uppercase" value="Submit" name="submit">
-                                        <a href="{{url('/admin/testimonials')}}"  data-toggle="tooltip" title="Cancel"><input type="button" class="btn btn-danger text-uppercase" value="Cancel"></a>
+                                        <a href="{{url('/admin/advertise')}}"  data-toggle="tooltip" title="Cancel"><input type="button" class="btn btn-danger text-uppercase" value="Cancel"></a>
                                     </div>
                                 </div>
 

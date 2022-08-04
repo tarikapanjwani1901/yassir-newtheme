@@ -15,29 +15,25 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ URL::to('admin/states') }}" >States List</a></li>
-                    <li><a href="{{ URL::to('admin/cities') }}" >All Cities  List</a></li>
+                    <li><a href="{{ URL::to('admin/cities') }}" >Cities  List</a></li>
                     <li><a href="{{ URL::to('admin/sub_cities') }}" >Sub Cities  List</a></li>
-                    <li><a href="{{ URL::to('admin/areas') }}" >Areas List</a></li>
+                    <?php /*?><li><a href="{{ URL::to('admin/areas') }}" >Areas List</a></li><?php */?>
                 </ul>
             </li>
 
             <li>
-                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <a  href="{{ URL::to('admin/testimonials') }}" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
-                    <span class="nav-text">Testimonial</span>
+                    <span class="nav-text">Testimonials</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('admin/testimonials') }}" >Testimonial List</a></li>
-                </ul>
+               
             </li>
             <li>
-                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <a  href="{{ URL::to('admin/properties') }}" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Properties</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('admin/properties') }}" >Properties List</a></li>
-                </ul>
+               
             </li>
             <li>
                 <a href="{{ URL::to('admin/bookvisit') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
@@ -48,24 +44,18 @@
             <li>
                 <a href="{{ URL::to('admin/inquiry') }}" class="ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
-                    <span class="nav-text">Inquiry Listing</span>
+                    <span class="nav-text">Inquiry</span>
                 </a>
             </li>
             <li>
-                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <a  href="{{ URL::to('admin/advertise') }}" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Advertisement</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('admin/advertise') }}" >Advertisement List</a></li>
-                    <li><a href="{{ URL::to('admin/advertise/add') }}" >Add Advertisement</a></li>
-                </ul>
+               
             </li>
         </ul>
         
-        <div class="copyright"  style="display: none;">
-            <p><strong>Mophy Payment Admin Dashboard</strong> © 2022 All Rights Reserved</p>
-            <p>Made with <span class="heart"></span> by DexignZone</p>
-        </div>
+        
     </div>
 </div>

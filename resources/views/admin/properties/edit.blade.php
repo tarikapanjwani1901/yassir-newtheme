@@ -180,7 +180,7 @@ label {
                               <div class="col-md-6" id="ProjectNameApartmentName">
                                  <div class="form-group">
                                     <label class="control-label">Project Name / Apartment Name/ Society Name  <span class="required_field">*</span></label>
-                                    <input type="text" class="form-control required" value="{{$p->project_name}}" name="project_name"/>
+                                    <input type="text" placeholder="Project Name / Apartment Name/ Society Name" class="form-control required" value="{{$p->project_name}}" name="project_name"/>
                                  </div>
                               </div>
                            </div>
@@ -213,7 +213,7 @@ label {
                               <div class="col-md-6 locality_prop">
                                  <div class="form-group">
                                     <label class="control-label">Locality</label>
-                                    <input type="text" class="form-control" name="locality" value="{{$p->locality}}"/>
+                                    <input type="text" placeholder="Locality" class="form-control" name="locality" value="{{$p->locality}}"/>
                                  </div>
                               </div>
                               <div class="col-md-6 locatedinside_prop">
@@ -228,13 +228,13 @@ label {
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label class="control-label">Rera Number</label>
-                                    <input type="text" class="form-control" name="rera_number" value="{{$p->rera_number}}"/>
+                                    <input type="text" class="form-control" placeholder="Rera Number" name="rera_number" value="{{$p->rera_number}}"/>
                                  </div>
                               </div>
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label class="control-label">Rera Profile Link </label>
-                                    <input type="text" class="form-control" name="rera_link" value="{{$p->rera_link}}"/>
+                                    <input type="text" class="form-control" placeholder="Rera Profile Link" name="rera_link" value="{{$p->rera_link}}"/>
                                  </div>
                               </div>
                            </div>
@@ -302,12 +302,15 @@ label {
                            <div class="col-lg-12">
                               <div class="panel panel-primary ">
                                  <div class="panel-body">
-                                    <div class="form-group col-md-12">
+                                    <div class="row">
+                                    <div class="form-group col-md-6">
                                        <label class="col-sm-2 control-label">
                                        Select <span class="required_field">*</span>
                                        </label>
                                        <div class="row p-0">
-                                          <div class="col-sm-5">
+                                          <div class="col-sm-8">
+                                             <div class="property_unit_type_prop">
+                                             
                                              <select name="property_unit_type" id="property_unit_type" class="select2 form-control" >
                                                 <option value="">Select</option>
                                                 <option value="1BHK">1BHK</option>
@@ -317,18 +320,46 @@ label {
                                                 <option value="3.5 BHK">3.5 BHK</option>
                                                 <option value="4BHK">4BHK</option>
                                                 <option value="5BHK">5BHK</option>
-                                                <option value="6BHK">6BHK</option>
                                              </select>
+                                             </div>
+                                             <div class="property_unit_type_ind_prop">
+                                              <select name="property_unit_type_ind" id="property_unit_type_ind" class="select2 form-control" >
+                                                <option value="">Select</option>
+                                                <option value="2BHK">2BHK</option>
+                                                <option value="3BHK">3BHK</option>
+                                                <option value="4BHK">4BHK</option>
+                                                <option value="5BHK">5BHK</option>
+                                                <option value="6BHK" >6BHK</option>
+                                             </select>
+                                             </div>
                                           </div>
                                           <div class="col-sm-2">   <button id="add_property" type="button" name="" class="add_property btn btn-primary " >Add</button></div>
                                        </div>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                       <label class="col-sm-2 control-label">Select Area
+                                        <span class="required_field">*</span>
+                                       </label>
+                                       <div class="row p-0">
+                                          <div class="col-sm-10">
+                                             <select name="property_areas" id="property_areas" class="select2 form-control" >
+                                               <option value="Square Yard">Square Yard</option>
+                                                <option value="Square Feet">Square Feet</option>
+                                                <option value="Square Meter">Square Meter</option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    </div>
                                     <div class="accordion accordion-header-bg accordion-bordered property_type_accordion" id="accordionUnitType" >
                                     	@if(!empty($property_units))
-                                        	@foreach($property_units as $k=>$v)
+                                        	@php 
+                                            $counter = 0;
+                                        	@endphp
+                                            @foreach($property_units as $k=>$v)
                                             	
                                             	@php 
-                                                	$counter = 0;
+                                                	
                                                     $db_property_type = str_replace(" ","",$p->property_type);
                                                     $db_value = $v->property_unit; 
                                                     
@@ -369,7 +400,7 @@ label {
             
 		<tr><td><span class="counter">{{$unitCounter+1}}</span></td><td>
         <input type="text" value="{{$units->carpet_area}}" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][carpet_area][{{$unitCounter}}]" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td>
-        <td><input type="text" value="{{$units->super_builtup_area}}" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][{{$unitCounter}}]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td>
+        <td><input type="text"  onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" value="{{$units->super_builtup_area}}" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][{{$unitCounter}}]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td>
         <td><div data-id="{{$counter}}" data-value="{{$db_value}}" class="delelteItem" data-type="{{$db_property_type}}"><i class="fa fa-times"></i></div></td>
         </tr>
         @php 
@@ -378,7 +409,7 @@ label {
         @endforeach	
         @else
         <tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][carpet_area][0]" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td>
-        <td><input type="text" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][0]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td>
+        <td><input type="text"  onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][0]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td>
         <td><div data-id="{{$counter}}" data-value="{{$db_value}}" class="delelteItem" data-type="{{$db_property_type}}"><i class="fa fa-times"></i></div></td>
         </tr>
         @endif
@@ -387,9 +418,9 @@ label {
 		</table>
          @endif
          
-         @if($db_property_type=="IndependentHouse" || $db_property_type=="Farmhouse"){ 
+         @if($db_property_type=="IndependentHouse" || $db_property_type=="Farmhouse")
 		  
-        <table class="table table-bordered table-hover  table-striped <?php echo $db_property_type?>_items_table_{{$counter}}">';
+        <table class="table table-bordered table-hover  table-striped <?php echo $db_property_type?>_items_table_{{$counter}}">
         <thead class="thead-primary">
 <tr>
 <th width="30">Sr.</th>
@@ -411,7 +442,7 @@ label {
 <tr><td><span class="counter">{{$unitCounter+1}}</span></td>
 	<td><input type="text" value="{{$units->plot_area}}" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][plot_area][{{$unitCounter}}]" class="plot_area_txt form-control number required" placeholder="Plot Area"></td>
     <td><input type="text" value="{{$units->carpet_area}}" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][carpet_area][{{$unitCounter}}]" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td>
-    <td><input type="text" value="{{$units->super_builtup_area}}" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][{{$unitCounter}}]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area"></td>
+    <td><input type="text" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" value="{{$units->super_builtup_area}}" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][{{$unitCounter}}]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area"></td>
     <td><div  data-type="{{$db_property_type}}" data-id="{{$counter}}" data-value="{{$db_value}}" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>
 	@php 
              $unitCounter++;
@@ -422,7 +453,7 @@ label {
 	<tr><td><span class="counter">1</span></td>
 	<td><input type="text" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][plot_area][0]" class="plot_area_txt form-control number required" placeholder="Plot Area"></td>
     <td><input type="text" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][carpet_area][0]" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td>
-    <td><input type="text" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][0]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area" value=""></td>
+    <td><input type="text" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][super_builtup_area][0]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area" value=""></td>
     <td><div  data-type="{{$db_property_type}}" data-id="{{$counter}}" data-value="{{$db_value}}" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>
     
     @endif
@@ -566,11 +597,95 @@ label {
                 <label class="col-sm-2 control-label">
                     Possession Date <span class="required_field">*</span>
                 </label>
-                <div class="col-sm-10">
-                    <input type="text" name="propertyDetails[{{$db_property_type}}][{{$db_value}}][possession_date]" value="{{$v->possession_date}}" class="form-control possesion_date required possesion_by">
-                    
+                <div class="col-sm-2">
+                	    <select name="propertyDetails[{{$db_property_type}}][{{$db_value}}][possession_month]" class="select2 required form-control" >
+                        <?php foreach($MonthNameList as $index=>$data){ ?>
+                        <option value="<?php echo $index; ?>" <?php echo ($v->possession_month==$index)?"selected":"" ?>><?php echo $data; ?></option>
+                        <?php } ?>
+                     </select>
+
+                  </div>  
+                  <div class="col-sm-2">
+                   <select name="propertyDetails[{{$db_property_type}}][{{$db_value}}][possession_year]" class="select2 required form-control" >
+                        <?php foreach($MonthNameList as $index=>$data){ ?>
+                        <option value="<?php echo $index; ?>" <?php echo ($v->possession_year==$index)?"selected":"" ?>><?php echo $data; ?></option>
+                        <?php } ?>
+                     </select>
                 </div>
             </div>
+            
+            <div class="ResidentialPricingBlock">
+  <div class="row">
+    <div class="col-md-12">
+      <label class="d-block">Property Ownership: </label>
+      <input type="radio"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][Residentialproperty_ownership]" <?php echo ($v->property_ownership=="Freehold" || $v->property_ownership=="")? "checked":""; ?>   value="Freehold">
+      &nbsp;
+      <label class="fw-normal">Freehold</label>
+      &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][Residentialproperty_ownership]" <?php echo ($v->property_ownership=="Leases hold")? "checked":""; ?>   value="Leases hold">
+      &nbsp;
+      <label class="fw-normal">Leases hold</label>
+      &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][Residentialproperty_ownership]" <?php echo ($v->property_ownership=="Cooperative")? "checked":""; ?>  value="Cooperative">
+      &nbsp;
+      <label class="fw-normal">Cooperative</label>
+      &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][Residentialproperty_ownership]" <?php echo ($v->property_ownership=="Power of attorney")? "checked":""; ?>  value="Power of attorney">
+      &nbsp;
+      <label class="fw-normal">Power of attorney</label>
+      &nbsp;&nbsp;&nbsp; </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Expected Price <span class="required_field">*</span></label>
+        <input type="text" value="{{$v->expected_price}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialExpectedPrice_<?php echo $db_property_type."_".$db_value;?>" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialExpectedPrice]" placeholder="Expected Price" />
+      </div> 
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Basic Price <span class="required_field">*</span></label>
+        <input type="text" value="{{$v->basic_price}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialBasicPrice_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialBasicPrice]" placeholder="Basic Price" />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Tax and gov charges <span class="required_field">*</span> </label>
+        <input type="text" value="{{$v->taxandgovcharges_price}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialTaxandgovchargesPrice_<?php echo $db_property_type."_".$db_value;?>" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialTaxandgovchargesPrice]"  placeholder="Tax and gov charges" />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>All-inclusive Price <span class="required_field">*</span> </label>
+        <input type="text" value="{{$v->all_inclusive_price}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialAllinclusivePrice_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialAllinclusivePrice]"  placeholder="All-inclusive Price" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Booking amount <span class="required_field">*</span> </label>
+        <input type="text" value="{{$v->booking_amount}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialBookingamount_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialBookingamount]" placeholder="Booking amount" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Membership Charge <span class="required_field">*</span> </label>
+        <input type="text" value="{{$v->membership_charge}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')"  onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialMembershipCharge_<?php echo $db_property_type."_".$db_value;?>"    name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialMembershipCharge]"  placeholder="All-inclusive Price" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Maintenance <span class="required_field">*</span> </label>
+        <input type="text" value="{{$v->maintenance}}"  onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialMaintenance_<?php echo $db_property_type."_".$db_value;?>" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialMaintenance]"  placeholder="Maintenance" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label>Total Price: <input type="hidden"  class="HiddenResidentialTotalPrice" id="HiddenResidentialTotalPrice_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][HiddenResidentialTotal]" value="{{$v->total_price}}"> <span class="ResidentialTotalPrice" id="ResidentialTotalPrice_<?php echo $db_property_type."_".$db_value;?>">{{$v->total_price}}</span></label>
+    </div>
+  </div>
+</div>
+
 
             </div>
             </div>
@@ -592,22 +707,35 @@ label {
                            </div>
                         </div>
                         <div class="VacantLandPlotting_prop">
+                        
+                        	
                            <div class="row">
-                              <div class="col-md-6">
+                                          <div class="col-md-4">
+                                              <div class="form-group">
+                               
+                                            <label>Select Area</label>
+                                      		 <select name="VacantLandPlottingproperty_areas" id="VacantLandPlottingproperty_areas" class="select2 form-control" >
+                                               <option value="Square Yard">Square Yard</option>
+                                                <option value="Square Feet">Square Feet</option>
+                                                <option value="Square Meter">Square Meter</option>
+                                             </select>
+                                             </div>
+                                          </div>
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Area details <span class="required_field">*</span></label>
                                     <input type="text" placeholder="Area details" value="{{$p->area_details}}" name="VacantLandPlottingAreadetails" class="form-control required number" />
                                  </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Ploat area <span class="required_field">*</span> </label>
-                                    <input type="text" placeholder="Ploat area" value="{{$p->plot_area}}" name="VacantLandPlottingCarpetarea" class="form-control required number" />
+                                    <input type="text" placeholder="Ploat area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" value="{{$p->plot_area}}" name="VacantLandPlottingCarpetarea" class="form-control required number" />
                                  </div>
                               </div>
                            </div>
                            <div class="form-group row label-floating is-empty">
-                              <label  class="col-sm-2 control-label"> Status </label>
+                              <label  class="col-sm-2 control-label"> Status <span class="required_field">*</span></label>
                               <div class="col-sm-10">
                                  <input type="radio"  name="VacantLandPlottingpropertystatus" data-id="0" data-type="VacantLandPlottingpropertyStatus" class="propertystatus" <?php echo ($p->property_status=="Ready to move")?"checked":""; ?> value="Ready to move">
                                  &nbsp;
@@ -627,9 +755,70 @@ label {
                            </div>
                            <div class="form-group row label-floating is-empty" id="possesion_by_div_VacantLandPlottingpropertyStatus_0" style="display:<?php echo ($p->property_status=="Under Construction")?"flex":"none"; ?>;">
                               <label  class="col-sm-2 control-label"> Possession Date <span class="required_field">*</span></label>
-                              <div class="col-sm-10">
-                                 <input type="text" class="form-control required possesion_date" value="{{$p->possesion_date}}" name="VacantLandPlottingpossession_date" placeholder="Possession Date">
-                              </div>
+                              
+                              <div class="col-sm-2">
+                	 {!! Form::select('VacantLandPlottingpossession_month', $MonthNameList,$p->possession_month,['class' => 'select2 required form-control']) !!}
+
+                  </div>  
+                  <div class="col-sm-2">
+                	{!! Form::select('VacantLandPlottingpossession_year', $yearList,$p->possession_year,['class' => 'select2 required form-control']) !!}
+					
+                </div>
+                           
+                           </div>
+                           <div class="VacantLandPlottingPricingBlock">
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label class="d-block">Property Ownership: </label>
+                                	<input type="radio"  name="VacantLandPlottingproperty_ownership" <?php echo ($p->property_ownership=="Freehold" || $p->property_ownership=="")? "checked":""; ?>   value="Freehold">
+                                    &nbsp;
+                                    <label class="fw-normal">Freehold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="VacantLandPlottingproperty_ownership" <?php echo ($p->property_ownership=="Leases hold")? "checked":""; ?>   value="Leases hold">
+                                    &nbsp;
+                                    <label class="fw-normal">Leases hold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="VacantLandPlottingproperty_ownership" <?php echo ($p->property_ownership=="Cooperative")? "checked":""; ?>  value="Cooperative">
+                                    &nbsp;
+                                    <label class="fw-normal">Cooperative</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="VacantLandPlottingproperty_ownership" <?php echo ($p->property_ownership=="Power of attorney")? "checked":""; ?>  value="Power of attorney">
+                                    &nbsp;
+                                    <label class="fw-normal">Power of attorney</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Expected Price <span class="required_field">*</span></label>
+                                        <input type="text" value="{{$p->expected_price}}" onkeyup="calculateBasicPrice()"  onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingExpectedPrice" placeholder="Expected Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Basic Price <span class="required_field">*</span></label>
+                                        <input type="text" value="{{$p->basic_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingBasicPrice" placeholder="Basic Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Tax and gov charges <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->taxandgovcharges_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingTaxandgovchargesPrice" placeholder="Tax and gov charges" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>All-inclusive Price <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->all_inclusive_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingAllinclusivePrice" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label>Total Price: <span class="VacantLandPlottingTotalPrice">{{$p->total_price}}</span></label>
+                                </div>
+                           </div>
                            </div>
                         </div>
                         <div class="industrial_prop industrial_prop_hide">
@@ -655,12 +844,15 @@ label {
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>Super built-up area <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Super built-up area" value="{{$p->super_builtup_area}}" name="Industrialsuper_builtup_area" class="form-control number required" />
+                                    <input type="text" placeholder="Super built-up area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"  value="{{$p->super_builtup_area}}" name="Industrialsuper_builtup_area" class="form-control number required" />
                                  </div>
                               </div>
                            </div>
+                           
+                           
+                           
                            <div class="form-group row label-floating is-empty">
-                              <label  class="col-sm-2 control-label"> Status </label>
+                              <label  class="col-sm-2 control-label"> Status <span class="required_field">*</span></label>
                               <div class="col-sm-10">
                                  <input type="radio"  name="Industrialpropertystatus" data-id="0" data-type="IndustrialpropertyStatus" class="propertystatus" <?php echo ($p->property_status=="Ready to move")?"checked":""; ?> value="Ready to move">
                                  &nbsp;
@@ -681,9 +873,70 @@ label {
                            </div>
                            <div class="form-group row label-floating is-empty" id="possesion_by_div_IndustrialpropertyStatus_0" style="display:<?php echo ($p->property_status=="Under Construction")?"flex":"none"; ?>;">
                               <label  class="col-sm-2 control-label"> Possession Date <span class="required_field">*</span></label>
-                              <div class="col-sm-10">
-                                 <input type="text" class="form-control required possesion_date"  value="{{$p->possesion_date}}" name="Industrialpossession_date" placeholder="Possession Date">
-                              </div>
+                              
+                               <div class="col-sm-2">
+                	 {!! Form::select('Industrialpossession_month', $MonthNameList,$p->possession_month,['class' => 'select2 required form-control']) !!}
+
+                  </div>  
+                  <div class="col-sm-2">
+                	{!! Form::select('Industrialpossession_year', $yearList,$p->possession_year,['class' => 'select2 required form-control']) !!}
+					
+                </div>
+                             
+                           </div>
+                           <div class="IndustrialPricingBlock">
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label class="d-block">Property Ownership: </label>
+                                	<input type="radio"  name="Industrialproperty_ownership" <?php echo ($p->property_ownership=="Freehold" || $p->property_ownership=="")? "checked":""; ?>   value="Freehold">
+                                    &nbsp;
+                                    <label class="fw-normal">Freehold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="Industrialproperty_ownership" <?php echo ($p->property_ownership=="Leases hold")? "checked":""; ?>   value="Leases hold">
+                                    &nbsp;
+                                    <label class="fw-normal">Leases hold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Industrialproperty_ownership" <?php echo ($p->property_ownership=="Cooperative")? "checked":""; ?>  value="Cooperative">
+                                    &nbsp;
+                                    <label class="fw-normal">Cooperative</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Industrialproperty_ownership" <?php echo ($p->property_ownership=="Power of attorney")? "checked":""; ?>  value="Power of attorney">
+                                    &nbsp;
+                                    <label class="fw-normal">Power of attorney</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Expected Price <span class="required_field">*</span></label>
+                                        <input type="text" value="{{$p->expected_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialExpectedPrice" placeholder="Expected Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Basic Price <span class="required_field">*</span></label>
+                                        <input type="text" value="{{$p->basic_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialBasicPrice" placeholder="Basic Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Tax and gov charges <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->taxandgovcharges_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialTaxandgovchargesPrice" placeholder="Tax and gov charges" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>All-inclusive Price <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->all_inclusive_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialAllinclusivePrice" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label>Total Price: <span class="IndustrialTotalPrice">{{$p->total_price}}</span></label>
+                                </div>
+                           </div>
                            </div>
                            <div class="row">
                               <div class="col-md-12">
@@ -750,7 +1003,7 @@ label {
                                  <div class="col-md-4">
                                     <div class="form-group">
                                        <label>Super Built-up Area <span class="required_field">*</span></label>
-                                       <input type="text" placeholder="Super Built-up Area" value="{{$p->super_builtup_area}}" name="Hospitalitysuper_builtup_area" class="form-control number required" />
+                                       <input type="text" placeholder="Super Built-up Area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"  value="{{$p->super_builtup_area}}" name="Hospitalitysuper_builtup_area" class="form-control number required" />
                                     </div>
                                  </div>
                               </div>
@@ -949,7 +1202,7 @@ label {
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label>Super Built-up Area <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Super Built-up Area" value="{{$p->super_builtup_area}}" name="super_builtup_area" class="form-control required number" />
+                                    <input type="text" placeholder="Super Built-up Area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"  value="{{$p->super_builtup_area}}" name="super_builtup_area" class="form-control required number" />
                                  </div>
                               </div>
                            </div>
@@ -1106,8 +1359,14 @@ label {
                                  </div>
                               </div>
                            </div>
+                           
+                           
+                           
+                           
+                           
+                           
                            <div class="form-group row label-floating is-empty">
-                              <label  class="col-sm-2 control-label"> Status </label>
+                              <label  class="col-sm-2 control-label"> Status <span class="required_field">*</span></label>
                               <div class="col-sm-10">
                                  <input type="radio"  name="propertystatus" data-id="0" data-type="propertyStatus" class="propertystatus" <?php echo ($p->property_status=="Ready to move")?"checked":""; ?> value="Ready to move">
                                  &nbsp;
@@ -1129,9 +1388,111 @@ label {
                            </div>
                            <div class="form-group row label-floating is-empty" id="possesion_by_div_propertyStatus_0" style="display:<?php echo ($p->property_status=="Under Construction")?"flex":"none"; ?>;">
                               <label  class="col-sm-2 control-label"> Possession Date <span class="required_field">*</span></label>
-                              <div class="col-sm-10">
-                                 <input type="text" class="form-control required possesion_date" value="{{$p->possesion_date}}" name="possession_date" placeholder="Possession Date">
-                              </div>
+                              
+                                 <div class="col-sm-2">
+                	 {!! Form::select('possession_month', $MonthNameList,$p->possession_month,['class' => 'select2 required form-control']) !!}
+
+                  </div>  
+                  <div class="col-sm-2">
+                	{!! Form::select('possession_year', $yearList,$p->possession_year,['class' => 'select2 required form-control']) !!}
+					
+                </div>
+                              
+                           </div>
+                           
+                           <div class="CommercialPricingBlock">
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label class="d-block">Property Ownership: </label>
+                                	<input type="radio"  name="Commercialproperty_ownership" <?php echo ($p->property_ownership=="Freehold" || $p->property_ownership=="")? "checked":""; ?>   value="Freehold">
+                                    &nbsp;
+                                    <label class="fw-normal">Freehold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="Commercialproperty_ownership" <?php echo ($p->property_ownership=="Leases hold")? "checked":""; ?>   value="Leases hold">
+                                    &nbsp;
+                                    <label class="fw-normal">Leases hold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialproperty_ownership" <?php echo ($p->property_ownership=="Cooperative")? "checked":""; ?>  value="Cooperative">
+                                    &nbsp;
+                                    <label class="fw-normal">Cooperative</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialproperty_ownership" <?php echo ($p->property_ownership=="Power of attorney")? "checked":""; ?>  value="Power of attorney">
+                                    &nbsp;
+                                    <label class="fw-normal">Power of attorney</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>Expected Price <span class="required_field">*</span></label>
+                                        <input type="text" value="{{$p->expected_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialExpectedPrice" placeholder="Expected Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>Basic Price <span class="required_field">*</span></label>
+                                        <input type="text" value="{{$p->basic_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialBasicPrice" placeholder="Basic Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>Tax and gov charges <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->taxandgovcharges_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialTaxandgovchargesPrice" placeholder="Tax and gov charges" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>All-inclusive Price <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->all_inclusive_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialAllinclusivePrice" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price commericial_price_hospital">
+                                	<div class="form-group">
+                                    	<label>Booking amount <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->booking_amount}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialBookingamount" placeholder="Booking amount" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price commericial_price_hospital">
+                                	<div class="form-group">
+                                    	<label>Membership Charge <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->membership_charge}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialMembershipCharge" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="row commericial_price_hospital">
+                           	<div class="col-md-5">
+                                	<label class="d-block">Maintenance Type: </label>
+                                	<input type="radio"  name="Commercialmaintenance_type" <?php echo ($p->maintenance_type=="Monthly" || $p->maintenance_type=="")? "checked":""; ?>   value="Monthly">
+                                    &nbsp;
+                                    <label class="fw-normal">Monthly</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="Commercialmaintenance_type" <?php echo ($p->maintenance_type=="Annually")? "checked":""; ?>   value="Annually">
+                                    &nbsp;
+                                    <label class="fw-normal">Annually</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialmaintenance_type" <?php echo ($p->maintenance_type=="One time")? "checked":""; ?>  value="One time">
+                                    &nbsp;
+                                    <label class="fw-normal">One time</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialmaintenance_type" <?php echo ($p->maintenance_type=="Per unit/ Monthly")? "checked":""; ?>  value="Per unit/ Monthly">
+                                    &nbsp;
+                                    <label class="fw-normal">Per unit/ Monthly</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                                
+                               <div class="col-md-7">
+                                	<div class="form-group">
+                                    	<label>Maintenance <span class="required_field">*</span> </label>
+                                        <input type="text" value="{{$p->maintenance}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialMaintenance" placeholder="Maintenance" />
+                                    </div>
+                                </div> 
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label>Total Price: <span class="CommercialTotalPrice">{{$p->total_price}}</span></label>
+                                </div>
+                           </div>
                            </div>
                            <div class="row retail_type hospitality_prop_hide">
                               <div class="form-group">
@@ -1257,7 +1618,7 @@ label {
                               </div>
                            </div>
                         </div>
-                        <div class="row">
+                        <div class="row residential_prop farmhouse_prop">
                            <div class="form-group">
                               <div class="col-sm-12 PropertyFeatures">
                                  <label class="control-label">Other features</label>
@@ -1434,14 +1795,165 @@ label {
 
 @section('customjs')
 <script>
+function toFixed(x) {
+  return Number.parseFloat(x).toFixed(2);
+}
+
+function calculateBasicPrice(data_id="",data_type="",data_value=""){
+	var sub_category = jQuery("#sub_category").val();
+	var totalPrice = 0;
+	
+	if(sub_category=="VacantLandPlotting"){
+		jQuery(".VacantLandPlottingTotalPrice").html("0.00");
+		var super_area = jQuery("input[name='VacantLandPlottingCarpetarea']").val();
+		var expected_price = jQuery("input[name='VacantLandPlottingExpectedPrice']").val();
+		var basic_price = jQuery("input[name='VacantLandPlottingBasicPrice']").val();
+		var govcharges_price = jQuery("input[name='VacantLandPlottingTaxandgovchargesPrice']").val();
+		var inclusive_price = jQuery("input[name='VacantLandPlottingAllinclusivePrice']").val();
+		
+			if(expected_price>0 && super_area>0){
+				totalPrice += parseFloat(expected_price)*parseFloat(super_area);
+			}
+			if(basic_price>0){
+				totalPrice += parseFloat(basic_price);
+			}if(govcharges_price>0){
+				totalPrice += parseFloat(govcharges_price);
+			}if(inclusive_price>0){
+				totalPrice += parseFloat(inclusive_price);
+			}
+		jQuery(".VacantLandPlottingTotalPrice").html(toFixed(totalPrice));
+				
+	}	
+	
+	if(sub_category=="IndustrialParkShades"){
+		jQuery(".IndustrialTotalPrice").html("0.00");
+		var super_area = jQuery("input[name='Industrialsuper_builtup_area']").val();
+		var expected_price = jQuery("input[name='IndustrialExpectedPrice']").val();
+		var basic_price = jQuery("input[name='IndustrialBasicPrice']").val();
+		var govcharges_price = jQuery("input[name='IndustrialTaxandgovchargesPrice']").val();
+		var inclusive_price = jQuery("input[name='IndustrialAllinclusivePrice']").val();
+		
+			if(expected_price>0 && super_area>0){
+				totalPrice += parseFloat(expected_price)*parseFloat(super_area);
+			}
+			if(basic_price>0){
+				totalPrice += parseFloat(basic_price);
+			}if(govcharges_price>0){
+				totalPrice += parseFloat(govcharges_price);
+			}if(inclusive_price>0){
+				totalPrice += parseFloat(inclusive_price);
+			}
+		
+		jQuery(".IndustrialTotalPrice").html(toFixed(totalPrice));
+				
+	}	
+	
+	if(sub_category=="Commercial"){
+	
+		var commercial_property_type = jQuery("#commercial_property_type").val();
+		
+		jQuery(".commericial_price_hospital").show();
+		
+		jQuery(".commericial_price").addClass("col-md-4").removeClass("col-md-3");
+			var super_area = jQuery("input[name='super_builtup_area']").val();
+		
+		if(commercial_property_type=="Hospitality"){
+			jQuery(".commericial_price_hospital").hide();
+			jQuery(".commericial_price").addClass("col-md-3").removeClass("col-md-4");
+			super_area = jQuery("input[name='Hospitalitysuper_builtup_area']").val();
+		}
+		jQuery(".CommercialTotalPrice").html("0.00");
+		var expected_price = jQuery("input[name='CommercialExpectedPrice']").val();
+		var basic_price = jQuery("input[name='CommercialBasicPrice']").val();
+		var govcharges_price = jQuery("input[name='CommercialTaxandgovchargesPrice']").val();
+		var inclusive_price = jQuery("input[name='CommercialAllinclusivePrice']").val();
+		
+		var booking_amount = jQuery("input[name='CommercialBookingamount']").val();
+		var membership_charge = jQuery("input[name='CommercialMembershipCharge']").val();
+		var maintenance = jQuery("input[name='CommercialMaintenance']").val();
+		
+			if(expected_price>0 && super_area>0){
+				totalPrice += parseFloat(expected_price)*parseFloat(super_area);
+			}
+			if(basic_price>0){
+				totalPrice += parseFloat(basic_price);
+			}if(govcharges_price>0){
+				totalPrice += parseFloat(govcharges_price);
+			}if(inclusive_price>0){
+				totalPrice += parseFloat(inclusive_price);
+			}
+			if(commercial_property_type!="Hospitality"){
+			if(booking_amount>0){
+				totalPrice += parseFloat(booking_amount);
+			}if(membership_charge>0){
+				totalPrice += parseFloat(membership_charge);
+			}if(maintenance>0){
+				totalPrice += parseFloat(maintenance);
+			}
+			}
+			
+		jQuery(".CommercialTotalPrice").html(toFixed(totalPrice));
+				
+	}	
+	if(sub_category=="Residential"){
+			
+		
+		jQuery("#ResidentialTotalPrice_"+data_type+"_"+data_value).html("0.00");
+		jQuery("#HiddenResidentialTotalPrice_"+data_type+"_"+data_value).html("0.00");
+		var expected_price = jQuery(".ResidentialExpectedPrice_"+data_type+"_"+data_value).val();
+		var basic_price = jQuery(".ResidentialBasicPrice_"+data_type+"_"+data_value).val();
+		var govcharges_price = jQuery(".ResidentialTaxandgovchargesPrice_"+data_type+"_"+data_value).val();
+		var inclusive_price = jQuery(".ResidentialAllinclusivePrice_"+data_type+"_"+data_value).val();
+		
+		var booking_amount = jQuery(".ResidentialBookingamount_"+data_type+"_"+data_value).val();
+		var membership_charge = jQuery(".ResidentialMembershipCharge_"+data_type+"_"+data_value).val();
+		var maintenance = jQuery(".ResidentialMaintenance_"+data_type+"_"+data_value).val();
+			var super_area=[];
+			jQuery( "."+data_type+"_items_table_"+data_id+ " .super_builtup_area_txt" ).each(function( index ) {
+				super_area.push(jQuery(this).val());
+			});
+			var super_area_max = Math.max.apply(Math,super_area); // 3
+			var super_area_min = Math.min.apply(Math,super_area); // 1
+			var min_price_rang = 0;
+			var max_price_rang = 0;
+			
+
+			if(basic_price>0){
+				totalPrice += parseFloat(basic_price);
+			}if(govcharges_price>0){
+				totalPrice += parseFloat(govcharges_price);
+			}if(inclusive_price>0){
+				totalPrice += parseFloat(inclusive_price);
+			}
+			if(booking_amount>0){
+				totalPrice += parseFloat(booking_amount);
+			}if(membership_charge>0){
+				totalPrice += parseFloat(membership_charge);
+			}if(maintenance>0){
+				totalPrice += parseFloat(maintenance);
+			}
+			min_price_rang += totalPrice;
+			max_price_rang += totalPrice;
+			
+			if(expected_price>0){
+				max_price_rang += parseFloat(expected_price)*parseFloat(super_area_max);
+				min_price_rang += parseFloat(expected_price)*parseFloat(super_area_min);
+			}
+			//alert("#ResidentialTotalPrice_"+data_type+"_"+data_value);
+		//	alert(min_price_rang);
+		jQuery("#ResidentialTotalPrice_"+data_type+"_"+data_value).html(toFixed(min_price_rang)+"-"+toFixed(max_price_rang));
+		jQuery("#HiddenResidentialTotalPrice_"+data_type+"_"+data_value).val(toFixed(min_price_rang)+"-"+toFixed(max_price_rang));
+				
+	
+	}
+}
+
   $(document).ready(function(){
 	  
 var hash = window.location.hash;
 if(hash=="#step4" || hash=="#step3" || hash=="#step2"){
 	window.location="{{url('/admin/properties/edit')}}/{{$p->id}}";	
 }
- $( ".possesion_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
-         
   jQuery(".select2").select2();
 
  
@@ -1468,7 +1980,7 @@ if(hash=="#step4" || hash=="#step3" || hash=="#step2"){
         if(confirm("Are you sure you want to delete this?")){
             $("#"+data_type+"_accordion_"+data_id).remove();
 			getPropertyTypeDisable();
-			$("#property_unit_type").prop("selectedIndex", 0); 
+			$("#property_unit_type,#property_unit_type_ind").prop("selectedIndex", 0); 
         }
         else{
             return false;
@@ -1478,10 +1990,13 @@ if(hash=="#step4" || hash=="#step3" || hash=="#step2"){
     $(document).on("click","#add_property",function(){
       var property_type = jQuery("#property_type").val().replace(/\s+/g, '');; 
       var length = $(".property_type_"+property_type).length;
-        var value = $("#property_unit_type").val();
+        if(property_type=="ApartmentAndFlat"){
+			var value = $("#property_unit_type").val();
+		}else{
+			var value = $("#property_unit_type_ind").val();	
+		}
         jQuery(".accordion-item").hide();
 		jQuery(".property_type_"+property_type).show();
-		
 		if(value!=''){
 
             var html = '';
@@ -1510,7 +2025,7 @@ html +='<th width="100">Action</th>';
 html +='</tr>';
 html +='</thead>';
 html +='<tbody>';
-html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+length+'" data-value="'+value+'" class="delelteItem" data-type="'+property_type+'"><i class="fa fa-times"></i></div></td></tr>';
+html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" onkeyup="calculateBasicPrice("0",'+property_type+','+value+')" onchange="calculateBasicPrice("0",'+property_type+','+value+')" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+length+'" data-value="'+value+'" class="delelteItem" data-type="'+property_type+'"><i class="fa fa-times"></i></div></td></tr>';
 
 html +='</tbody>';
 html +='</table>';
@@ -1530,7 +2045,7 @@ html +='<th width="100">Action</th>';
 html +='</tr>';
 html +='</thead>';
 html +='<tbody>';
-html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][plot_area][0]" class="plot_area_txt form-control number required" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area" value=""></td><td><div  data-type="'+property_type+'" data-id="'+length+'" data-value="'+value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+html +='<tr><td><span class="counter">1</span></td><td><input type="text"  name="propertyDetails['+property_type+']['+value+'][plot_area][0]" class="plot_area_txt form-control number required" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" onkeyup="calculateBasicPrice("0",'+property_type+','+value+')" onchange="calculateBasicPrice("0",'+property_type+','+value+')" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area" value=""></td><td><div  data-type="'+property_type+'" data-id="'+length+'" data-value="'+value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
 
 html +='</tbody>';
 html +='</table>';
@@ -1650,11 +2165,95 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
                 html += '<label class="col-sm-2 control-label">';
                     html += 'Possession Date <span class="required_field">*</span>';
                 html += '</label>';
-                html += '<div class="col-sm-10">';
-                    html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][possession_date]" class="form-control required possesion_by">';
-                    
-                html += '</div>';
+                html +='<div class="col-sm-2"><select name="propertyDetails['+property_type+']['+value+'][possession_month]" class="form-control select2 required">';
+				<?php foreach($MonthNameList as $singleKey=>$singleValue){
+				?>
+				html +='<option value="<?php echo $singleKey; ?>"><?php echo $singleValue; ?></option>';
+				<?php 	
+				} ?>
+				html += "</select></div>";
+				html +='<div class="col-sm-2"><select name="propertyDetails['+property_type+']['+value+'][possession_year]" class="form-control select2 required">';
+				<?php foreach($yearList as $singleKey=>$singleValue){
+				?>
+				html +='<option value="<?php echo $singleKey; ?>"><?php echo $singleValue; ?></option>';
+				<?php 	
+				} ?>
+				html += "</select></div>";
+				
             html += '</div>';
+			
+			html += '<div class="ResidentialPricingBlock">';
+  html += '<div class="row">';
+    html += '<div class="col-md-12">';
+      html += '<label class="d-block">Property Ownership: </label>';
+      html += '<input type="radio"  name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]" checked  value="Freehold">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Freehold</label>';
+      html += '&nbsp;&nbsp;&nbsp;';
+      html += '<input type="radio" name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]"  value="Leases hold">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Leases hold</label>';
+      html += '&nbsp;&nbsp;&nbsp;';
+      html += '<input type="radio" name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]"  value="Cooperative">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Cooperative</label>';
+      html += '&nbsp;&nbsp;&nbsp;';
+      html += '<input type="radio" name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]"  value="Power of attorney">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Power of attorney</label>';
+      html += '&nbsp;&nbsp;&nbsp; </div>';
+  html += '</div>';
+  html += '<div class="row">';
+    html += '<div class="col-md-3">';
+      html += '<div class="form-group">';
+       html += ' <label>Expected Price <span class="required_field">*</span></label>';
+       html += ' <input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialExpectedPrice_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialExpectedPrice]" placeholder="Expected Price" />';
+     html += ' </div>';
+    html += '</div>';
+    html += '<div class="col-md-3">';
+      html += '<div class="form-group">';
+      html += '<label>Basic Price <span class="required_field">*</span></label>';
+     html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialBasicPrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBasicPrice]" placeholder="Basic Price" />';
+      html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-3">';
+    html += '<div class="form-group">';
+    html += '<label>Tax and gov charges <span class="required_field">*</span> </label>';
+    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialTaxandgovchargesPrice_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialTaxandgovchargesPrice]"  placeholder="Tax and gov charges" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-3">';
+    html += '<div class="form-group">';
+    html += '<label>All-inclusive Price <span class="required_field">*</span> </label>';
+    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialAllinclusivePrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialAllinclusivePrice]"  placeholder="All-inclusive Price" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<div class="form-group">';
+    html += '<label>Booking amount <span class="required_field">*</span> </label>';
+    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialBookingamount_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBookingamount]" placeholder="Booking amount" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<div class="form-group">';
+    html += '<label>Membership Charge <span class="required_field">*</span> </label>';
+    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialMembershipCharge_'+property_type+'_'+value+'"    name="propertyDetails['+property_type+']['+value+'][ResidentialMembershipCharge]"  placeholder="All-inclusive Price" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<div class="form-group">';
+    html += '<label>Maintenance <span class="required_field">*</span> </label>';
+    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialMaintenance_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialMaintenance]"  placeholder="Maintenance" />';
+    html += '</div>';
+    html += '</div>';
+  html += '</div>';
+  html += '<div class="row">';
+    html += '<div class="col-md-12">';
+     html += '<label>Total Price:<input type="hidden"  class="HiddenResidentialTotalPrice" id="HiddenResidentialTotalPrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][HiddenResidentialTotal]">  <span class="ResidentialTotalPrice" id="ResidentialTotalPrice_'+property_type+'_'+value+'">0.00</span></label>';
+    html += '</div>';
+  html += '</div>';
+html += '</div>';
+
 
             html += '</div>';
             html += '</div>';
@@ -1662,10 +2261,9 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
 
             $(".property_type_accordion").append(html);
             getPropertyTypeDisable();
-            $("#property_unit_type").prop("selectedIndex", 0); 
+            $("#property_unit_type,#property_unit_type_ind").prop("selectedIndex", 0); 
            jQuery(".select2").select2();
-		    $( ".possesion_by" ).datepicker({ dateFormat: 'yy-mm-dd' });
-         }
+		  }
         else{
             alert("Please select value");
         }
@@ -1685,10 +2283,10 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
 		var counterIndex= items_table_length -1; 
 		
       if(data_type=="ApartmentAndFlat"){
-		var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'"  class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+		var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" keyup=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'")   onchange=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'") name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'"  class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
       }
       if(data_type=="IndependentHouse" || data_type=="Farmhouse" ){
-      var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][plot_area]['+counterIndex+']" class="plot_area_txt form-control required number" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div  data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+      var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][plot_area]['+counterIndex+']" class="plot_area_txt form-control required number" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" keyup=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'")   onchange=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'") name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div  data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
       }
       jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:last").after(html);	
 		
@@ -1712,6 +2310,7 @@ jQuery(document).on("click",".delelteItem",function() {
 		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .carpet_area_txt").attr("name","propertyDetails["+data_type+"]["+data_value+"][carpet_area]["+i+"]");
 		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .super_builtup_area_txt").attr("name","propertyDetails["+data_type+"]["+data_value+"][super_builtup_area]["+i+"]");
 	}
+	 calculateBasicPrice(data_id,data_type,data_value);
 });
 	
 	
@@ -1814,15 +2413,28 @@ if (city !== '') {
 
 function getPropertyTypeDisable(){
 	var property_type = jQuery("#property_type").val().replace(/\s+/g, '');
-	 jQuery("#property_unit_type option").attr('disabled', false);
-    jQuery(".property_type_"+property_type+ " .delete_acc").each(function(index, element) {
-       jQuery("#property_unit_type option[value='"+jQuery(this).attr("data-value")+"']").attr('disabled', true);     
+	 
+	  if(property_type=="ApartmentAndFlat"){
+			jQuery("#property_unit_type option").attr('disabled', false);
+    		jQuery(".property_type_"+property_type+ " .delete_acc").each(function(index, element) {
+      		 jQuery("#property_unit_type option[value='"+jQuery(this).attr("data-value")+"']").attr('disabled', true);
+			 
+    });	    
+		}else{
+			jQuery("#property_unit_type_ind option").attr('disabled', false);
+   			 jQuery(".property_type_"+property_type+ " .delete_acc").each(function(index, element) {
+       	jQuery("#property_unit_type_ind option[value='"+jQuery(this).attr("data-value")+"']").attr('disabled', true);
+		
+    });	    
+		}
+	  
 			
-    });	
 }
 HideShowDependsubCategory();
 function HideShowDependsubCategory(){
+	calculateBasicPrice();
 var sub_category = jQuery("#sub_category").val();	
+var property_type = jQuery("#property_type").val();	
 
 		jQuery("#ProjectNameApartmentName").addClass("col-md-9").removeClass("col-md-6");
 		jQuery(".locality_prop").addClass("col-md-6").removeClass("col-md-12");
@@ -1831,7 +2443,9 @@ var sub_category = jQuery("#sub_category").val();
 
 jQuery(".retail_type,.residential_prop,.commercial_prop,.WhatkindofHospitality,.vacantlandplotting_prop,.industrial_prop,.VacantLandPlotting_prop").hide();
 jQuery(".hospitality_prop").hide();
+
 	if(sub_category=="Commercial"){
+		jQuery(".commericial_price_hospital").show();
 		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9");
 		jQuery(".hospitality_prop_hide").show();
 		jQuery(".residential_prop").hide();
@@ -1852,6 +2466,7 @@ jQuery(".hospitality_prop").hide();
 			jQuery(".WhatkindofHospitality").show();
 			jQuery(".hospitality_prop").show();
 			jQuery(".hospitality_prop_hide").hide();
+			jQuery(".commericial_price_hospital").hide();
 		}
 			
 		
@@ -1861,7 +2476,18 @@ jQuery(".hospitality_prop").hide();
 		
 		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9");
 		jQuery(".residential_prop").show();
-		jQuery(".commercial_prop").hide();	
+		jQuery(".commercial_prop").hide();
+		if(property_type=="Farmhouse"){
+			jQuery(".farmhouse_prop").hide();	
+		}
+		if(property_type=="Apartment And Flat"){
+			jQuery(".property_unit_type_prop").show();
+			jQuery(".property_unit_type_ind_prop").hide();	
+		}
+		if(property_type=="IndependentHouse" || property_type=="Farmhouse"){
+			jQuery(".property_unit_type_prop").hide();
+			jQuery(".property_unit_type_ind_prop").show();	
+		}	
 	}
 	if(sub_category=="IndustrialParkShades"){
 		jQuery(".industrial_prop").show();		
@@ -1879,7 +2505,7 @@ jQuery(".hospitality_prop").hide();
 	}
 	
 }
-jQuery(document).on("change","#sub_category,#commercial_property_type",function(e) {
+jQuery(document).on("change","#sub_category,#commercial_property_type,#property_type",function(e) {
     HideShowDependsubCategory();
 });
    $(document).on("change","input[type=radio][name=furnishing_detail]",function(){

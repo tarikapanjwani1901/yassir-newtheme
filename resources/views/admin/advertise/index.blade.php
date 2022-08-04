@@ -58,11 +58,12 @@
                     <h4 class="modal-title">Remove Advertisement</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete this Advertisement?</p>
+                    <p>Are you sure you want to delete this advertisement?</p>
                 </div>
                 <input type="hidden" name="id" id="id" value="">
                 <div class="modal-footer">
-                    <button type="button" id="btn_ok_1" class="btn btn-primary">Sure</button>
+                	<button type="button" id="close" class="btn btn-light close text-uppercase">Cancel</button>
+                    <button type="button" id="btn_ok_1" class="btn btn-primary text-uppercase">Sure</button>
                 </div>
             </div>
         </div>

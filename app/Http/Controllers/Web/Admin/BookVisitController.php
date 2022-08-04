@@ -17,6 +17,8 @@ class BookVisitController extends Controller
     {
         $vendors = $request->get('vendors');
         $inquiry_name = $request->get('inquiry_name');
+        $from = $request->get('from');
+        $to = $request->get('to');
 
         $start_date = (!empty($_GET["from"])) ? ($_GET["from"]) : ('');
         $end_date = (!empty($_GET["to"])) ? ($_GET["to"]) : ('');
@@ -36,6 +38,8 @@ class BookVisitController extends Controller
                                             ->with("vendors_info",$vendors_info)
                                             ->with('vendors',$vendors)
                                             ->with('inquiry_name',$inquiry_name)
+                                            ->with('from',$from)
+                                            ->with('to',$to)
                                             ->with('start_date',$start_date)
                                             ->with('end_date',$end_date);
     }

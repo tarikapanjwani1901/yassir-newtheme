@@ -1,18 +1,20 @@
 @extends('layouts.admin.app')
 @section('content')
     <div class="container-fluid">
-        <div class="page-titles">
-            <a href="javascript:void(0)">Book Visit</a>
-        </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header">
-                        <form class="reportform padd15" action="" method="get" name="inquiry" autocomplete="off">
-                            <div class="row">
+                
+                 <div class="card-header pb-3 pt-3 text-uppercase">
+                    	Book Visit</div>
+                
+
+                <div class="card-body">
+                <form class="reportform padd15" action="" method="get" name="inquiry" autocomplete="off">
+                            <div class="row p-0">
                                 
                                 <div class="col-md-3">
+                                    <div class="form-group">
                                     <select class="select2 size-1 form-control wide mb-3" id="vendors" name="vendors" >
                                         <option value="">Select Vendor</option>
                                         @if (!empty($vendors_info))
@@ -25,42 +27,47 @@
                                             @endforeach
                                         @endif
                                     </select>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <input type="search" name="inquiry_name" id="inquiry_name" placeholder="search" class=" form-control" >
+                                    </div>
                                 </div>
 
                                 <div class="col-md-2">
+                                    
+                                    <div class="form-group">
+                                    <input type="search" name="inquiry_name"  value="{{$inquiry_name}}" id="inquiry_name" placeholder="search" class=" form-control" >
+                                </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    
+                                    <div class="form-group">
                                     @if(isset($start_date) && isset($start_date)!='')
-                                        <input id="datetimepicker6" style="" name="from" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="{{$start_date}}" placeholder="Start date"/>
+                                        <input id="datetimepicker6" style="" name="from" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="{{$from}}" placeholder="Start date"/>
                                     @else
                                         <input id="datetimepicker6" style="" name="from" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="" placeholder="Start date"/>
                                     @endif
+                                    </div>
                                 </div>
 
                                 <div class="col-md-2">
+                                 
+                                    <div class="form-group">
                                     @if(isset($end_date) && isset($end_date)!='')
-                                    <input id="datetimepicker7" name="to" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="{{$end_date}}"  placeholder="End date"/>
+                                 
+                                    <input id="datetimepicker7" name="to" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value="{{$to}}"  placeholder="End date"/>
                                     @else
                                     <input id="datetimepicker7" name="to" type="text" class="form-control dt1" data-date-format="YYYY-MM-DD" value=""  placeholder="End date"/>
                                     @endif
+                                    </div>
                                 </div>
 
-                                <div class="col-md-1">
-                                    <input type="submit" class="btn btn-primary" value="Submit" id="submit">
-                                </div>
-
-                                <div class="col-md-1">
-                                    <a href="{{url('/')}}/admin/bookvisit" data-toggle="tooltip" title="" data-original-title="Reset" class="btn btn-primary exporting"><i class="fa fa-refresh" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </form>    
-
-                    </div>
-                
-
-                <div class="card-body">
+<div class="col-md-3">
+                            	<input type="submit" class="btn btn-primary text-uppercase" value="Submit">
+                                
+                            	
+                                 <a href="{{url('/admin/bookvisit')}}" data-toggle="tooltip" title="Reset"><input type="button" class="btn btn-light text-uppercase" value="Reset"></a>
+                            </div>	
+                                  </div>
+                        </form>
                     <div class="table-responsive">
                         <table class="table table-responsive-md table-bordered">
                             <thead>
@@ -123,7 +130,8 @@
                 </div>
                 <input type="hidden" name="id" id="id" value="">
                 <div class="modal-footer">
-                    <button type="button" id="btn_ok_1" class="btn btn-primary">Sure</button>
+                	<button type="button" id="close" class="btn btn-light close text-uppercase">Cancel</button>
+                    <button type="button" id="btn_ok_1" class="btn btn-primary text-uppercase">Sure</button>
                 </div>
             </div>
         </div>

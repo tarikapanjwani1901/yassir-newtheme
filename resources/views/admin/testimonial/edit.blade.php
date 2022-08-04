@@ -60,7 +60,12 @@
                                             <div>
                                         <span class="btn btn-default btn-file">
                                             <span class="fileinput-new btn btn-primary text-uppercase">Select image</span>
-                                            <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control"/>
+                                            @if($testimonials[0]->t_image)
+                                          	  <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control"/>
+                                          
+                                            @else
+                                            <input id="inputFile" accept="image/*" name="inputFile" type="file" class="form-control requiresd"/>
+                                            @endif
                                         </span>
                                         <div class="fileinput-preview thumbnail" style="max-width: 200px; max-height: 200px;">
                                            	  @if($testimonials[0]->t_image)
