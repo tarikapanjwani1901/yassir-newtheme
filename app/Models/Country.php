@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Eloquence;
 
-class Country extends Authenticatable
+class Country extends Model
 {
-    use Eloquence;
-
+    //use Eloquence;
 
     protected $table = 'countries';
     protected $guarded  = ['id'];
@@ -25,6 +20,5 @@ class Country extends Authenticatable
         $response = $query->get();
 
         return $response;
-    }
-     
+    } 
 }

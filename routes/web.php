@@ -32,7 +32,7 @@ use App\Http\Controllers\Web\Vendor\VendorBookVisitController;
 use App\Http\Controllers\Web\Vendor\VendorAdvertiseController;
 use App\Http\Controllers\Web\Vendor\VendorPropertiesController;
 
-use App\Http\Controllers\Web\Marketing\MarketingDashboardController;
+use App\Http\Controllers\Web\Sales\SalesDashboardController;
 
 // Admin Login
 Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('login');
@@ -42,9 +42,9 @@ Route::post('/login', [LoginController::class, 'generateOTP'])->name('generateOT
 Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
 Route::post('/vendorlogin', [LoginController::class, 'vendorgenerateOTP'])->name('vendorgenerateOTP');
 
-// Marketing Login
-Route::get('/marketing/login', [LoginController::class, 'showMarketingLoginForm'])->name('marketinglogin');
-Route::post('/marketinglogin', [LoginController::class, 'marketinggenerateOTP'])->name('marketinggenerateOTP');
+// Sales Login
+Route::get('/sales/login', [LoginController::class, 'showSalesLoginForm'])->name('saleslogin');
+Route::post('/saleslogin', [LoginController::class, 'salesgenerateOTP'])->name('salesgenerateOTP');
 
 Route::post('/postOtp', [LoginController::class, 'otpSubmit'])->name('otpSubmit');
 Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP');
@@ -189,10 +189,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::group( ['middleware' => 'marketing'], function()
+    Route::group( ['middleware' => 'sales'], function()
     {
         // Dashboard
-        Route::get('/marketing/dashboard', [MarketingDashboardController::class, 'index'])->name('marketingdashboard');
+        Route::get('/sales/dashboard', [SalesDashboardController::class, 'index'])->name('salesdashboard');
 
 
     });

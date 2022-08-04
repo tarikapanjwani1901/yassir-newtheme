@@ -183,12 +183,11 @@ class PropertyBookVisit extends Model
     public static function getAllUserInquiries($user_id)
     {
         $query = PropertyBookVisit::query();
-        $query = $query->join('vendor_listing','vendor_listing.vl_id','=','property_book_visit.listing_id');
-        $query = $query->select('property_book_visit.created_at','vendor_listing.l_title','vendor_listing.vl_id','vendor_listing.l_location',
-        'vendor_listing.status','vendor_listing.vl_id');
+        $query = $query->join('properties','properties.id','=','property_book_visit.listing_id');
+        $query = $query->select('properties.created_at','properties.project_name','properties.id',
+        'properties.address','properties.property_status','properties.id');
         $query = $query->where('property_book_visit.type','like','inquiry');
         $query = $query->where('property_book_visit.user_id','=',$user_id);
-        
         $query = $query->orderBy('property_book_visit.created_at','desc');
 
         $response = $query->get();
@@ -200,11 +199,11 @@ class PropertyBookVisit extends Model
     public static function getAllVendorInquiriesList($vendor_id)
     {
         $query = PropertyBookVisit::query();
-        $query = $query->join('vendor_listing','vendor_listing.vl_id','=','property_book_visit.listing_id');
-        $query = $query->select('property_book_visit.created_at','vendor_listing.l_title','vendor_listing.vl_id','vendor_listing.l_location',
-        'vendor_listing.status','vendor_listing.vl_id');
+        $query = $query->join('properties','properties.id','=','property_book_visit.listing_id');
+        $query = $query->select('property_book_visit.created_at','properties.project_name','properties.id','properties.address',
+        'properties.property_status','properties.id');
         $query = $query->where('property_book_visit.type','like','inquiry');
-        $query = $query->where('vendor_listing.u_id','=',$vendor_id);
+        $query = $query->where('properties.property_vendor','=',$vendor_id);
         
         $query = $query->orderBy('property_book_visit.created_at','desc');
         

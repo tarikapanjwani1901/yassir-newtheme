@@ -8,7 +8,7 @@
 	<meta name="author" content="" />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>YASSIR | Marketing </title>
+    <title>YASSIR | Sales </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="/assests/css/style.css" rel="stylesheet">
@@ -38,7 +38,7 @@
 									<div class="text-center mb-3">
 										<a href="index.html">
                                             <!--<img src="images/logo-full.png" alt="">-->
-                                            <h1 class="text-center mb-4 text-white">Marketing Login</h1>
+                                            <h1 class="text-center mb-4 text-white">Sales Login</h1>
                                         </a>
 									</div>
                                     @if (session('mobile_number'))
@@ -69,7 +69,7 @@
                                         </form>
                                     @else
                                         <h4 class="text-center mb-4 text-white">Sign in your account</h4>
-                                        <form method="post" id="login_form" action="{{ route('marketinggenerateOTP') }}" autocomplete="off">
+                                        <form method="post" id="login_form" action="{{ route('salesgenerateOTP') }}" autocomplete="off">
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label class="mb-1 text-white"><strong>Mobile No.</strong></label>
