@@ -35,12 +35,14 @@ use App\Http\Controllers\Web\Vendor\VendorPropertiesController;
 
 use App\Http\Controllers\Web\Sales\SalesDashboardController;
 
+use App\Http\Controllers\Web\Frontend\HomeController;
+
 // Admin Login
 Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'generateOTP'])->name('generateOTP');
 
 // Vendor Login
-Route::get('/', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
+Route::get('/vendor/login', [LoginController::class, 'showVendorLoginForm'])->name('vendorlogin');
 Route::post('/vendorlogin', [LoginController::class, 'vendorgenerateOTP'])->name('vendorgenerateOTP');
 
 // Sales Login
@@ -51,6 +53,9 @@ Route::post('/postOtp', [LoginController::class, 'otpSubmit'])->name('otpSubmit'
 Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP');
 Route::get('backtologin', [LoginController::class, 'backtologin'])->name('backtologin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// home page
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
 
