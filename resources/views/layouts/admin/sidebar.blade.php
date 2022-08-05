@@ -20,7 +20,14 @@
                     <?php /*?><li><a href="{{ URL::to('admin/areas') }}" >Areas List</a></li><?php */?>
                 </ul>
             </li>
-
+			 <li>
+                <a  href="{{ URL::to('admin/users') }}" aria-expanded="false">
+                    <i class="flaticon-381-user"></i>
+                    <span class="nav-text">Users</span>
+                </a>
+               
+            </li>
+           
             <li>
                 <a  href="{{ URL::to('admin/testimonials') }}" aria-expanded="false">
                     <i class="flaticon-381-television"></i>

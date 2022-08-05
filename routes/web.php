@@ -25,6 +25,7 @@ use App\Http\Controllers\Web\Admin\StateController;
 use App\Http\Controllers\Web\Admin\SubCitiesController;
 use App\Http\Controllers\Web\Admin\AreasController;
 use App\Http\Controllers\Web\Admin\AdvertiseController;
+use App\Http\Controllers\Web\Admin\UserController;
 
 use App\Http\Controllers\Web\Vendor\VendorDashboardController;
 use App\Http\Controllers\Web\Vendor\VendorInquiryController;
@@ -139,6 +140,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/advertise/edit/{id}', [AdvertiseController::class, 'edit'])->name('admin.advertise.edit');
         Route::post('/admin/advertise/edit/{id}', [AdvertiseController::class, 'update'])->name('admin.advertise.update');
         Route::post('/admin/advertise/delete_image',[AdvertiseController::class, 'advertise_delimage'])->name('admin.advertise.delimage');
+		
+		
+		// States
+        Route::get('/admin/users', [UserController::class, 'index']);
+        Route::get('/admin/users/add', [UserController::class, 'add']);
+        Route::post('/admin/users/add', [UserController::class, 'addUser']);
+        Route::get('/admin/users/edit/{id}', [UserController::class, 'editUser']);
+        Route::post('/admin/users/edit/{id}', [UserController::class, 'editPostUser']);
+        Route::post('/admin/users/delete/{id}', [UserController::class, 'delete']);
+        Route::get('/admin/user_search',[UserController::class, 'user_search']);
+		Route::post('/admin/users/status/{id}/{status}', [UserController::class, 'status']);
     });
 });
 
