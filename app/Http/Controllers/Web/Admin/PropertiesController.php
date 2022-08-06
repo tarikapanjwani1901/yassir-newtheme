@@ -8,6 +8,7 @@ use App\Models\Properties;
 use App\Models\PropertyUnits;
 use App\Models\PropertyUnitsAreas;
 use App\Models\PropertiesImages;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -365,6 +366,7 @@ class PropertiesController extends Controller
 			$Properties = Properties::find($request->property_id);
 		}else{
 				$Properties = new Properties();	
+				$Properties->added_by = Auth::id();
 		}
 		$Properties->property_vendor = $request->property_vendor;
 		$Properties->property_for = $request->property_for; 
@@ -410,7 +412,7 @@ class PropertiesController extends Controller
 		
 	
 		$commercial_property_type =$locality=$located_inside =$what_kind_of_vacantland =$retail_type =$what_kind_of_hospitality=$shop_located_inside
-		=$rera_number=$rera_link= "";
+		=$rera_number=$rera_link =$property_areas= "" ;
 		
 		
 $area_details = $plot_area =$carpet_area =$property_status =$age_of_property =$possession_month=$possession_year =$number_of_washrooms =$super_builtup_area =
@@ -515,6 +517,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 		$Properties->amenities =  "";
 		$Properties->property_features =  "";
 		if($sub_category=="Residential"){
+			$property_areas =$request->property_areas;
 			$rera_number =  $request->rera_number;
 			$rera_link =  $request->rera_link;
 			if(!empty($request->amenities)){
@@ -533,6 +536,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 		
 		if($sub_category=="Commercial"){
 			$commercial_property_type = $request->commercial_property_type;
+			$property_areas =$request->commerical_property_areas;
 			
 			
 	
@@ -615,6 +619,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 			
 				
 			}if($commercial_property_type=="Hospitality"){
+				$property_areas =$request->Hospitalitycommerical_property_areas;	
 				$what_kind_of_hospitality =  $request->what_kind_of_hospitality;
 				$locality = $request->locality;
 				$located_inside = $request->located_inside;
@@ -698,6 +703,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 			
 		}
 		if($sub_category=="IndustrialParkShades"){
+			$property_areas =$request->Industrial_property_areas;
 			$locality = $request->locality;
 			$located_inside = $request->located_inside;
 			$number_of_washrooms =  $request->Industrialnumber_of_washrooms;
@@ -741,6 +747,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 			
 		}
 		if($sub_category=="VacantLandPlotting"){
+			$property_areas =$request->VacantLandPlottingproperty_areas;
 			$locality = $request->locality;
 			$what_kind_of_vacantland =  $request->what_kind_of_vacantland;
 			$area_details =  $request->VacantLandPlottingAreadetails;
@@ -778,6 +785,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 			}
 			
 		}
+		$Properties->property_areas =  $property_areas;
 		$Properties->property_ownership =  $property_ownership;
 		$Properties->expected_price =  $expected_price;
 		$Properties->basic_price =  $basic_price;
@@ -865,6 +873,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 
 		
 		if($request->stepNumber=="3" && $request->stepDirection=="last_step"){
+		$Properties->completed_property ="Yes";	
 		
 		if(!empty($request->project_gallery_hidden)){
 			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->whereNotIn('id', $request->project_gallery_hidden)->delete();

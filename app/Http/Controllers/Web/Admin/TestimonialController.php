@@ -22,8 +22,9 @@ class TestimonialController extends Controller
          return view('admin.testimonial.add');
     }
 
-    public function delete($id) {
+    public function delete(Request $request,$id) {
         DB::table('site_testimonials')->where('t_id', '=', $id)->delete();
+		$request->session()->flash('success', 'State has been successfully deleted.');
         return 'success';
     }
 
@@ -87,7 +88,7 @@ class TestimonialController extends Controller
             ->update(['t_rating' => $_POST['rating'], 't_quote' => $_POST['message'], 't_name' => $_POST['name'], 't_company' => $_POST['company'],'created_by' => '1','updated_at' => date('Y-m-d h:i:s')]);
         }
            
-        return redirect('admin/testimonials');
+        		return redirect('admin/testimonials')->with(['success' => 'Testimonial has been successfully updated.']);
 
     }
 
@@ -116,7 +117,7 @@ class TestimonialController extends Controller
 
         }
 
-        return redirect('admin/testimonials');
+		return redirect('admin/testimonials')->with(['success' => 'Testimonial has been successfully add.']);
     }
 
 }

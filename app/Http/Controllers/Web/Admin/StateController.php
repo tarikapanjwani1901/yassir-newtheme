@@ -61,9 +61,10 @@ class StateController extends Controller
         return view('admin.locations.states.add',compact('countries','status'));
     }
 
-    public function delete($id) {
+    public function delete(Request $request,$id) {
         DB::table('states')->where('id', '=', $id)->delete();
-        return 'success';
+		$request->session()->flash('success', 'State has been successfully deleted.');
+		return 'success';
     }
 
     public function editState($id) 

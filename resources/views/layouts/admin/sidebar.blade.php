@@ -28,13 +28,13 @@
                
             </li>
            
-            <li>
+          <?php /*?>  <li>
                 <a  href="{{ URL::to('admin/testimonials') }}" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
                     <span class="nav-text">Testimonials</span>
                 </a>
                
-            </li>
+            </li><?php */?>
             <li>
                 <a  href="{{ URL::to('admin/properties') }}" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -42,7 +42,7 @@
                 </a>
                
             </li>
-            <li>
+           <?php /*?> <li>
                 <a href="{{ URL::to('admin/bookvisit') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Book Visit</span>
@@ -60,7 +60,7 @@
                     <span class="nav-text">Advertisement</span>
                 </a>
                
-            </li>
+            </li><?php */?>
         </ul>
         
         

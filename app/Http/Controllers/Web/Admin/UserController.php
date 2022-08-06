@@ -82,10 +82,11 @@ class UserController extends Controller
         return view('admin.users.add',compact('country','state','city','sub_city','user_role','gender','status'));
     }
 
-    public function delete($id) {
+    public function delete(Request $request,$id) {
         
 		User::find($id)->delete();
 		//DB::table('users')->where('id', '=', $id)->delete();
+		$request->session()->flash('success', 'User has been successfully deleted.');
         return 'success';
     }
 
@@ -217,22 +218,30 @@ class UserController extends Controller
 
      
     }
-	public function status($id,$status) {
+	public function status(Request $request,$id,$status) {
       $User = User::find($id);
 	  $User->status = $status;
 	  $User->save();
-	  
-	     return 'success';
+	  $request->session()->flash('success', 'User status has been successfully updated.');
+	    return 'success';
     }
 	
 
     public function editPostUser(Request $request,$id) {
         
-      //  $checkUser = User::where('name',$request->name)->where('country_id',$request->country)->where("id",'!=',$id)->first();
+     
+	 $checkUser = User::where('email',$request->email)->where('email',$request->email)->where('id','!=',$id)->first();
 				
         if(isset($checkUser->id) && $checkUser->id >0){
-        //    return  redirect('admin/user/edit/'.$id)->with(['error' => 'Sorry user already exists.']);
+         
+		    return  redirect('admin/users/edit/'.$id)->with(['error' => 'Sorry email address already exists.']);
         }
+		$checkUser = User::where('mobile',$request->mobile)->where('mobile',$request->mobile)->where('id','!=',$id)->first();
+		if(isset($checkUser->id) && $checkUser->id >0){
+         
+		    return  redirect('admin/users/edit/'.$id)->with(['error' => 'Sorry mobile number already exists.']);
+        }
+	 
 		$User = User::find($id);
         
 		$User->status= $request->status;

@@ -3,6 +3,21 @@
     <div class="container-fluid">
        
         <div class="row p-0">
+         @if (session('success'))
+           <div class="col-lg-12">
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="col-lg-12">
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
             <div class="col-lg-12">
                 <div class="card">
         
@@ -68,7 +83,8 @@
                 </div>
                 <input type="hidden" name="id" id="id" value="">
                 <div class="modal-footer">
-                    <button type="button" id="btn_ok_1" class="btn btn-primary">Sure</button>
+                       <button type="button" id="close" class="btn btn-light close text-uppercase">Cancel</button>
+                    <button type="button" id="btn_ok_1" class="btn btn-primary text-uppercase">Sure</button>
                 </div>
             </div>
         </div>

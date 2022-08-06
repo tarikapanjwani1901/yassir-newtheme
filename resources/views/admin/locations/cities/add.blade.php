@@ -2,6 +2,21 @@
 @section('content')
     <div class="container-fluid">
         <div class="row p-0">
+            @if (session('success'))
+           <div class="col-lg-12">
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="col-lg-12">
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
             <div class="col-lg-12">
                 <div class="card">
                 <div class="card-header pb-3 pt-3 text-uppercase">

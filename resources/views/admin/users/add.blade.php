@@ -3,7 +3,23 @@
     <div class="container-fluid">
       
         <div class="row  p-0">
+            @if (session('success'))
+           <div class="col-lg-12">
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+            </div>
+            @endif
+            @if (session('error'))
             <div class="col-lg-12">
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
+            <div class="col-lg-12">
+               
                 <div class="card">
                 	<div class="card-header pb-3 pt-3 text-uppercase">
                     	Add User
@@ -54,7 +70,7 @@
                                 	<div class="col-md-3">
                                    		<div class="form-group">
                                          <label class="control-label">Mobile Number<span class="required_field">*</span> </label>    
-                                     	 <input type="text" placeholder="Mobile Number" name="mobile" class="form-control number required" />
+                                     	 <input type="text" placeholder="Mobile Number" min="10" name="mobile" class="form-control number required" />
                                     </div> 	
                                     </div>
                                 	<div class="col-md-3">

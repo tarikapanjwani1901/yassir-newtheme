@@ -466,25 +466,35 @@ label {
                         </div>
                         <div class="industrial_prop industrial_prop_hide">
                            <div class="row">
-                              <div class="col-md-3">
+                           	<div class="col-md-4">
+                                 <div class="form-group">
+                                    <label>Select Area<span class="required_field">*</span></label>
+                                   <select name="Industrial_property_areas" id="Industrial_property_areas" class="select2 form-control" >
+                                               <option value="Square Yard">Square Yard</option>
+                                                <option value="Square Feet">Square Feet</option>
+                                                <option value="Square Meter">Square Meter</option>
+                                             </select>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>No of washrooms <span class="required_field">*</span></label>
                                     <input type="text" placeholder="No of washrooms"  name="Industrialnumber_of_washrooms" class="form-control number required" />
                                  </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Area details <span class="required_field">*</span></label>
                                     <input type="text" placeholder="Area details" name="IndustrialAreadetails" class="form-control number required" />
                                  </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-6">
                                  <div class="form-group">
                                     <label>Carpet area <span class="required_field">*</span></label>
                                     <input type="text" placeholder="Carpet area" name="IndustrialCarpetarea" class="form-control number required" />
                                  </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-6">
                                  <div class="form-group">
                                     <label>Super built-up area <span class="required_field">*</span></label>
                                     <input type="text" placeholder="Super built-up area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"   name="Industrialsuper_builtup_area" class="form-control number required" />
@@ -631,19 +641,29 @@ label {
                                  </div>
                               </div>
                               <div class="row">
-                                 <div class="col-md-4">
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label>Select Area<span class="required_field">*</span></label>
+                                   <select name="Hospitalitycommerical_property_areas" id="Hospitalitycommerical_property_areas" class="select2 form-control" >
+                                               <option value="Square Yard">Square Yard</option>
+                                                <option value="Square Feet">Square Feet</option>
+                                                <option value="Square Meter">Square Meter</option>
+                                             </select>
+                                 </div>
+                              </div>
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Plot Area<span class="required_field">*</span> </label>
                                        <input type="text" placeholder="Plot Area"  name="Hospitalityplot_area" class="form-control number required" />
                                     </div>
                                  </div>
-                                 <div class="col-md-4">
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Carpet Area <span class="required_field">*</span></label>
                                        <input type="text" placeholder="Carpet Area"  name="Hospitalitycarpet_area" class="form-control number required" />
                                     </div>
                                  </div>
-                                 <div class="col-md-4">
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Super Built-up Area <span class="required_field">*</span></label>
                                        <input type="text" placeholder="Super Built-up Area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"   name="Hospitalitysuper_builtup_area" class="form-control number required" />
@@ -829,13 +849,24 @@ label {
                               </div>
                            </div>
                            <div class="row hospitality_prop_hide">
-                              <div class="col-md-6">
+                              
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label>Select Area<span class="required_field">*</span></label>
+                                   <select name="commerical_property_areas" id="commerical_property_areas" class="select2 form-control" >
+                                               <option value="Square Yard">Square Yard</option>
+                                                <option value="Square Feet">Square Feet</option>
+                                                <option value="Square Meter">Square Meter</option>
+                                             </select>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Carpet Area <span class="required_field">*</span></label>
                                     <input type="text" placeholder="Carpet Area" name="carpet_area" class="form-control required number" />
                                  </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Super Built-up Area <span class="required_field">*</span></label>
                                     <input type="text" placeholder="Super Built-up Area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"   name="super_builtup_area" class="form-control required number" />
