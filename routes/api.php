@@ -49,10 +49,12 @@ Route::post('/property/unfavourite', [PropertyController::class, 'unFavourite'])
 Route::get('/property/getfavourite', [PropertyController::class, 'getFavourite']);
 Route::post('/property/bookvisit', [PropertyController::class, 'bookVisit']);
 Route::post('/property/bookinquiry', [PropertyController::class, 'bookInquiry']);
+Route::post('/property/addreview', [PropertyController::class, 'addReview']);
+Route::post('/property/addproperty', [PropertyController::class, 'addProperty']);
 
 Route::get('/user/getUserProperty', [PropertyController::class, 'getUserProperty']);
 Route::get('/user/getUserInquiries', [PropertyController::class, 'getUserInquiries']);
 Route::get('/user/getVendorInquiries', [PropertyController::class, 'getVendorInquiries']);
 Route::get('/dashboard/getVendorProperty', [PropertyController::class, 'getVendorProperty']);
  
-Route::get('/getPropertyDetails', 'API\PropertyController@getPropertyDetails');
+//Route::get('/getPropertyDetails', 'API\PropertyController@getPropertyDetails'); - pending 

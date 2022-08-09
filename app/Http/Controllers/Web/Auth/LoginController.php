@@ -93,8 +93,8 @@ class LoginController extends Controller
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
             
-            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
-            $otpResponse ='aaa';
+            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            //$otpResponse ='aaa';
 
             DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
             
@@ -143,8 +143,8 @@ class LoginController extends Controller
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
             
-            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
-            $otpResponse ='aaa';
+            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            //$otpResponse ='aaa';
 
             DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
             
@@ -194,8 +194,8 @@ class LoginController extends Controller
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
             
-            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
-            $otpResponse ='aaa';
+            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            //$otpResponse ='aaa';
 
             DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
             

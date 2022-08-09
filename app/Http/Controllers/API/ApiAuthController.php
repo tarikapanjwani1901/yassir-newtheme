@@ -80,8 +80,8 @@ class ApiAuthController extends Controller
         $digits = 4;
         $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
         
-        //$otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
-        $otpResponse ="aaa";
+        $otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
+       // $otpResponse ="aaa";
         DB::table('user_otp')->where('mobile', $request->mobile)->delete();
         DB::table('user_otp')->insert([
             'mobile' => $request->mobile,
@@ -130,8 +130,8 @@ class ApiAuthController extends Controller
 			$digits = 4;
         	$otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
 			
-			//$otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
-			$otpResponse ="aaa";
+			$otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
+			//$otpResponse ="aaa";
 			DB::table('user_otp')->where('mobile', $request->mobile)->delete();
             DB::table('user_otp')->insert([
                 'mobile' => $request->mobile,
@@ -267,8 +267,8 @@ class ApiAuthController extends Controller
 			$digits = 4;
         	$otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
 			
-			//$otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
-			$otpResponse ="aaa";
+			$otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
+			//$otpResponse ="aaa";
 			DB::table('user_otp')->where('mobile', $request->mobile)->delete();
             DB::table('user_otp')->insert(
             ['mobile' => $request->mobile,'otp' => $otp, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'), 'otp_api_response' => $otpResponse ]
@@ -346,11 +346,11 @@ class ApiAuthController extends Controller
 					}
 			
 					DB::table('users')->insert([
-						'mobile' => $request->mobile,
-						'user_role'=>$user_role,
 						'first_name' =>$request->first_name,
 						'last_name' =>$request->last_name,
 						'user_name' => $request->user_name,
+						'mobile' => $request->mobile,
+						'user_role'=>$user_role,
 						'created_at' => date('Y-m-d H:i:s'), 
 						'updated_at' => date('Y-m-d H:i:s')
 						]);
@@ -407,8 +407,8 @@ class ApiAuthController extends Controller
 		$digits = 4;
 		$otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
 		
-		//$otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
-		$otpResponse ="aaa";
+		$otpResponse = $this->sendOTP($otp,$request->mobile,'sendotp');
+		//$otpResponse ="aaa";
 		DB::table('user_otp')->where('mobile', $request->mobile)->delete();
 		DB::table('user_otp')->insert([
 			'mobile' => $request->mobile,
