@@ -50,7 +50,10 @@ Route::get('/property/getfavourite', [PropertyController::class, 'getFavourite']
 Route::post('/property/bookvisit', [PropertyController::class, 'bookVisit']);
 Route::post('/property/bookinquiry', [PropertyController::class, 'bookInquiry']);
 Route::post('/property/addreview', [PropertyController::class, 'addReview']);
-Route::post('/property/addproperty', [PropertyController::class, 'addProperty']);
+Route::post('/property/add', [PropertyController::class, 'addProperty']);
+Route::post('/property/edit', [PropertyController::class, 'editProperty']);
+Route::post('/property/delete', [PropertyController::class, 'deleteProperty']);
+Route::post('/property/updatestatus', [PropertyController::class, 'updateStatus']);
 
 Route::get('/user/getUserProperty', [PropertyController::class, 'getUserProperty']);
 Route::get('/user/getUserInquiries', [PropertyController::class, 'getUserInquiries']);

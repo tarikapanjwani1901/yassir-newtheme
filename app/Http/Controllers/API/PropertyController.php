@@ -978,6 +978,52 @@ class PropertyController extends Controller
         );
     }
 
+    public function editProperty(Request $request){
+        $token = CommonController::checkAccessToken();
+        if ($token->getData()->success != 1) {
+            return CommonController::customAPIResponse(false, 401, 'Invalid token.', []);
+        }
+
+         //valid credential
+         $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'property_id' => 'required',
+        ]);
+
+        //Send failed response if request is not valid
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $error = $validator->errors()->all(':message');
+            return \Illuminate\Support\Facades\Response::json(array(
+                'success' => false,
+                'code'    => 442,
+                'message' => $error[0],
+                'data'    => (object) $errors
+            ));
+        }
+
+        $user_id = $request->user_id;
+        $property_id = $request->property_id;
+
+        $property_id = $this->updateData($property_id,$request);
+
+        if($property_id>0){
+            return \Illuminate\Support\Facades\Response::json(array(
+                'success' => true,
+                'code'    => 200,
+                'message' => "Property has been updated successfully",
+                'data'    => array()));
+        }
+        else{
+            return \Illuminate\Support\Facades\Response::json(array(
+                'success' => true,
+                'code'    => 200,
+                'message' => "Error while adding property",
+                'data'    => array()));
+        }
+
+    }
+
     public function addProperty(Request $request)
     {
         $token = CommonController::checkAccessToken();
@@ -1002,20 +1048,48 @@ class PropertyController extends Controller
             ));
         }
 
-        $Properties = new Properties();
+        $user_id = $request->user_id;
+        $property_id = 0;
+        
+        $property_id = $this->updateData($property_id,$request);
+
+        if($property_id>0){
+            return \Illuminate\Support\Facades\Response::json(array(
+                'success' => true,
+                'code'    => 200,
+                'message' => "Property has been added successfully",
+                'data'    => array()));
+        }
+        else{
+            return \Illuminate\Support\Facades\Response::json(array(
+                'success' => true,
+                'code'    => 200,
+                'message' => "Error while adding property",
+                'data'    => array()));
+        }
+       
+    }
+
+    public function updateData($property_id,$request){
+
+        if($property_id>0){
+            $Properties = Properties::find($property_id);
+        }
+        else{
+            $Properties = new Properties();
+        }
+        
         $Properties->added_by = $request->user_id;
-        $Properties->property_vendor = $request->property_vendor;
+        $Properties->property_vendor = $request->user_id;
 		$Properties->property_for = $request->property_for; 
 		$Properties->category = $request->category; 
 		$Properties->sub_category = $request->sub_category; 
-		$Properties->status = $request->status;
+		$Properties->status = 'Active';//$request->status;
 
         $sub_category = $request->sub_category;
 		$property_type = $request->property_type;
 
         //step 1
-		
-		$Properties->property_vendor = $request->property_vendor;
 		$Properties->property_for = $request->property_for; 
 		$Properties->category = $request->category; 
 		$Properties->sub_category = $request->sub_category; 
@@ -1044,6 +1118,10 @@ class PropertyController extends Controller
         if($sub_category=="Residential"){
 			if(!empty($request->propertyDetails[str_replace(" ","",$property_type)])){
 				foreach($request->propertyDetails[str_replace(" ","",$property_type)]  as $singleBhkType=>$singleBhkData){
+                   
+                    DB::table('property_units')->where('property_id', '=', $property_id)->delete();
+			        DB::table('property_unit_type_area')->where('property_id', '=', $property_id)->delete();
+
                     $PropertyUnits = new PropertyUnits();
                     $PropertyUnits->property_id = $id;
                     $PropertyUnits->property_unit = $singleBhkType;
@@ -1101,13 +1179,11 @@ class PropertyController extends Controller
                     $PropertyUnits->membership_charge = $singleBhkData['ResidentialMembershipCharge'];
                     $PropertyUnits->maintenance = $singleBhkData['ResidentialMaintenance'];
                     $PropertyUnits->total_price = $singleBhkData['HiddenResidentialTotal'];
-							
-                    if($request->stepNumber==1){
-                        $PropertyUnits->save();
-                    }
+                    $PropertyUnits->save();
+
                     $PropertiesUnitID = $PropertyUnits->id;
                     
-                    if(!empty($singleBhkData['carpet_area'])){	
+                    if(!empty($singleBhkData['carpet_area'])){
                         foreach($singleBhkData['carpet_area'] as $singleAreaKey=>$singleArea){
                             $PropertyUnitsAreas = new PropertyUnitsAreas();
                             $PropertyUnitsAreas->property_id = $id;
@@ -1122,9 +1198,7 @@ class PropertyController extends Controller
                             if(isset($singleBhkData['plot_area'][$singleAreaKey])){
                                 $PropertyUnitsAreas->plot_area = $singleBhkData['plot_area'][$singleAreaKey];
                             }
-                            if($request->stepNumber==1){
-                                $PropertyUnitsAreas->save();
-                            }
+                            $PropertyUnitsAreas->save();
                         }
                     }
 				}
@@ -1143,10 +1217,9 @@ class PropertyController extends Controller
 			if(!empty($request->property_features)){
 				$Properties->property_features =  implode(", ",$request->property_features);
 			}
+           // print_r($request->other_features);exit;
 			if($request->property_type=="Apartment And Flat" || $request->property_type=="IndependentHouse"){
-				if(!empty($request->other_features)){
-				$other_features= implode(", ",$request->other_features);
-				}
+                $other_features= implode(", ",$request->other_features);
 			}
 		
 		}
@@ -1400,6 +1473,7 @@ class PropertyController extends Controller
 			
 		}
 
+
         $Properties->property_areas =  $property_areas;
 		$Properties->property_ownership =  $property_ownership;
 		$Properties->expected_price =  $expected_price;
@@ -1420,7 +1494,6 @@ class PropertyController extends Controller
 		$Properties->located_inside =  $located_inside;
 		$Properties->rera_number =  $rera_number;
 		$Properties->rera_link =  $rera_link;
-
 
         //step 2
 		$Properties->carpet_area =  $carpet_area;
@@ -1446,8 +1519,6 @@ class PropertyController extends Controller
 		$Properties->pre_leased =  $pre_leased;
 		$Properties->fire_noc_certified =  $fire_noc_certified;
 		
-		
-		
 		$Properties->area_details =  $area_details;
 		$Properties->plot_area =  $plot_area;
 		
@@ -1469,67 +1540,67 @@ class PropertyController extends Controller
 		$Properties->other_features =  $other_features;
 		$Properties->location_advantages =  $request->location_advantages;
 		$Properties->suggestions =  $request->suggestions;
-		
-		//step 4
 
-		$Properties->video_toor =  $request->video_toor;
-		$Properties->sample_house_video =  $request->sample_house_video;
+        //step 4
+
+        $Properties->video_toor =  $request->video_toor;
+        $Properties->sample_house_video =  $request->sample_house_video;
 
         $target_dir = "images/properties/".$id;
 
         if(!empty($request->project_gallery_hidden)){
-			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->whereNotIn('id', $request->project_gallery_hidden)->delete();
-			
-		}else{
-			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->delete();
-		}
-		if(!empty($request->floor_plan_gallery_hidden)){
-			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','floor_plan_gallery')->whereNotIn('id', $request->floor_plan_gallery_hidden)->delete();
-			
-		}else{
-			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','floor_plan_gallery')->delete();
-		}
-		if(!empty($request->project_status_gallery_hidden)){
-			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_status_gallery')->whereNotIn('id', $request->project_status_gallery_hidden)->delete();
-			
-		}else{
-			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_status_gallery')->delete();
-		}	
+            DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->whereNotIn('id', $request->project_gallery_hidden)->delete();
+            
+        }else{
+            DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->delete();
+        }
+        if(!empty($request->floor_plan_gallery_hidden)){
+            DB::table('property_images')->where('property_id', '=', $id)->where('type','=','floor_plan_gallery')->whereNotIn('id', $request->floor_plan_gallery_hidden)->delete();
+            
+        }else{
+            DB::table('property_images')->where('property_id', '=', $id)->where('type','=','floor_plan_gallery')->delete();
+        }
+        if(!empty($request->project_status_gallery_hidden)){
+            DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_status_gallery')->whereNotIn('id', $request->project_status_gallery_hidden)->delete();
+            
+        }else{
+            DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_status_gallery')->delete();
+        }	
 
         if (!file_exists($target_dir))
         {
             mkdir($target_dir, 0777, true);
         }
-		$destinationPath = public_path().'/images/properties/'.$id;
+        $destinationPath = public_path().'/images/properties/'.$id;
 
-		if($request->file('pdf_brochure')){	
+        if($request->file('pdf_brochure')){	
 
-			$pdf_brochure = $request->file('pdf_brochure');
-       	 	$pdf_brochure_name = $request->file('pdf_brochure')->getClientOriginalName();  
-        
+            $pdf_brochure = $request->file('pdf_brochure');
+                $pdf_brochure_name = $request->file('pdf_brochure')->getClientOriginalName();  
+
             $thumb_img = Image::make($pdf_brochure->getRealPath())->resize(200, 200);
             $thumb_img->save($destinationPath.'/'.$pdf_brochure_name,80);
             $Properties->pdf_brochure =  $pdf_brochure_name;
 
-		}
+        }
 
         if($request->file('sample_house_video')){	
-			$sample_house_video = $request->file('sample_house_video');
-       	 	$sample_house_video_name = $sample_house_video->getClientOriginalName();  
-        	$thumb_img = Image::make($sample_house_video->getRealPath())->resize(200, 200);
-       		 $thumb_img->save($destinationPath.'/'.$sample_house_video_name,80);
-			$Properties->sample_house_video =  $sample_house_video_name;
+            $sample_house_video = $request->file('sample_house_video');
+                $sample_house_video_name = $sample_house_video->getClientOriginalName();  
+            $thumb_img = Image::make($sample_house_video->getRealPath())->resize(200, 200);
+                $thumb_img->save($destinationPath.'/'.$sample_house_video_name,80);
+            $Properties->sample_house_video =  $sample_house_video_name;
 
-		  $pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
-           move_uploaded_file($_FILES["pdf_brochure"]["tmp_name"], $target_dir."/".$pdf_brochure_name);
-		   $Properties->pdf_brochure =  $pdf_brochure_name;
-		}else{
-			if(!empty($request->pdf_brochure_hidden)){
-					$Properties->pdf_brochure =  $request->pdf_brochure_hidden;
-				}else{
-					$Properties->pdf_brochure = "";
-				}
-		}
+        $pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
+        move_uploaded_file($_FILES["pdf_brochure"]["tmp_name"], $target_dir."/".$pdf_brochure_name);
+        $Properties->pdf_brochure =  $pdf_brochure_name;
+        }else{
+            if(!empty($request->pdf_brochure_hidden)){
+                    $Properties->pdf_brochure =  $request->pdf_brochure_hidden;
+                }else{
+                    $Properties->pdf_brochure = "";
+                }
+        }
 
         if($request->file('video_toor')){	
             $video_toor_name = time().basename($request->file('video_toor')->getClientOriginalName());
@@ -1543,6 +1614,7 @@ class PropertyController extends Controller
             }
         }
 
+        //print_r($request->file('project_gallery'));exit;
         if($request->file('project_gallery')){
             for($i=0;$i<count($request->file('project_gallery'));$i++){		
                 $project_gallery = $request->file('project_gallery')[$i];
@@ -1560,7 +1632,7 @@ class PropertyController extends Controller
         }
 
         if($request->file('floor_plan_gallery')){
-            for($i=0;$i<count($request->file('floor_plan_gallery'));$i++){		
+            for($i=0;$i<count($request->file('floor_plan_gallery'));$i++){	
                 $floor_plan_gallery = $request->file('floor_plan_gallery')[$i];
                 $floor_plan_gallery_name = $floor_plan_gallery->getClientOriginalName();  
                 $thumb_img = Image::make($floor_plan_gallery->getRealPath())->resize(200, 200);
@@ -1592,6 +1664,88 @@ class PropertyController extends Controller
         }
 
         $Properties->save();
+
+        $property_id = $Properties->id;
+
+        return $property_id;
+    }
+
+    public function deleteProperty(Request $request) {
+        $token = CommonController::checkAccessToken();
+        if ($token->getData()->success != 1) {
+            return CommonController::customAPIResponse(false, 401, 'Invalid token.', []);
+        }
+
+        //valid credential
+        $validator = Validator::make($request->all(), [
+            'property_id' => 'required',
+        ]);
+
+        //Send failed response if request is not valid
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $error = $validator->errors()->all(':message');
+            return \Illuminate\Support\Facades\Response::json(array(
+                'success' => false,
+                'code'    => 442,
+                'message' => $error[0],
+                'data'    => (object) $errors
+            ));
+        }
+
+        $property_id = $request->property_id;
+
+        DB::table('properties')->where('id', '=', $property_id)->delete();
+		DB::table('property_units')->where('property_id', '=', $property_id)->delete();
+		DB::table('property_unit_type_area')->where('property_id', '=', $property_id)->delete();
+		DB::table('property_images')->where('property_id', '=', $property_id)->delete();
+
+        return \Illuminate\Support\Facades\Response::json(array(
+            'success' => true,
+            'code'    => 200,
+            'message' => "Property deleted successfully.",
+            'data'    => array()
+        ));
+
+    }
+
+    public function updateStatus(Request $request) {
+        $token = CommonController::checkAccessToken();
+        if ($token->getData()->success != 1) {
+            return CommonController::customAPIResponse(false, 401, 'Invalid token.', []);
+        }
+
+        //valid credential
+        $validator = Validator::make($request->all(), [
+            'property_id' => 'required',
+            'status' => 'required'
+        ]);
+
+        //Send failed response if request is not valid
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $error = $validator->errors()->all(':message');
+            return \Illuminate\Support\Facades\Response::json(array(
+                'success' => false,
+                'code'    => 442,
+                'message' => $error[0],
+                'data'    => (object) $errors
+            ));
+        }
+
+        $property_id = $request->property_id;
+        $status = $request->status;
         
+        $property = Properties::find($property_id);
+        $property->status = $status;
+        $property->save();
+
+        return \Illuminate\Support\Facades\Response::json(array(
+            'success' => true,
+            'code'    => 200,
+            'message' => "Property status has been updated successfully.",
+            'data'    => array()
+        ));
+
     }
 }
