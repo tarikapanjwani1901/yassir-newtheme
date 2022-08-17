@@ -50,6 +50,7 @@ class User extends Authenticatable
         $query = User::query();
 		$query = $query->orderBy('company_name','asc');
         $query = $query->where('users.user_role',$vendor_role_id);
+		$query = $query->where('company_name','!=',NULL);
 
 		$response = $query->get();
 

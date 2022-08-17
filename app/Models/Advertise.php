@@ -29,7 +29,8 @@ class Advertise extends Model
 
         $query = Advertise::query();
         $query = $query->join('users','users.id','=','advertise.vendor_id');
-        $query = $query->select('advertise.title','users.company_name','advertise.id');
+        $query = $query->select('advertise.title','users.company_name','advertise.id','advertise.section','advertise.expiry_date',
+        'advertise.position','advertise.priority');
         //$response = $query->get();
 
         $response = $query->paginate(20);
