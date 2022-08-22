@@ -230,13 +230,13 @@ class UserController extends Controller
     public function editPostUser(Request $request,$id) {
         
      
-	 $checkUser = User::where('email',$request->email)->where('email',$request->email)->where('id','!=',$id)->first();
+	 $checkUser = User::where('email',$request->email)->where('id','!=',$id)->first();
 				
         if(isset($checkUser->id) && $checkUser->id >0){
          
 		    return  redirect('admin/users/edit/'.$id)->with(['error' => 'Sorry email address already exists.']);
         }
-		$checkUser = User::where('mobile',$request->mobile)->where('mobile',$request->mobile)->where('id','!=',$id)->first();
+		$checkUser = User::where('mobile',$request->mobile)->where('id','!=',$id)->first();
 		if(isset($checkUser->id) && $checkUser->id >0){
          
 		    return  redirect('admin/users/edit/'.$id)->with(['error' => 'Sorry mobile number already exists.']);
@@ -292,13 +292,13 @@ class UserController extends Controller
 
     public function addUser(Request $request,$id="") {
 
-	    $checkUser = User::where('email',$request->email)->where('email',$request->email)->first();
+	    $checkUser = User::where('email',$request->email)->first();
 				
         if(isset($checkUser->id) && $checkUser->id >0){
          
 		    return  redirect('admin/users/add')->with(['error' => 'Sorry email address already exists.']);
         }
-		$checkUser = User::where('mobile',$request->mobile)->where('mobile',$request->mobile)->first();
+		$checkUser = User::where('mobile',$request->mobile)->first();
 		if(isset($checkUser->id) && $checkUser->id >0){
          
 		    return  redirect('admin/users/add')->with(['error' => 'Sorry mobile number already exists.']);

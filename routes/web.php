@@ -26,6 +26,15 @@ use App\Http\Controllers\Web\Admin\SubCitiesController;
 use App\Http\Controllers\Web\Admin\AreasController;
 use App\Http\Controllers\Web\Admin\AdvertiseController;
 use App\Http\Controllers\Web\Admin\UserController;
+use App\Http\Controllers\Web\Admin\CmsController;
+use App\Http\Controllers\Web\Admin\ReviewsController;
+use App\Http\Controllers\Web\Admin\BlogCategoriesController;
+use App\Http\Controllers\Web\Admin\BlogCommentsController;
+use App\Http\Controllers\Web\Admin\BlogTagController;
+use App\Http\Controllers\Web\Admin\BlogController;
+
+
+
 
 use App\Http\Controllers\Web\Vendor\VendorDashboardController;
 use App\Http\Controllers\Web\Vendor\VendorInquiryController;
@@ -147,7 +156,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/admin/advertise/delete_image',[AdvertiseController::class, 'advertise_delimage'])->name('admin.advertise.delimage');
 		
 		
-		// States
+		// Users
         Route::get('/admin/users', [UserController::class, 'index']);
         Route::get('/admin/users/add', [UserController::class, 'add']);
         Route::post('/admin/users/add', [UserController::class, 'addUser']);
@@ -156,6 +165,69 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/admin/users/delete/{id}', [UserController::class, 'delete']);
         Route::get('/admin/user_search',[UserController::class, 'user_search']);
 		Route::post('/admin/users/status/{id}/{status}', [UserController::class, 'status']);
+		
+		
+		  // Cms
+        Route::get('/admin/cms', [CmsController::class, 'index']);
+        Route::get('/admin/cms/edit/{id}', [CmsController::class, 'editCms']);
+        Route::post('/admin/cms/edit/{id}', [CmsController::class, 'editPostCms']);
+		
+		//Reviews
+		
+		Route::get('/admin/reviews', [ReviewsController::class, 'index']);
+        Route::get('/admin/reviews/add', [ReviewsController::class, 'add']);
+        Route::post('/admin/reviews/add', [ReviewsController::class, 'addReviews']);
+        Route::get('/admin/reviews/edit/{id}', [ReviewsController::class, 'editReviews']);
+        Route::post('/admin/reviews/edit/{id}', [ReviewsController::class, 'editPostReviews']);
+        Route::post('/admin/reviews/delete/{id}', [ReviewsController::class, 'delete']);
+        Route::get('/admin/reviews_search',[ReviewsController::class, 'reviews_search']);
+		
+		
+		// Blog Category
+        Route::get('/admin/blog_categories', [BlogCategoriesController::class, 'index']);
+        Route::get('/admin/blog_categories/add', [BlogCategoriesController::class, 'add']);
+        Route::post('/admin/blog_categories/add', [BlogCategoriesController::class, 'addBlogCategory']);
+        Route::get('/admin/blog_categories/edit/{id}', [BlogCategoriesController::class, 'editBlogCategory']);
+        Route::post('/admin/blog_categories/edit/{id}', [BlogCategoriesController::class, 'editPostBlogCategory']);
+        Route::post('/admin/blog_categories/delete/{id}', [BlogCategoriesController::class, 'delete']);
+        Route::get('/admin/blog_categories_search',[BlogCategoriesController::class, 'blog_categories_search']);
+		
+		
+		// Blog Tag
+        Route::get('/admin/blog_tag', [BlogTagController::class, 'index']);
+        Route::get('/admin/blog_tag/add', [BlogTagController::class, 'add']);
+        Route::post('/admin/blog_tag/add', [BlogTagController::class, 'addBlogTag']);
+        Route::get('/admin/blog_tag/edit/{id}', [BlogTagController::class, 'editBlogTag']);
+        Route::post('/admin/blog_tag/edit/{id}', [BlogTagController::class, 'editPostBlogTag']);
+        Route::post('/admin/blog_tag/delete/{id}', [BlogTagController::class, 'delete']);
+        Route::get('/admin/blog_tag_search',[BlogTagController::class, 'blog_tag_search']);
+		
+		
+		
+		// Blog Comment
+        Route::get('/admin/blog_comments', [BlogCommentsController::class, 'index']);
+        Route::get('/admin/blog_comments/add', [BlogCommentsController::class, 'add']);
+        Route::post('/admin/blog_comments/add', [BlogCommentsController::class, 'addBlogComment']);
+        Route::get('/admin/blog_comments/edit/{id}', [BlogCommentsController::class, 'editBlogComment']);
+        Route::post('/admin/blog_comments/edit/{id}', [BlogCommentsController::class, 'editPostBlogComment']);
+        Route::post('/admin/blog_comments/delete/{id}', [BlogCommentsController::class, 'delete']);
+        Route::get('/admin/blog_comments_search',[BlogCommentsController::class, 'blog_comments_search']);
+		
+		
+		
+		// Blog Comment
+        Route::get('/admin/blog', [BlogController::class, 'index']);
+        Route::get('/admin/blog/add', [BlogController::class, 'add']);
+        Route::post('/admin/blog/add', [BlogController::class, 'addBlog']);
+        Route::get('/admin/blog/edit/{id}', [BlogController::class, 'editBlog']);
+        Route::post('/admin/blog/edit/{id}', [BlogController::class, 'editPostBlog']);
+        Route::post('/admin/blog/delete/{id}', [BlogController::class, 'delete']);
+        Route::get('/admin/blog_search',[BlogController::class, 'blog_search']);
+		
+		
+
+
+ 
     });
 });
 

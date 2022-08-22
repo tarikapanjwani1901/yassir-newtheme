@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="/assests/vendor/select2/css/select2.min.css">
 	  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="/assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/assests/vendor/summernote/summernote.css" rel="stylesheet" />
     <link href="/assests/css/style.css" rel="stylesheet">
     <link href="/assests/css/custom.css" rel="stylesheet">
 
@@ -154,6 +155,7 @@
     
     
 
+<script src="/assests/vendor/summernote/summernote.js" type="text/javascript"></script>
     
     @yield('customjs')
 

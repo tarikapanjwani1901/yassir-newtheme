@@ -28,13 +28,13 @@
                
             </li>
            
-          <?php /*?>  <li>
+         <li>
                 <a  href="{{ URL::to('admin/testimonials') }}" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
                     <span class="nav-text">Testimonials</span>
                 </a>
                
-            </li><?php */?>
+            </li>
             <li>
                 <a  href="{{ URL::to('admin/properties') }}" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -42,14 +42,14 @@
                 </a>
                
             </li>
-           <?php /*?> <li>
-                <a href="{{ URL::to('admin/bookvisit') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
+            <li>
+                <a href="{{ URL::to('admin/bookvisit') }}"  class="ai-icon"  aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Book Visit</span>
                 </a>
             </li>
             <li>
-                <a href="{{ URL::to('admin/inquiry') }}" class="ai-icon" href="javascript:void()" aria-expanded="false">
+                <a href="{{ URL::to('admin/inquiry') }}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Inquiry</span>
                 </a>
@@ -60,7 +60,23 @@
                     <span class="nav-text">Advertisement</span>
                 </a>
                
-            </li><?php */?>
+            </li>
+            
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-television"></i>
+                    <span class="nav-text">Blog</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ URL::to('admin/blog') }}" >Blog</a></li>
+                    
+                    <li><a href="{{ URL::to('admin/blog_categories') }}" >Blog Categories</a></li>
+                    <li><a href="{{ URL::to('admin/blog_tag') }}" >Blog Tags</a></li>
+                    <li><a href="{{ URL::to('admin/blog_comments') }}" >Blog Comments</a></li>
+                    
+                    <?php /*?><li><a href="{{ URL::to('admin/areas') }}" >Areas List</a></li><?php */?>
+                </ul>
+            </li>
         </ul>
         
         

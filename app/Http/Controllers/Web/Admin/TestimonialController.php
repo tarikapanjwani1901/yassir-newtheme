@@ -24,7 +24,7 @@ class TestimonialController extends Controller
 
     public function delete(Request $request,$id) {
         DB::table('site_testimonials')->where('t_id', '=', $id)->delete();
-		$request->session()->flash('success', 'State has been successfully deleted.');
+		$request->session()->flash('success', 'Testimonial has been successfully deleted.');
         return 'success';
     }
 

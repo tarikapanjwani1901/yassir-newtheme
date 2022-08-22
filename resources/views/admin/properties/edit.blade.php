@@ -646,7 +646,7 @@ label {
     <div class="col-md-3">
       <div class="form-group">
         <label>Basic Price <span class="required_field">*</span></label>
-        <input type="text" value="{{$v->basic_price}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialBasicPrice_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialBasicPrice]" placeholder="Basic Price" />
+        <input type="text" style="background:#eee;" value="{{$v->basic_price}}" readonly="readonly" disabled="disabled" class="form-control required number ResidentialBasicPrice_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialBasicPrice]" placeholder="Basic Price" />
       </div>
     </div>
     <div class="col-md-3">
@@ -658,25 +658,25 @@ label {
     <div class="col-md-3">
       <div class="form-group">
         <label>All-inclusive Price <span class="required_field">*</span> </label>
-        <input type="text" value="{{$v->all_inclusive_price}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialAllinclusivePrice_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialAllinclusivePrice]"  placeholder="All-inclusive Price" />
+        <input type="text" style="background:#eee;" readonly="readonly" disabled="disabled" value="{{$v->all_inclusive_price}}" class="form-control required number ResidentialAllinclusivePrice_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialAllinclusivePrice]"  placeholder="All-inclusive Price" />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label>Booking amount <span class="required_field">*</span> </label>
-        <input type="text" value="{{$v->booking_amount}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialBookingamount_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialBookingamount]" placeholder="Booking amount" />
+        <label>Booking amount</label>
+        <input type="text" value="{{$v->booking_amount}}"  class="form-control ResidentialBookingamount_<?php echo $db_property_type."_".$db_value;?>"  name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialBookingamount]" placeholder="Booking amount" />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label>Membership Charge <span class="required_field">*</span> </label>
-        <input type="text" value="{{$v->membership_charge}}" onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')"  onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialMembershipCharge_<?php echo $db_property_type."_".$db_value;?>"    name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialMembershipCharge]"  placeholder="All-inclusive Price" />
+        <label>Membership Charge</label>
+        <input type="text" value="{{$v->membership_charge}}" class="form-control ResidentialMembershipCharge_<?php echo $db_property_type."_".$db_value;?>"    name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialMembershipCharge]"  placeholder="All-inclusive Price" />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label>Maintenance <span class="required_field">*</span> </label>
-        <input type="text" value="{{$v->maintenance}}"  onkeyup="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" onchange="calculateBasicPrice('<?php echo $counter;?>','<?php echo $db_property_type;?>','<?php echo $db_value;?>')" class="form-control required number ResidentialMaintenance_<?php echo $db_property_type."_".$db_value;?>" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialMaintenance]"  placeholder="Maintenance" />
+        <label>Maintenance </label>
+        <input type="text" value="{{$v->maintenance}}"   class="form-control ResidentialMaintenance_<?php echo $db_property_type."_".$db_value;?>" name="propertyDetails[<?php echo $db_property_type?>][<?php echo $db_value;?>][ResidentialMaintenance]"  placeholder="Maintenance" />
       </div>
     </div>
   </div>
@@ -800,7 +800,7 @@ label {
                                 <div class="col-md-3">
                                 	<div class="form-group">
                                     	<label>Basic Price <span class="required_field">*</span></label>
-                                        <input type="text" value="{{$p->basic_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingBasicPrice" placeholder="Basic Price" />
+                                        <input type="text" style="background:#eee;" value="{{$p->basic_price}}" readonly="readonly" disabled="disabled" class="form-control" name="VacantLandPlottingBasicPrice" placeholder="Basic Price" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -812,7 +812,7 @@ label {
                                 <div class="col-md-3">
                                 	<div class="form-group">
                                     	<label>All-inclusive Price <span class="required_field">*</span> </label>
-                                        <input type="text" value="{{$p->all_inclusive_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingAllinclusivePrice" placeholder="All-inclusive Price" />
+                                        <input type="text" style="background:#eee;" value="{{$p->all_inclusive_price}}" readonly="readonly"  disabled="disabled" class="form-control required" name="VacantLandPlottingAllinclusivePrice" placeholder="All-inclusive Price" />
                                     </div>
                                 </div>
                            </div>
@@ -928,7 +928,7 @@ label {
                                 <div class="col-md-3">
                                 	<div class="form-group">
                                     	<label>Basic Price <span class="required_field">*</span></label>
-                                        <input type="text" value="{{$p->basic_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialBasicPrice" placeholder="Basic Price" />
+                                        <input type="text" value="{{$p->basic_price}}" style="background:#eee;" readonly="readonly" disabled="disabled" class="form-control required number" name="IndustrialBasicPrice" placeholder="Basic Price" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -940,7 +940,7 @@ label {
                                 <div class="col-md-3">
                                 	<div class="form-group">
                                     	<label>All-inclusive Price <span class="required_field">*</span> </label>
-                                        <input type="text" value="{{$p->all_inclusive_price}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialAllinclusivePrice" placeholder="All-inclusive Price" />
+                                        <input type="text" value="{{$p->all_inclusive_price}}" style="background:#eee;" readonly="readonly" disabled="disabled" class="form-control required number" name="IndustrialAllinclusivePrice" placeholder="All-inclusive Price" />
                                     </div>
                                 </div>
                            </div>
@@ -1486,14 +1486,14 @@ label {
                                 </div>
                                 <div class="col-md-4 commericial_price commericial_price_hospital">
                                 	<div class="form-group">
-                                    	<label>Booking amount <span class="required_field">*</span> </label>
-                                        <input type="text" value="{{$p->booking_amount}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialBookingamount" placeholder="Booking amount" />
+                                    	<label>Booking amount</label>
+                                        <input type="text" value="{{$p->booking_amount}}" class="form-control" name="CommercialBookingamount" placeholder="Booking amount" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 commericial_price commericial_price_hospital">
                                 	<div class="form-group">
-                                    	<label>Membership Charge <span class="required_field">*</span> </label>
-                                        <input type="text" value="{{$p->membership_charge}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialMembershipCharge" placeholder="All-inclusive Price" />
+                                    	<label>Membership Charge</label>
+                                        <input type="text" value="{{$p->membership_charge}}" class="form-control" name="CommercialMembershipCharge" placeholder="All-inclusive Price" />
                                     </div>
                                 </div>
                            </div>
@@ -1520,8 +1520,8 @@ label {
                                 
                                <div class="col-md-7">
                                 	<div class="form-group">
-                                    	<label>Maintenance <span class="required_field">*</span> </label>
-                                        <input type="text" value="{{$p->maintenance}}" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialMaintenance" placeholder="Maintenance" />
+                                    	<label>Maintenance </label>
+                                        <input type="text" value="{{$p->maintenance}}" class="form-control" name="CommercialMaintenance" placeholder="Maintenance" />
                                     </div>
                                 </div> 
                            </div>
@@ -1844,21 +1844,18 @@ function calculateBasicPrice(data_id="",data_type="",data_value=""){
 		jQuery(".VacantLandPlottingTotalPrice").html("0.00");
 		var super_area = jQuery("input[name='VacantLandPlottingCarpetarea']").val();
 		var expected_price = jQuery("input[name='VacantLandPlottingExpectedPrice']").val();
-		var basic_price = jQuery("input[name='VacantLandPlottingBasicPrice']").val();
+		var basic_price = 0;
 		var govcharges_price = jQuery("input[name='VacantLandPlottingTaxandgovchargesPrice']").val();
-		var inclusive_price = jQuery("input[name='VacantLandPlottingAllinclusivePrice']").val();
+		var inclusive_price = 0;
 		
 			if(expected_price>0 && super_area>0){
-				totalPrice += parseFloat(expected_price)*parseFloat(super_area);
+				basic_price = parseFloat(expected_price)*parseFloat(super_area);
 			}
-			if(basic_price>0){
-				totalPrice += parseFloat(basic_price);
-			}if(govcharges_price>0){
-				totalPrice += parseFloat(govcharges_price);
-			}if(inclusive_price>0){
-				totalPrice += parseFloat(inclusive_price);
-			}
-		jQuery(".VacantLandPlottingTotalPrice").html(toFixed(totalPrice));
+			 inclusive_price = parseFloat(govcharges_price)+parseFloat(basic_price);
+			
+			jQuery("input[name='VacantLandPlottingBasicPrice']").val(toFixed(basic_price));
+			jQuery("input[name='VacantLandPlottingAllinclusivePrice']").val(toFixed(inclusive_price));
+			jQuery(".VacantLandPlottingTotalPrice").html(toFixed(inclusive_price));
 				
 	}	
 	
@@ -1866,22 +1863,18 @@ function calculateBasicPrice(data_id="",data_type="",data_value=""){
 		jQuery(".IndustrialTotalPrice").html("0.00");
 		var super_area = jQuery("input[name='Industrialsuper_builtup_area']").val();
 		var expected_price = jQuery("input[name='IndustrialExpectedPrice']").val();
-		var basic_price = jQuery("input[name='IndustrialBasicPrice']").val();
+		var basic_price = 0;
 		var govcharges_price = jQuery("input[name='IndustrialTaxandgovchargesPrice']").val();
-		var inclusive_price = jQuery("input[name='IndustrialAllinclusivePrice']").val();
+		var inclusive_price = 0;
 		
 			if(expected_price>0 && super_area>0){
-				totalPrice += parseFloat(expected_price)*parseFloat(super_area);
+				basic_price = parseFloat(expected_price)*parseFloat(super_area);
 			}
-			if(basic_price>0){
-				totalPrice += parseFloat(basic_price);
-			}if(govcharges_price>0){
-				totalPrice += parseFloat(govcharges_price);
-			}if(inclusive_price>0){
-				totalPrice += parseFloat(inclusive_price);
-			}
-		
-		jQuery(".IndustrialTotalPrice").html(toFixed(totalPrice));
+			 inclusive_price = parseFloat(govcharges_price)+parseFloat(basic_price);
+			jQuery("input[name='IndustrialBasicPrice']").val(toFixed(basic_price));
+			jQuery("input[name='IndustrialAllinclusivePrice']").val(toFixed(inclusive_price));
+			jQuery(".IndustrialTotalPrice").html(toFixed(inclusive_price));
+			
 				
 	}	
 	
@@ -2250,7 +2243,7 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
     html += '<div class="col-md-3">';
       html += '<div class="form-group">';
       html += '<label>Basic Price <span class="required_field">*</span></label>';
-     html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialBasicPrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBasicPrice]" placeholder="Basic Price" />';
+     html += '<input type="text"   class="form-control required number ResidentialBasicPrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBasicPrice]" placeholder="Basic Price" />';
       html += '</div>';
     html += '</div>';
     html += '<div class="col-md-3">';
@@ -2267,20 +2260,20 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
     html += '</div>';
     html += '<div class="col-md-4">';
     html += '<div class="form-group">';
-    html += '<label>Booking amount <span class="required_field">*</span> </label>';
-    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialBookingamount_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBookingamount]" placeholder="Booking amount" />';
+    html += '<label>Booking amount</label>';
+    html += '<input type="text"  class="form-control ResidentialBookingamount_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBookingamount]" placeholder="Booking amount" />';
     html += '</div>';
     html += '</div>';
     html += '<div class="col-md-4">';
     html += '<div class="form-group">';
-    html += '<label>Membership Charge <span class="required_field">*</span> </label>';
-    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialMembershipCharge_'+property_type+'_'+value+'"    name="propertyDetails['+property_type+']['+value+'][ResidentialMembershipCharge]"  placeholder="All-inclusive Price" />';
+    html += '<label>Membership Charge</label>';
+    html += '<input type="text" class="form-control ResidentialMembershipCharge_'+property_type+'_'+value+'"    name="propertyDetails['+property_type+']['+value+'][ResidentialMembershipCharge]"  placeholder="All-inclusive Price" />';
     html += '</div>';
     html += '</div>';
     html += '<div class="col-md-4">';
     html += '<div class="form-group">';
-    html += '<label>Maintenance <span class="required_field">*</span> </label>';
-    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialMaintenance_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialMaintenance]"  placeholder="Maintenance" />';
+    html += '<label>Maintenance</label>';
+    html += '<input type="text" class="form-control ResidentialMaintenance_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialMaintenance]"  placeholder="Maintenance" />';
     html += '</div>';
     html += '</div>';
   html += '</div>';

@@ -33,6 +33,62 @@ class Common extends Model
 			return $allvendors;
 	}
 	
+	 public function getAllBlogList(){
+		 $blogs = DB::table('blogs')
+				->whereNull('deleted_at')
+				->orderBy('title','asc')
+				->get()
+				->toArray();
+	
+			return $blogs;
+	}
+	
+	public function getAllBlogCategoriesList(){
+		 $blogs = DB::table('blog_categories')
+				->whereNull('deleted_at')
+				->orderBy('title','asc')
+				->get()
+				->toArray();
+	
+			return $blogs;
+	}
+	
+	public function getAllBlogTagList(){
+		 $blogs = DB::table('blog_tag')
+				->whereNull('deleted_at')
+				->orderBy('title','asc')
+				->get()
+				->toArray();
+	
+			return $blogs;
+	}
+	
+	public static  function getAllUsersList()
+    {
+    
+       	 $users = DB::table('users')
+				->where("user_role",'!=',env('ADMIN_ROLE_ID'))
+				->whereNull('deleted_at')
+				->whereNotNull('company_name')
+				->orderBy('users.company_name','asc')
+				->get()
+				->toArray();
+	
+			return $users;
+
+	}
+	public static  function getAllPropertyList()
+    {
+    
+       	 $data = DB::table('properties')
+				->orderBy('project_name','asc')
+				->get()
+				->toArray();
+	
+			return $data;
+
+	}
+	
 	public function getStateByCountry($country){
 			$stateList = DB::table('states')
             ->select('states.name','states.id')
