@@ -98,6 +98,25 @@ class UserController extends Controller
             return CommonController::customAPIResponse(false, 401, 'Invalid token.', []);
         }
         
+        /*
+            1. first_name
+            2. last_name
+            3. user_name
+            4. email
+            5. company_name
+            6. gst_number
+            7. mobile
+            8. dob
+            9. gender
+            10. country_id
+            11. state_id
+            12. city_id
+            13. subcity_id
+            14. address
+            15. pincode
+            16. bio
+        */
+
         //valid credential
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
@@ -106,6 +125,7 @@ class UserController extends Controller
             'user_name' => 'required',
             'dob'=>'required',
             'gender'=>'required',
+            'email'=>'required',
         ]);
 
         //Send failed response if request is not valid
@@ -124,9 +144,12 @@ class UserController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->user_name = $request->user_name;
+        $user->email = $request->email;
+        $user->company_name = $request->company_name;
         $user->gender = $request->gender;
-        $user->dob = $request->dob;
 
+        if(isset($request->gst_number) && $request->gst_number!='')
+            $user->gst_number = $request->gst_number;
         if(isset($request->country_id) && $request->country_id!='')
             $user->country = $request->country_id;
         if(isset($request->state_id) && $request->state_id!='')
@@ -135,11 +158,13 @@ class UserController extends Controller
             $user->city = $request->city_id;
         if(isset($request->sub_city_id) && $request->sub_city_id!='')
             $user->sub_city_id = $request->sub_city_id;
-        if(isset($request->area_id) && $request->area_id!='')
-            $user->area_id = $request->area_id;
-        
-        //$user->mobile  = $user->mobile_number;
-        
+        if(isset($request->address) && $request->address!='')
+            $user->address = $request->address;
+        if(isset($request->pincode) && $request->pincode!='')
+            $user->zipcode = $request->pincode;
+        if(isset($request->dob) && $request->dob!='')
+            $user->dob = $request->dob;
+
         if($request->hasFile('profile_pic')) {
             if($request->file('profile_pic')!=''){
                 $photo = $request->file('profile_pic');

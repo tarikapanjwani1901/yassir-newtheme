@@ -74,7 +74,6 @@
                     <li><a href="{{ URL::to('admin/blog_tag') }}" >Blog Tags</a></li>
                     <li><a href="{{ URL::to('admin/blog_comments') }}" >Blog Comments</a></li>
                     
-                    <?php /*?><li><a href="{{ URL::to('admin/areas') }}" >Areas List</a></li><?php */?>
                 </ul>
             </li>
         </ul>

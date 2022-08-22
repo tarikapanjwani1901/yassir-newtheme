@@ -28,7 +28,15 @@ class AdvertiseController extends Controller
         //Grab all vendors
         $vendors = User::getVendors();
 
-    	return view('admin.advertise.create',compact('vendors'));
+        // sections
+        $section = array();
+        $section['1'] = 'Section 1';
+        $section['2'] = 'Section 2';
+        $section['3'] = 'Section 3';
+        $section['4'] = 'Section 4';
+        $section['5'] = 'Section 5';
+
+    	return view('admin.advertise.create',compact('vendors','section'));
     }
 
     public function edit(Advertise $adt,$adID)
@@ -37,10 +45,19 @@ class AdvertiseController extends Controller
         //Grab all vendors
         $vendors = User::getVendors();
 
+        // sections
+        $section = array();
+        $section['1'] = 'Section 1';
+        $section['2'] = 'Section 2';
+        $section['3'] = 'Section 3';
+        $section['4'] = 'Section 4';
+        $section['5'] = 'Section 5';
+
         // get advertise
         $advertise = Advertise::getAdvertiseById($adID);
 
-        return view('admin.advertise.edit')->with('vendors',$vendors)->with('advertise',$advertise);
+        //print_r($advertise);exit;
+        return view('admin.advertise.edit')->with('vendors',$vendors)->with('advertise',$advertise)->with('section',$section);
 
     }
 
@@ -60,9 +77,29 @@ class AdvertiseController extends Controller
                 $file_type = 'image';
             }
 
+            $section = $_POST['section'];
+            $position = '';
+            if($section==1 || $section==4 || $section==5){
+                $position = 'middle';
+                $priority = 0;
+            }
+            else if($section==2){
+                $position = $_POST['position_both'];
+                $priority = 0;
+            }
+            else if($section==3){
+                $position = '';
+                $priority = $_POST['priority'];
+            }
+
             $advt_id = DB::table('advertise')->insertGetId([
                 'vendor_id' => $_POST['vendor_id'], 
-                'title' => $_POST['title'], 
+                'section' => $section,
+                'position' => $position,
+                'priority' => $priority,
+                'title' => $_POST['title'],
+                'link' => $_POST['link'], 
+                'expiry_date' => $_POST['expiry_date'], 
                 'file_name' => $imagename, 
                 'file_path' => "", 
                 'file_type' => $file_type, 
@@ -83,7 +120,7 @@ class AdvertiseController extends Controller
                 move_uploaded_file($_FILES["image"]["tmp_name"], $target_dir.$imagename);
             }
             else{
-                $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
+                $thumb_img = Image::make($photo->getRealPath()); //->resize(200, 200);
                 $thumb_img->save($destinationPath.'/'.$imagename,80);
             }
             
@@ -127,6 +164,22 @@ class AdvertiseController extends Controller
     {
 
         $image = request()->file('image');
+
+        $section = $_POST['section'];
+        $position = '';
+        if($section==1 || $section==4 || $section==5){
+            $position = 'middle';
+            $priority = 0;
+        }
+        else if($section==2){
+            $position = $_POST['position_both'];
+            $priority = 0;
+        }
+        else if($section==3){
+            $position = '';
+            $priority = $_POST['priority'];
+        }
+
         if($image) {
 
             $target_dir = "images/advertise/".$id;
@@ -139,7 +192,7 @@ class AdvertiseController extends Controller
             $photo = $request->file('image');
             $imagename = $photo->getClientOriginalName();  
             $destinationPath = public_path().'/images/advertise/'.$id;
-            $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
+            $thumb_img = Image::make($photo->getRealPath()); //->resize(200, 200);
             $thumb_img->save($destinationPath.'/'.$imagename,80);
 
             $filename = $_FILES['image']['name'];
@@ -149,20 +202,31 @@ class AdvertiseController extends Controller
             if($ext=='jpg' || $ext=='JPG' || $ext=='PNG' || $ext=='png' || $ext=='jpeg' || $ext=='JPEG' || $ext=='gif' || $ext=='GIF'){
                 $file_type = 'image';
             }
-
             $advt_id = DB::table('advertise')->where('id', $id)->update([
-                'vendor_id' => $_POST['vendor_id'], 
-                'title' => $_POST['title'], 
+                'vendor_id' => $_POST['vendor_id'],
+                'section' => $section,
+                'position' => $position,
+                'priority' => $priority,
+                'title' => $_POST['title'],
+                'link' => $_POST['link'], 
+                'expiry_date' => $_POST['expiry_date'], 
                 'file_name' => $imagename, 
-                'file_path' => $target_dir."/".$imagename, 
-                'file_type' => $file_type, 
-                'updated_at' => date('Y-m-d h:i:s') ]
+                'file_path' => $target_dir."/".$imagename,
+                'file_type' => $file_type,  
+                'updated_at' => date('Y-m-d h:i:s') 
+                ]
             );  
         }else{
 
            $advt_id = DB::table('advertise')->where('id', $id)->update([
                 'vendor_id' => $_POST['vendor_id'], 
                 'title' => $_POST['title'], 
+                'section' => $section,
+                'position' => $position,
+                'priority' => $priority,
+                'title' => $_POST['title'],
+                'link' => $_POST['link'], 
+                'expiry_date' => $_POST['expiry_date'], 
                 'updated_at' => date('Y-m-d h:i:s') ]
             );
         }

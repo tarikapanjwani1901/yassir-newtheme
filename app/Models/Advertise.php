@@ -29,7 +29,8 @@ class Advertise extends Model
 
         $query = Advertise::query();
         $query = $query->join('users','users.id','=','advertise.vendor_id');
-        $query = $query->select('advertise.title','users.company_name','advertise.id');
+        $query = $query->select('advertise.title','users.company_name','advertise.id','advertise.section','advertise.expiry_date',
+        'advertise.position','advertise.priority');
         //$response = $query->get();
 
         $response = $query->paginate(20);
@@ -52,5 +53,25 @@ class Advertise extends Model
         DB::table('advertise')->where('id', '=', $id)->delete();
 
         return true;
+    }
+
+    public static function getAdvertisementBySectionId($id,$position)
+    {
+        $query = Advertise::query();
+        $query = $query->where('section','=',$id);
+        $query = $query->where('position','like',$position);
+        $response = $query->first();
+
+        return $response;
+    }
+
+    public static function getSliderAdvertisementImages($id)
+    {
+        $query = Advertise::query();
+        $query = $query->where('section','=',$id);
+        $query = $query->orderBy('priority');
+        $response = $query->get();
+
+        return $response;
     }
 }

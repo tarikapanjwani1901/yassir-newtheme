@@ -514,6 +514,17 @@
     </div>
     <!-- PRODUCT SLIDER AREA END -->
 
+    <!-- Section 1 adversitement  -->
+    @if(isset($ad_section1->file_path) && $ad_section1->file_path!='')
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <img src="/{{$ad_section1->file_path}}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    @endif
+
     <!-- SEARCH BY PLACE AREA START (testimonial-7) -->
     <div class="ltn__search-by-place-area before-bg-top bg-image-top--- pt-15 pb-70" data-bs-bg="/assests/front-end/img/bg/20.jpg">
         <div class="container">
@@ -608,6 +619,37 @@
         </div>
     </div>
     <!-- SEARCH BY PLACE AREA END -->
+
+    @if(isset($ad_section21->file_path) && $ad_section21->file_path!='' && isset($ad_section22->file_path) && $ad_section22->file_path!='')
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-6 text-center">
+                    <img src="/{{$ad_section21->file_path}}" class="img-fluid">
+                </div>
+                <div class="col-6 text-center">
+                    <img src="/{{$ad_section22->file_path}}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    @elseif(isset($ad_section21->file_path) && $ad_section21->file_path!='') 
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <img src="/{{$ad_section21->file_path}}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    @elseif(isset($ad_section22->file_path) && $ad_section22->file_path!='')   
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <img src="/{{$ad_section22->file_path}}" class="img-fluid">
+                </div>
+            </div>
+        </div>    
+    @else    
+
+    @endif
 
 <!-- FEATURE AREA START ( Feature - 6) -->
 <div class="ltn__feature-area section-bg-1 pt-20 pb-20 mb-50---">
@@ -1264,6 +1306,15 @@
     </div>
     <!-- BRAND LOGO AREA END -->
 
+    <div class="container">
+        <div class="row mb-5">
+            <h2 class="text-center">Carousel Advertisement Image Slider will come here</h2>
+            <div class="col-12 text-center">
+                <img src="https://cdcblog.com/demo/img/banner-5.png" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
 
     <!-- BLOG AREA START (blog-3) -->
     <div class="ltn__blog-area pt-50--- pb-50">
@@ -1438,6 +1489,16 @@
     </div>
     <!-- BLOG AREA END -->
 
+    @if(isset($ad_section4->file_path) && $ad_section4->file_path!='') 
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <img src="/{{$ad_section4->file_path}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- ABOUT US AREA START -->
     <div class="ltn__about-us-area pt-20 pb-90 ">
         <div class="container-fluid">
@@ -1519,5 +1580,13 @@
     </div>
     <!-- CALL TO ACTION END -->
 
-
+    @if(isset($ad_section5->file_path) && $ad_section5->file_path!='') 
+    <div class="container">
+        <div class="row mb-2 mt-2">
+            <div class="col-12 text-center">
+                <img src="/{{$ad_section5->file_path}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection

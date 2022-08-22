@@ -44,6 +44,8 @@ use App\Http\Controllers\Web\Vendor\VendorPropertiesController;
 
 use App\Http\Controllers\Web\Sales\SalesDashboardController;
 
+use App\Http\Controllers\Web\Telecaller\TelecallerDashboardController;
+
 use App\Http\Controllers\Web\Frontend\HomeController;
 
 // Admin Login
@@ -57,6 +59,10 @@ Route::post('/vendorlogin', [LoginController::class, 'vendorgenerateOTP'])->name
 // Sales Login
 Route::get('/sales/login', [LoginController::class, 'showSalesLoginForm'])->name('saleslogin');
 Route::post('/saleslogin', [LoginController::class, 'salesgenerateOTP'])->name('salesgenerateOTP');
+
+// Telecaller Login
+Route::get('/telecaller/login', [LoginController::class, 'showTelecallerLoginForm'])->name('telecallerlogin');
+Route::post('/telecallerlogin', [LoginController::class, 'telecallergenerateOTP'])->name('telecallergenerateOTP');
 
 Route::post('/postOtp', [LoginController::class, 'otpSubmit'])->name('otpSubmit');
 Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP');
@@ -282,8 +288,16 @@ Route::group(['middleware' => ['auth']], function () {
     {
         // Dashboard
         Route::get('/sales/dashboard', [SalesDashboardController::class, 'index'])->name('salesdashboard');
+    });
 
+});
 
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::group( ['middleware' => 'telecaller'], function()
+    {
+        // Dashboard
+        Route::get('/telecaller/dashboard', [TelecallerDashboardController::class, 'index'])->name('telecallerdashboard');
     });
 
 });

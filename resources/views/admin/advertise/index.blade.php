@@ -17,6 +17,9 @@
                                     <tr>
                                         <th class="ac w1">Title</th>
                                         <th class="w2">Vendor Name</th>
+                                        <th class="w2">Section</th>
+                                        <th class="w2">Position/Priority</th>
+                                        <th class="w2">Expiry Date</th>
                                         <th class="ac w7">Actions</th>
                                     </tr>
                                 </thead>
@@ -27,6 +30,13 @@
                                             <tr id="tr_{{$ad->id}}">
                                                 <td class="w2">{{ $ad->title }}</td>
                                                 <td class="w3">{{ $ad->company_name }}</td>
+                                                <td class="w3">Section {{ $ad->section}}</td>
+                                                @if( $ad->section==1 || $ad->section==2 || $ad->section==4 || $ad->section==5)
+                                                    <td class="w3">{{$ad->position}}</td>
+                                                @else
+                                                    <td class="w3">{{$ad->priority}}</td>
+                                                @endif
+                                                <td class="w3">{{ $ad->expiry_date}}</td>
                                                 <td class="ac w7">
                                                     <a href="advertise/edit/{{ $ad->id}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                                     <a href="#" data-toggle="modal" data-target="#cities_delete_confirm"  data-id="{{ $ad->id }}" class="onclick btn btn-danger shadow btn-xs sharp"><i class="fas fa-trash-alt"></i></a>

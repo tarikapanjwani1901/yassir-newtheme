@@ -60,6 +60,11 @@ class LoginController extends Controller
         return view('sales.auth.login');
     }
 
+    public function showTelecallerLoginForm()
+    {
+        return view('telecaller.auth.login');
+    }
+
     public function generateOTP(Request $request)
     {
 
@@ -74,18 +79,22 @@ class LoginController extends Controller
 		}
         
         $users_info = DB::table('users')
-            ->select('activations.completed','activations.user_id','users.user_role')
-            ->join('activations','activations.user_id','users.id')
-            ->groupby('activations.user_id')->distinct()
+            //->select('activations.completed','activations.user_id','users.user_role')
+            //->join('activations','activations.user_id','users.id')
+            //->groupby('activations.user_id')->distinct()
+            ->select('users.status','users.id','users.user_role')
             ->where('users.deleted_at','=',NULL)
             ->where('users.id',$checkUser->id)->get();
 
         $admin_role_id = env('ADMIN_ROLE_ID');
 
-		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+		/*if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+			return redirect()->back()->with('error','Account not activated');
+		}*/
+        if(isset($users_info[0]->status) && $users_info[0]->status=='Inactive'){
 			return redirect()->back()->with('error','Account not activated');
 		}
-        else if(isset($users_info[0]->user_role) && $users_info[0]->user_role!=$admin_role_id){
+        else if(!isset($users_info[0]->user_role) || $users_info[0]->user_role!=$admin_role_id){
             return redirect()->back()->with('error','Invalid Mobile Number');
         }
         else{
@@ -93,8 +102,8 @@ class LoginController extends Controller
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
             
-            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
-            $otpResponse ='aaa';
+            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            //$otpResponse ='aaa';
 
             DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
             
@@ -124,18 +133,22 @@ class LoginController extends Controller
 		}
         
         $users_info = DB::table('users')
-            ->select('activations.completed','activations.user_id','users.user_role')
-            ->join('activations','activations.user_id','users.id')
-            ->groupby('activations.user_id')->distinct()
+            //->select('activations.completed','activations.user_id','users.user_role')
+            //->join('activations','activations.user_id','users.id')
+            //->groupby('activations.user_id')->distinct()
+            ->select('users.status','users.id','users.user_role')
             ->where('users.deleted_at','=',NULL)
             ->where('users.id',$checkUser->id)->get();
 
         $vendor_role_id = env('VENDOR_ROLE_ID');
 
-		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+		/*if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+			return redirect()->back()->with('error','Account not activated');
+		}*/
+        if(isset($users_info[0]->status) && $users_info[0]->status=='Inactive'){
 			return redirect()->back()->with('error','Account not activated');
 		}
-        else if(isset($users_info[0]->user_role) && $users_info[0]->user_role!=$vendor_role_id){
+        else if(!isset($users_info[0]->user_role) || $users_info[0]->user_role!=$vendor_role_id){
             return redirect()->back()->with('error','Invalid Mobile Number');
         }
         else{
@@ -143,8 +156,8 @@ class LoginController extends Controller
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
             
-            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
-            $otpResponse ='aaa';
+            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            //$otpResponse ='aaa';
 
             DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
             
@@ -176,17 +189,21 @@ class LoginController extends Controller
 		}
         
         $users_info = DB::table('users')
-            ->select('activations.completed','activations.user_id','users.user_role')
-            ->join('activations','activations.user_id','users.id')
-            ->groupby('activations.user_id')->distinct()
+            //->select('activations.completed','activations.user_id','users.user_role')
+            //->join('activations','activations.user_id','users.id')
+            //->groupby('activations.user_id')->distinct()
+            ->select('users.status','users.id','users.user_role')
             ->where('users.deleted_at','=',NULL)
             ->where('users.id',$checkUser->id)->get();
 
        
-		if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+		/*if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+			return redirect()->back()->with('error','Account not activated');
+		}*/
+        if(isset($users_info[0]->status) && $users_info[0]->status=='Inactive'){
 			return redirect()->back()->with('error','Account not activated');
 		}
-        else if(isset($users_info[0]->user_role) && $users_info[0]->user_role!=$sales_role_id){
+        else if(!isset($users_info[0]->user_role) || $users_info[0]->user_role!=$sales_role_id){
             return redirect()->back()->with('error','Invalid Mobile Number');
         }
         else{
@@ -194,8 +211,8 @@ class LoginController extends Controller
             $digits = 4;
             $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
             
-            //$otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
-            $otpResponse ='aaa';
+            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            //$otpResponse ='aaa';
 
             DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
             
@@ -210,6 +227,61 @@ class LoginController extends Controller
             session(['mobile_number'=>$_POST['mobile_number']]);
     
             return Redirect::route("saleslogin")->with('otp_send',  $request->mobile_number);		 
+			
+		}	
+
+        return back()->withInput($request->only('mobile_number'));
+    }
+
+    public function telecallergenerateOTP(Request $request)
+    {
+        $telecaller_role_id = env('TELECALLER_ROLE_ID');
+
+        $checkUser = DB::table('users')->select('*')->where('mobile', $_POST['mobile_number'])->first();
+       
+		if(empty( $checkUser)){
+			return redirect()->back()->with('error','Invalid mobile number.');
+		}
+        
+        $users_info = DB::table('users')
+           // ->select('activations.completed','activations.user_id','users.user_role')
+           ->select('users.status','users.id','users.user_role')
+            //->join('activations','activations.user_id','users.id')
+            //->groupby('activations.user_id')->distinct()
+            ->where('users.deleted_at','=',NULL)
+            ->where('users.id',$checkUser->id)->get();
+
+        
+		/*if(isset($users_info[0]->completed) && $users_info[0]->completed==0){
+			return redirect()->back()->with('error','Account not activated');
+		}*/
+        if(isset($users_info[0]->status) && $users_info[0]->status=='Inactive'){
+			return redirect()->back()->with('error','Account not activated');
+		}
+        else if(!isset($users_info[0]->user_role) || $users_info[0]->user_role!=$telecaller_role_id){
+            return redirect()->back()->with('error','Invalid Mobile Number');
+        }
+        else{
+		
+            $digits = 4;
+            $otp = rand(pow(10, $digits-1), pow(10, $digits)-1);
+            
+            $otpResponse = $this->sendOTP($otp,$request->mobile_number,'sendotp');
+            //$otpResponse ='aaa';
+
+            DB::table('user_otp')->where('mobile', $request->mobile_number)->delete();
+            
+            $user_otp = new UserOtp();
+            $user_otp->mobile = $_POST['mobile_number'];
+            $user_otp->otp = $otp;
+            $user_otp->created_at = date('Y-m-d H:i:s');
+            $user_otp->updated_at = date('Y-m-d H:i:s');
+            $user_otp->otp_api_response = $otpResponse;
+            $user_otp->save();
+
+            session(['mobile_number'=>$_POST['mobile_number']]);
+    
+            return Redirect::route("telecallerlogin")->with('otp_send',  $request->mobile_number);		 
 			
 		}	
 
@@ -246,6 +318,10 @@ class LoginController extends Controller
                 else if($user->user_role==env('SALES_ROLE_ID')){
                     session(['user_role'=>'sales']);
                     return Redirect::route("salesdashboard");
+                }
+                else if($user->user_role==env('TELECALLER_ROLE_ID')){
+                    session(['user_role'=>'telecaller']);
+                    return Redirect::route("telecallerdashboard");
                 }
                 else{
 
@@ -293,6 +369,8 @@ class LoginController extends Controller
     public function sendOTP($otp='',$phone='',$flag='')
     {
 
+        //return "aaaa";
+        
         if ($flag == 'sendotp') {
             $otpmessage = urlencode("Dear User, ".$otp." is your YasSir Verification code.");
         } else {
