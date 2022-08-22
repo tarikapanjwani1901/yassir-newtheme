@@ -54,4 +54,24 @@ class Advertise extends Model
 
         return true;
     }
+
+    public static function getAdvertisementBySectionId($id,$position)
+    {
+        $query = Advertise::query();
+        $query = $query->where('section','=',$id);
+        $query = $query->where('position','like',$position);
+        $response = $query->first();
+
+        return $response;
+    }
+
+    public static function getSliderAdvertisementImages($id)
+    {
+        $query = Advertise::query();
+        $query = $query->where('section','=',$id);
+        $query = $query->orderBy('priority');
+        $response = $query->get();
+
+        return $response;
+    }
 }

@@ -53,14 +53,14 @@
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Inquiry</span>
                 </a>
-            </li>
+            </li><?php */?>
             <li>
                 <a  href="{{ URL::to('admin/advertise') }}" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Advertisement</span>
                 </a>
                
-            </li><?php */?>
+            </li>
         </ul>
         
         

@@ -120,7 +120,7 @@ class AdvertiseController extends Controller
                 move_uploaded_file($_FILES["image"]["tmp_name"], $target_dir.$imagename);
             }
             else{
-                $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
+                $thumb_img = Image::make($photo->getRealPath()); //->resize(200, 200);
                 $thumb_img->save($destinationPath.'/'.$imagename,80);
             }
             
@@ -192,7 +192,7 @@ class AdvertiseController extends Controller
             $photo = $request->file('image');
             $imagename = $photo->getClientOriginalName();  
             $destinationPath = public_path().'/images/advertise/'.$id;
-            $thumb_img = Image::make($photo->getRealPath())->resize(200, 200);
+            $thumb_img = Image::make($photo->getRealPath()); //->resize(200, 200);
             $thumb_img->save($destinationPath.'/'.$imagename,80);
 
             $filename = $_FILES['image']['name'];
