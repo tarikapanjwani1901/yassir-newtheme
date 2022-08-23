@@ -81,8 +81,8 @@
                                     </div>
                                     <div class="col-md-4">
                                    		<div class="form-group">
-                                         <label class="control-label">GST Number<span class="required_field">*</span> </label>    
-                                         <input type="text" placeholder="GST Number" name="gst_number" class="form-control required" />
+                                         <label class="control-label">GST Number</label>    
+                                         <input type="text" placeholder="GST Number" name="gst_number" class="form-control" />
                                     </div> 	
                                     </div>
                                     <div class="col-md-4">

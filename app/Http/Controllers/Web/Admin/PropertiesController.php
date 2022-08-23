@@ -681,24 +681,10 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 			$total_price =0;
 			
 			if($expected_price>0 && $super_builtup_area>0){
-				$total_price += $expected_price*$super_builtup_area;
+				$basic_price = $expected_price*$super_builtup_area;
 			}
-			if($basic_price>0){
-				$total_price += $basic_price;
-			}if($taxandgovcharges_price>0){
-				$total_price += $taxandgovcharges_price;
-			}if($all_inclusive_price>0){
-				$total_price += $all_inclusive_price;
-			}
-			if($commercial_property_type!="Hospitality"){
-			if($booking_amount>0){
-				$total_price += $booking_amount;
-			}if($membership_charge>0){
-				$total_price += $membership_charge;
-			}if($maintenance>0){
-				$total_price += $maintenance;
-			}
-			}
+			$all_inclusive_price = $taxandgovcharges_price +$basic_price;
+			$total_price = $all_inclusive_price;
 			
 			
 		}
@@ -729,21 +715,14 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 		
 			$property_ownership = $request->Industrialproperty_ownership;
 			$expected_price = $request->IndustrialExpectedPrice;
-			$basic_price = $request->IndustrialBasicPrice;
 			$taxandgovcharges_price = $request->IndustrialTaxandgovchargesPrice;
-			$all_inclusive_price = $request->IndustrialAllinclusivePrice;
 			$total_price =0;
 			
 			if($expected_price>0 && $super_builtup_area>0){
-				$total_price += $expected_price*$super_builtup_area;
+				$basic_price = $expected_price*$super_builtup_area;
 			}
-			if($basic_price>0){
-				$total_price += $basic_price;
-			}if($taxandgovcharges_price>0){
-				$total_price += $taxandgovcharges_price;
-			}if($all_inclusive_price>0){
-				$total_price += $all_inclusive_price;
-			}
+			$all_inclusive_price = $taxandgovcharges_price +$basic_price;
+			$total_price = $all_inclusive_price;
 			
 		}
 		if($sub_category=="VacantLandPlotting"){
@@ -774,15 +753,10 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 			$total_price =0;
 			
 			if($expected_price>0 && $plot_area>0){
-				$total_price += $expected_price*$plot_area;
+				$basic_price = $expected_price*$plot_area;
 			}
-			if($basic_price>0){
-				$total_price += $basic_price;
-			}if($taxandgovcharges_price>0){
-				$total_price += $taxandgovcharges_price;
-			}if($all_inclusive_price>0){
-				$total_price += $all_inclusive_price;
-			}
+			$all_inclusive_price = $taxandgovcharges_price +$basic_price;
+			$total_price = $all_inclusive_price;
 			
 		}
 		$Properties->property_areas =  $property_areas;
@@ -903,7 +877,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
 		if($request->file('pdf_brochure')){	
 
 			$pdf_brochure = $request->file('pdf_brochure');
-       	 	$pdf_brochure_name = $photo->getClientOriginalName();  
+       	 	$pdf_brochure_name = $pdf_brochure->getClientOriginalName();  
         
        	 $thumb_img = Image::make($pdf_brochure->getRealPath())->resize(200, 200);
        	 $thumb_img->save($destinationPath.'/'.$pdf_brochure_name,80);
