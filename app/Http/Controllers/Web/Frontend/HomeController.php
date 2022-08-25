@@ -109,10 +109,12 @@ class HomeController extends Controller
         $propertyList = Properties::query();
         $propertyList->with(['residentialInfo','imageList']);
         $propertyList->where('property_for',$type);
+        $propertyList->where('completed_property','Yes');
+        $propertyList->where('status','Active');
         $propertyList->orderBy('id','DESC');
         $result =$propertyList->get();
         
-        return view('frontend.properties.list',compact('result'));
+        return view('frontend.properties.list',compact('result','type'));
     }
 
 }

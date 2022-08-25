@@ -26,19 +26,27 @@
             @if(isset($result) && sizeof($result)>0)
            
             @foreach ($result as $row)
-           
-          
+               
+            
+            @if( $row->sub_category=='Residential')
+                @php 
+                    $price = $row->residentialInfo->expected_price;
+                @endphp
+            @else
+                @php 
+                    $price = $row->total_price;
+                @endphp
+            @endif
             <div class="col-lg-4 col-sm-6 col-12">
                 <div class="ltn__product-item ltn__product-item-4 text-center---">
                     <div class="product-img">
                         <a href="product-details.html" tabindex="0">
-                            
-                            <!-- <img src="/assests/front-end/img/product-3/3.jpg" alt="#"> -->
+                        <!-- <img src="/assests/front-end/img/product-3/1.jpg" alt="#"> -->
                             <img src="/images/properties/{{$row->id}}/{{$row->imageList->first()->image ?? ''}}" alt="#">
                         </a>
                         <div class="product-badge">
                             <ul>
-                                <li class="sale-badge bg-green">For Rent </li>
+                                <li class="sale-badge <?php if($type=='Sell'){ echo 'bg-green';}else{ echo 'bg-green---'; }?> ">For {{$type}} </li>
                             </ul>
                         </div>
                         <div class="product-img-location-gallery">
@@ -52,10 +60,10 @@
                             <div class="product-img-gallery">
                                 <ul>
                                     <li>
-                                        <a href="product-details.html" tabindex="0"><i class="fas fa-camera"></i> 4</a>
+                                        <a href="product-details.html" tabindex="0"><i class="fas fa-camera"></i> {{$row->imageList->count() }}</a>
                                     </li>
                                     <li>
-                                        <a href="product-details.html" tabindex="0"><i class="fas fa-film"></i> 2</a>
+                                        <a href="product-details.html" tabindex="0"><i class="fas fa-film"></i> 0</a>
                                     </li>
                                 </ul>
                             </div>
@@ -63,20 +71,32 @@
                     </div>
                     <div class="product-info">
                         <div class="product-price">
-                            <span>{{ $row->total_price}}</span>
+                            <span>{{ $price }}</span>
                         </div>
                          <h2 class="product-title"><a href="#">{{$row->project_name }}</a></h2>
-                       
+                        
                         <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                            <li><span>{{ $row->number_of_bedrooms}} <i class="flaticon-bed"></i></span>
+                        @if( $row->sub_category=='Residential')
+                            <li><span>{{ $row->residentialInfo->number_of_bedrooms}} <i class="flaticon-bed"></i></span>
                                 Bedrooms
                             </li>
-                            <li><span>{{ $row->number_of_bathrooms}} <i class="flaticon-clean"></i></span>
+                            <li><span>{{ $row->residentialInfo->number_of_bathrooms }} <i class="flaticon-clean"></i></span>
                                 Bathrooms
+                            </li>
+                            <li><span>{{ $row->residentialInfo->number_of_balconies }} <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
+                                Balconies
+                            </li>
+                        @else
+                            <li><span>{{ $row->number_of_rooms}} <i class="flaticon-bed"></i></span>
+                                Rooms
+                            </li>
+                            <li><span>{{ $row->number_of_washrooms}} <i class="flaticon-clean"></i></span>
+                            Washrooms
                             </li>
                             <li><span>{{ $row->carpet_area}} <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
                                 square Ft
                             </li>
+                        @endif
                         </ul>
                     </div>
                     <div class="product-info-bottom">
