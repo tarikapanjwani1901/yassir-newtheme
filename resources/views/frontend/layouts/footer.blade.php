@@ -34,23 +34,29 @@
                                     <li><a href="#">Price Trend</a></li>
                                     <li><a href="#">Post Your Property</a></li>
                                     <li><a href="#">Site Map</a></li>
-                                    <li><a href="#">Blogs</a></li>
+                                    <li><a href="{{ route('blog.list') }}">Blogs</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-xl-2 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget footer-menu-widget clearfix">
                             <h4 class="footer-title">Company</h4>
                             <div class="footer-menu">
                                 <ul>
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Contact Us</a></li>
+                                @php 
+                                    $cmsRow = App\Models\Cms::get();
+                                @endphp
+                                @foreach ($cmsRow as $row)
+                                <li><a href="{{ route('home.dynamic', ['link' => $row->link]) }}">{{$row->title}}</a></li>
+                                @endforeach
+                                    <!-- <li><a href="#">Contact Us</a></li>
                                     <li><a href="#">Carrier with Us</a></li>
                                     <li><a href="#">Terms & Conditions</a></li>
                                     <li><a href="#">Feedback</a></li>
                                     <li><a href="#">Testimonials</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Privacy Policy</a></li> -->
                                 </ul>
                             </div>
                         </div>
@@ -66,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6 col-sm-12 col-12">
+                    <!-- <div class="col-xl-3 col-md-6 col-sm-12 col-12">
                         <div class="footer-widget footer-newsletter-widget">
                             <h4 class="footer-title">Contact Us</h4>
                              <div class="footer-address">
@@ -109,7 +115,7 @@
                             <h5 class="mt-30">We Accept</h5>
                             <img src="/assests/front-end/img/icons/payment-4.png" alt="Payment Image">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

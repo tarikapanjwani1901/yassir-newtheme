@@ -72,6 +72,13 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // home page
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
+Route::get('/contact', [HomeController::class, 'contactUs'])->name('contact');
+Route::post('/send-contact', [HomeController::class, 'sendContactInfo'])->name('send.contact');
+Route::get('/blog', [HomeController::class, 'blogList'])->name('blog.list');
+Route::get('/blog-details/{id}', [HomeController::class, 'blogDetail'])->name('blog.details');
+Route::get('/{link}', [HomeController::class, 'dynamicPages'])->name('home.dynamic');
+Route::get('/property/{type}', [HomeController::class, 'propertiesList'])->name('properties.list');
+
 Route::group(['middleware' => ['auth']], function () {
 
     Route::group( ['middleware' => 'admin'], function()

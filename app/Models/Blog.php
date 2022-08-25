@@ -21,4 +21,8 @@ class Blog extends Model
         return $blog;
         
     }
+
+    public function blog_tag() {
+        return $this->hasMany(BlogTagAssing::class,'blog_id','id');
+    }
 }

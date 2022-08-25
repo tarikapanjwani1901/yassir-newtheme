@@ -29,15 +29,11 @@
                                          <li class="menu-icon"><a href="#">Buy</a>
                                             <ul class="sub-menu menu-pages-img-show">
                                                 <li>
-                                                    <a href="index-6.html">Buy</a>
+                                                    <a href="{{ route('properties.list', ['type' => 'Rent']) }}">Buy</a>
                                                     <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
                                                 </li>
                                                 <li>
-                                                    <a href="#">Rent</a>
-                                                    <img src="/assests/front-end/img/home-demos/home-2.jpg" alt="#">
-                                                </li>
-                                                 <li>
-                                                    <a href="#">Sell</a>
+                                                    <a href="{{ route('properties.list', ['type' => 'Sell']) }}">Sell</a>
                                                     <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
                                                 </li>
                                             </ul>
