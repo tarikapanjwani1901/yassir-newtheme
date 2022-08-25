@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Advertise;
+use App\Models\Properties;
+use App\Models\PropertiesImages;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -34,7 +36,11 @@ class HomeController extends Controller
         // slider advertisement images
         $ad_section3 = Advertise::getSliderAdvertisementImages(3);
   
-        return view('frontend.home',compact('ad_section1','ad_section21','ad_section22','ad_section3','ad_section4','ad_section5'));
+        // latest rented apartment
+        $rented_properties = Properties::getLatestRentedApartments();
+
+        return view('frontend.home',compact('ad_section1','ad_section21','ad_section22','ad_section3',
+        'ad_section4','ad_section5','rented_properties'));
     }
 
 }

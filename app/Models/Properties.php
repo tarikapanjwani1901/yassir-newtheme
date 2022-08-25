@@ -84,4 +84,51 @@ class Properties extends Model
 		return $response;
 	}
 
+	public static function getLatestRentedApartments(){
+
+		$query = Properties::query();
+		$query = $query->select('properties.project_name','properties.address','properties.address','properties.id',
+		'properties.id',DB::raw('COUNT(pi.image) as count'),'property_units.number_of_bedrooms','pi.image',
+		'property_units.number_of_bathrooms','properties.property_areas','property_unit_type_area.carpet_area','property_units.total_price');
+
+		$query = $query->join('property_images as pi',function($join){
+            $join->on("pi.property_id","=","properties.id");
+            $join->where('pi.type','=', 'project_gallery');
+        });
+
+		$query = $query->join('property_units','property_units.property_id','=','properties.id');
+		$query = $query->join('property_unit_type_area','property_unit_type_area.property_id','=','properties.id');
+		$query = $query->orderBy('properties.id','desc');
+		$query = $query->groupBy('properties.id');
+		$query = $query->where('properties.property_for','rent');
+		$query = $query->limit(10);
+
+		$response = $query->get();
+
+		return $response;
+	}
+
+	public static function getLatestProperties(){
+
+		$query = Properties::query();
+		$query = $query->select('properties.project_name','properties.address','properties.address','properties.id',
+		'properties.id',DB::raw('COUNT(pi.image) as count'),'property_units.number_of_bedrooms','pi.image','properties.sub_category',
+		'property_units.number_of_bathrooms','properties.property_areas','property_unit_type_area.carpet_area','property_units.total_price',
+		'properties.area_details','properties.area_details');
+		
+		$query = $query->join('property_images as pi',function($join){
+            $join->on("pi.property_id","=","properties.id");
+            $join->where('pi.type','=', 'project_gallery');
+        });
+
+		$query = $query->join('property_units','property_units.property_id','=','properties.id');
+		$query = $query->join('property_unit_type_area','property_unit_type_area.property_id','=','properties.id');
+		$query = $query->orderBy('properties.id','desc');
+		$query = $query->groupBy('properties.id');
+		$query = $query->limit(10);
+
+		$response = $query->get();
+
+		return $response;
+	}
 }
