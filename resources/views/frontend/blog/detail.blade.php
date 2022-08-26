@@ -1,7 +1,16 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
+<style>
+.blogsize{
+    margin-top: 0px !important;
+    width:100% !important;;
+}
+.section-title-area {
+ 
+  margin-top: 130px !important;
+}
+</style>
 
 
     <!-- ABOUT US AREA START -->

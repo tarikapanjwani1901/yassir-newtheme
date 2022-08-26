@@ -135,6 +135,9 @@ class Properties extends Model
 	public function residentialInfo() {
         return $this->hasOne(PropertyUnits::class,'property_id','id');
     }
+	public function userInfo() {
+        return $this->hasOne(User::class,'id','property_vendor');
+    }
 	public function imageList() {
         return $this->hasMany(PropertiesImages::class,'property_id','id');
     }

@@ -1,4 +1,5 @@
 
+/*    
     Template Name: Yassir
     Description: Real Estate
 */
@@ -5288,7 +5289,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   -ms-grid-row-align: center;
   align-self: center; }
   .special-link a {
-    background-color: #BB1F3D);
+    background-color: #BB1F3D;
     color: var(--white) !important;
     padding: 12px 30px !important; }
     .special-link a:hover {
@@ -8629,10 +8630,14 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   Section title
 ---------------------------------------- */
 .section-title-area {
-  margin-bottom: 50px; }
+  margin-bottom: 50px; 
+  
+}
   .section-title-area p {
     margin-bottom: 0;
-    max-width: 500px; }
+    max-width: 500px; 
+    
+  }
   .section-title-area p + p {
     margin-top: 15px; }
   .section-title-area.text-right p {

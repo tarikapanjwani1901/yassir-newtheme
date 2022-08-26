@@ -45,9 +45,25 @@ class HomeController extends Controller
   
         // latest rented apartment
         $rented_properties = Properties::getLatestRentedApartments();
+        //top most view properties
+        $propertyList = Properties::query();
+        $propertyList->with(['residentialInfo','imageList','userInfo.userRole']);
+        $propertyList->where('completed_property','Yes');
+        $propertyList->where('status','Active');
+        $propertyList->orderBy('view_count','DESC');
+        $mostViewList =$propertyList->limit(10)->get();
+
+        //latest properties properties
+
+        $latestPropertyList = Properties::query();
+        $latestPropertyList->with(['residentialInfo','imageList','userInfo.userRole']);
+        $latestPropertyList->where('completed_property','Yes');
+        $latestPropertyList->where('status','Active');
+        $latestPropertyList->orderBy('id','DESC');
+        $latestProList = $latestPropertyList->limit(10)->get();
 
         return view('frontend.home',compact('ad_section1','ad_section21','ad_section22','ad_section3',
-        'ad_section4','ad_section5','rented_properties'));
+        'ad_section4','ad_section5','rented_properties','mostViewList','latestProList'));
     }
 
     public function dynamicPages(Request $request,$link){
@@ -88,7 +104,12 @@ class HomeController extends Controller
         $blogList->with(['blog_tag.tag_name']);
         $blogList->orderBy('id','DESC');
         $result =$blogList->get();
-        return view('frontend.blog.list',compact('result'));
+        if(!$result->isEmpty()){   
+            return view('frontend.blog.list',compact('result'));
+        }else{
+            return redirect('/');
+        }
+        
     }
 
     public function blogDetail(Request $request,$id){
@@ -116,5 +137,22 @@ class HomeController extends Controller
         
         return view('frontend.properties.list',compact('result','type'));
     }
+
+    public function propertiesCatDetails(Request $request,$cat_type){
+        
+        $propertyList = Properties::query();
+        $propertyList->with(['residentialInfo','imageList']);
+        $propertyList->where('sub_category',$cat_type);
+        $propertyList->where('completed_property','Yes');
+        $propertyList->where('status','Active');
+        $propertyList->orderBy('id','DESC');
+        $result =$propertyList->get();
+        if(!$result->isEmpty()){   
+            return view('frontend.properties.buy',compact('result','cat_type'));
+        }else{
+            return redirect('/');
+        }
+    }
+        
 
 }

@@ -20,8 +20,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title-area ltn__section-title-2--- text-center">
-                    <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">properties</h6>
-                    <h1 class="section-title">Top properties Listing</h1>
+                    <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">{{ $cat_type }}</h6>
+                    <h1 class="section-title">Property Buy (New Construction only)</h1>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                         </a>
                         <div class="product-badge">
                             <ul>
-                                <li class="sale-badge <?php if($type=='Sell'){ echo 'bg-green';}else{ echo 'bg-green---'; }?> ">For {{$type}} </li>
+                                <li class="sale-badge <?php if($row->property_for=='Sell'){ echo 'bg-green';}else{ echo 'bg-green---'; }?> ">For {{$row->property_for}} </li>
                             </ul>
                         </div>
                         <div class="product-img-location-gallery">

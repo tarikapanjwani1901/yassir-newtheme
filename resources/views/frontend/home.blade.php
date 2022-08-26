@@ -105,7 +105,7 @@
                     <div class="ltn__product-item ltn__product-item-4 text-center---">
                         <div class="product-img">
                             <a href="#">
-                                <img src="/images/properties/{{$v->id}}/{{$v->image}}" alt="#">
+                                <img src="/images/properties/{{$v->id}}/{{$v->image}}" alt="#" width="426" height="284">
                             </a>
                             <div class="product-badge">
                                 <ul>
@@ -414,7 +414,7 @@
             </div>
             <div class="row ltn__product-slider-item-four-active-full-width slick-arrow-1">
                 <!-- ltn__product-item -->
-                <div class="col-lg-12">
+                <!-- <div class="col-lg-12">
                     <div class="ltn__product-item ltn__product-item-4 text-center---">
                         <div class="product-img">
                             <a href="product-details.html"><img src="/assests/front-end/img/product-3/1.jpg" alt="#"></a>
@@ -494,29 +494,40 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- ltn__product-item -->
+                @if(isset($latestProList) && sizeof($latestProList)>0)
+                @foreach($latestProList as $k=>$row)
+                @if( $row->sub_category=='Residential')
+                @php 
+                    $price = $row->residentialInfo->expected_price;
+                @endphp
+            @else
+                @php 
+                    $price = $row->total_price;
+                @endphp
+            @endif
                 <div class="col-lg-12">
                     <div class="ltn__product-item ltn__product-item-4 text-center---">
                         <div class="product-img">
-                            <a href="product-details.html"><img src="/assests/front-end/img/product-3/2.jpg" alt="#"></a>
+                            <a href="product-details.html"><img src="/images/properties/{{$row->id}}/{{$row->imageList->first()->image ?? ''}}" alt="#" width="426" height="284"></a>
                             <div class="product-badge">
                                 <ul>
-                                    <li class="sale-badge bg-green---">For Sale</li>
+                                    <li class="sale-badge <?php if($row->property_for=='Sell'){ echo 'bg-green';}else{ echo 'bg-green---'; }?> ">For {{$row->property_for}} </li>
                                 </ul>
                             </div>
                             <div class="product-img-location-gallery">
                                 <div class="product-img-location">
                                     <ul>
                                         <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
+                                            <a href="locations.html"><i class="flaticon-pin"></i> {{ $row->address }}</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="product-img-gallery">
                                     <ul>
                                         <li>
-                                            <a href="product-details.html"><i class="fas fa-camera"></i> 4</a>
+                                            <a href="product-details.html"><i class="fas fa-camera"></i> {{$row->imageList->count() }}</a>
                                         </li>
                                         <li>
                                             <a href="product-details.html"><i class="fas fa-film"></i> 2</a>
@@ -527,33 +538,47 @@
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
+                                <span>$ {{ $price }}<label>/Month</label></span>
                             </div>
-                            <h2 class="product-title"><a href="product-details.html">Modern Apartments</a></h2>
-                            <div class="product-description">
+                            <h2 class="product-title"><a href="#">{{$row->project_name }}</a></h2>
+                            <!-- <div class="product-description">
                                 <p>Beautiful Huge 1 Family House In Heart Of <br>
                                     Westbury. Newly Renovated With New Wood</p>
-                            </div>
+                            </div> -->
                             <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
+                        @if( $row->sub_category=='Residential')
+                            <li><span>{{ $row->residentialInfo->number_of_bedrooms}} <i class="flaticon-bed"></i></span>
+                                Bedrooms
+                            </li>
+                            <li><span>{{ $row->residentialInfo->number_of_bathrooms }} <i class="flaticon-clean"></i></span>
+                                Bathrooms
+                            </li>
+                            <li><span>{{ $row->residentialInfo->number_of_balconies }} <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
+                                Balconies
+                            </li>
+                        @else
+                            <li><span>{{ $row->number_of_rooms}} <i class="flaticon-bed"></i></span>
+                                Rooms
+                            </li>
+                            <li><span>{{ $row->number_of_washrooms}} <i class="flaticon-clean"></i></span>
+                            Washrooms
+                            </li>
+                            <li><span>{{ $row->carpet_area}} <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
+                                square Ft
+                            </li>
+                        @endif
+                        </ul>
                         </div>
+                        
                         <div class="product-info-bottom">
                             <div class="real-estate-agent">
                                 <div class="agent-img">
-                                    <a href="team-details.html"><img src="/assests/front-end/img/blog/author.jpg" alt="#"></a>
+                                    <a href="team-details.html"><img src="/images/users/{{$row->userInfo->id}}/{{ $row->userInfo->pic }}" alt="#"></a>
                                 </div>
                                 <div class="agent-brief">
-                                    <h6><a href="team-details.html">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
+                               
+                                    <h6><a href="team-details.html">{{ $row->userInfo->user_name}}</a></h6>
+                                    <small> {{ $row->userInfo->userRole->name}}</small>
                                 </div>
                             </div>
                             <div class="product-hover-action">
@@ -577,252 +602,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a href="product-details.html"><img src="/assests/front-end/img/product-3/3.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Sale</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a href="product-details.html"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a href="product-details.html"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a href="product-details.html">Comfortable Apartment</a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a href="team-details.html"><img src="/assests/front-end/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a href="team-details.html">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="product-details.html" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a href="product-details.html"><img src="/assests/front-end/img/product-3/4.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Sale</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a href="product-details.html"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a href="product-details.html"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a href="product-details.html">Luxury villa in Rego Park </a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a href="team-details.html"><img src="/assests/front-end/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a href="team-details.html">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="product-details.html" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a href="product-details.html"><img src="/assests/front-end/img/product-3/5.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Sale</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a href="product-details.html"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a href="product-details.html"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a href="product-details.html">Beautiful Flat in Manhattan </a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a href="team-details.html"><img src="/assests/front-end/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a href="team-details.html">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="product-details.html" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                @endif
                 <!--  -->
             </div>
         </div>
@@ -995,9 +776,10 @@
                     </div>
                 </div>
             </div>
+            
             <div class="row  ltn__blog-slider-one-active slick-arrow-1 ltn__blog-item-3-normal">
                 <!-- Blog Item -->
-                <div class="col-lg-12">
+                <!-- <div class="col-lg-12">
                     <div class="ltn__blog-item ltn__blog-item-3">
                         <div class="ltn__blog-img">
                             <a href="blog-details.html"><img src="/assests/front-end/img/blog/1.jpg" alt="#"></a>
@@ -1026,29 +808,29 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- Blog Item -->
+                
+                @if(isset($mostViewList) && sizeof($mostViewList)>0)
+                @foreach($mostViewList as $k=>$v)
                 <div class="col-lg-12">
                     <div class="ltn__blog-item ltn__blog-item-3">
                         <div class="ltn__blog-img">
-                            <a href="blog-details.html"><img src="/assests/front-end/img/blog/2.jpg" alt="#"></a>
+                            <a href="blog-details.html"><img src="/images/properties/{{$v->id}}/{{$v->imageList->first()->image ?? ''}}" alt="#" width="426" height="284"></a>
                         </div>
                         <div class="ltn__blog-brief">
                             <div class="ltn__blog-meta">
                                 <ul>
                                     <li class="ltn__blog-author">
-                                        <a href="#"><i class="far fa-user"></i>by: Admin</a>
-                                    </li>
-                                    <li class="ltn__blog-tags">
-                                        <a href="#"><i class="fas fa-tags"></i>Interior</a>
+                                        <a href="#"><i class="far fa-user"></i>by:  {{ $v->userInfo->userRole->name}}</a>
                                     </li>
                                 </ul>
                             </div>
-                            <h3 class="ltn__blog-title"><a href="blog-details.html">The Most Inspiring Interior Design Of 2021</a></h3>
+                            <h3 class="ltn__blog-title"><a href="blog-details.html">{{$v->project_name }}</a></h3>
                             <div class="ltn__blog-meta-btn">
                                 <div class="ltn__blog-meta">
                                     <ul>
-                                        <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>July 23, 2021</li>
+                                        <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>{{ date('F j, Y', strtotime($v->created_at)) }}</li>
                                     </ul>
                                 </div>
                                 <div class="ltn__blog-btn">
@@ -1058,100 +840,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Blog Item -->
-                <div class="col-lg-12">
-                    <div class="ltn__blog-item ltn__blog-item-3">
-                        <div class="ltn__blog-img">
-                            <a href="blog-details.html"><img src="/assests/front-end/img/blog/3.jpg" alt="#"></a>
-                        </div>
-                        <div class="ltn__blog-brief">
-                            <div class="ltn__blog-meta">
-                                <ul>
-                                    <li class="ltn__blog-author">
-                                        <a href="#"><i class="far fa-user"></i>by: Admin</a>
-                                    </li>
-                                    <li class="ltn__blog-tags">
-                                        <a href="#"><i class="fas fa-tags"></i>Estate</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h3 class="ltn__blog-title"><a href="blog-details.html">Recent Commercial Real Estate Transactions</a></h3>
-                            <div class="ltn__blog-meta-btn">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>May 22, 2021</li>
-                                    </ul>
-                                </div>
-                                <div class="ltn__blog-btn">
-                                    <a href="blog-details.html">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Blog Item -->
-                <div class="col-lg-12">
-                    <div class="ltn__blog-item ltn__blog-item-3">
-                        <div class="ltn__blog-img">
-                            <a href="blog-details.html"><img src="/assests/front-end/img/blog/4.jpg" alt="#"></a>
-                        </div>
-                        <div class="ltn__blog-brief">
-                            <div class="ltn__blog-meta">
-                                <ul>
-                                    <li class="ltn__blog-author">
-                                        <a href="#"><i class="far fa-user"></i>by: Admin</a>
-                                    </li>
-                                    <li class="ltn__blog-tags">
-                                        <a href="#"><i class="fas fa-tags"></i>Room</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h3 class="ltn__blog-title"><a href="blog-details.html">Renovating a Living Room? Experts Share Their Secrets</a></h3>
-                            <div class="ltn__blog-meta-btn">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2021</li>
-                                    </ul>
-                                </div>
-                                <div class="ltn__blog-btn">
-                                    <a href="blog-details.html">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Blog Item -->
-                <div class="col-lg-12">
-                    <div class="ltn__blog-item ltn__blog-item-3">
-                        <div class="ltn__blog-img">
-                            <a href="blog-details.html"><img src="/assests/front-end/img/blog/5.jpg" alt="#"></a>
-                        </div>
-                        <div class="ltn__blog-brief">
-                            <div class="ltn__blog-meta">
-                                <ul>
-                                    <li class="ltn__blog-author">
-                                        <a href="#"><i class="far fa-user"></i>by: Admin</a>
-                                    </li>
-                                    <li class="ltn__blog-tags">
-                                        <a href="#"><i class="fas fa-tags"></i>Trends</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h3 class="ltn__blog-title"><a href="blog-details.html">7 home trends that will shape your house in 2021</a></h3>
-                            <div class="ltn__blog-meta-btn">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2021</li>
-                                    </ul>
-                                </div>
-                                <div class="ltn__blog-btn">
-                                    <a href="blog-details.html">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
+                @endforeach
+                @endif
             </div>
         </div>
     </div>

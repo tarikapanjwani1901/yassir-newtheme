@@ -26,14 +26,36 @@
                             <nav>
                                 <div class="ltn__main-menu">
                                     <ul>
-                                         <li class="menu-icon"><a href="#">Buy</a>
+                                         <li class="menu-icon"><a href="#">Property Services</a>
                                             <ul class="sub-menu menu-pages-img-show">
                                                 <li>
-                                                    <a href="{{ route('properties.list', ['type' => 'Rent']) }}">Buy</a>
+                                                    <a href="{{ route('properties.list', ['type' => 'Rent']) }}">Rent</a>
                                                     <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
                                                 </li>
                                                 <li>
                                                     <a href="{{ route('properties.list', ['type' => 'Sell']) }}">Sell</a>
+                                                    <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-icon"><a href="#">Property Buy</a>
+                                            <ul class="sub-menu menu-pages-img-show">
+                                                <li>
+                                                    <a href="{{ route('properties.cat.details', ['cat_type' => 'Residential']) }}">Residential</a>
+                                                    <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('properties.cat.details', ['cat_type' => 'Commercial']) }}">Commercial</a>
+                                                    <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
+                                                </li>
+                                                <!-- IndustrialParkShades -->
+                                                <li>
+                                                    <a href="{{ route('properties.cat.details', ['cat_type' => 'IndustrialParkShades']) }}">Industrial</a>
+                                                    <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
+                                                </li>
+                                                <!-- VacantLandPlotting -->
+                                                <li>
+                                                    <a href="{{ route('properties.cat.details', ['cat_type' => 'VacantLandPlotting']) }}">Plotting And Vacant Land</a>
                                                     <img src="/assests/front-end/img/home-demos/home-1.jpg" alt="#">
                                                 </li>
                                             </ul>
@@ -44,6 +66,7 @@
                                             <a href="#">Add Listing</a>
                                         </li>
                                     </ul>
+                                    
                                 </div>
                             </nav>
                         </div>

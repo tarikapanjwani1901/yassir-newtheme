@@ -1,7 +1,11 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
+<style>
+.section-title-area {
+  margin-top: 100px !important;
+}
+</style>
 
 
     <!-- ABOUT US AREA START -->

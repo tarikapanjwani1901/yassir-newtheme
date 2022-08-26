@@ -1,6 +1,11 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+<style>
+.section-title-area {
+  margin-top: 100px !important;
+}
+</style>
 <div class="ltn__utilize-overlay"></div>
 <!-- BREADCRUMB AREA START -->
 <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.jpg">
