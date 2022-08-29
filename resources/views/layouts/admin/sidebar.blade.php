@@ -27,6 +27,22 @@
                 </a>
                
             </li>
+            
+              <li>
+                <a  href="{{ URL::to('admin/slider') }}" aria-expanded="false">
+                    <i class="flaticon-381-television"></i>
+                    <span class="nav-text">Slider</span>
+                </a>
+               
+            </li>
+            
+             <li>
+                <a  href="{{ URL::to('admin/visitor_search_record') }}" aria-expanded="false">
+                    <i class="flaticon-381-television"></i>
+                    <span class="nav-text">Visitor Search Records</span>
+                </a>
+               
+            </li>
            
          <li>
                 <a  href="{{ URL::to('admin/testimonials') }}" aria-expanded="false">
@@ -75,6 +91,14 @@
                     <li><a href="{{ URL::to('admin/blog_comments') }}" >Blog Comments</a></li>
                     
                 </ul>
+            </li>
+            
+             <li>
+                <a  href="{{ URL::to('admin/general_setting') }}" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">General Setting</span>
+                </a>
+               
             </li>
         </ul>
         

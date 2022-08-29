@@ -14,8 +14,11 @@ class TestimonialController extends Controller
     public function index()
     {
         //Get all the testimonials
-        $testimonials = Testimonials::getAllTestimonial();
-        return view('admin.testimonial.index')->with('testimonials', $testimonials);
+        
+		$search_name =$search_company = $search_quote = "";
+		$testimonials = Testimonials::getAllTestimonial();
+		
+        return view('admin.testimonial.index',compact('testimonials','search_name','search_company','search_quote'));
     }
 
     public function add() {
@@ -42,21 +45,16 @@ class TestimonialController extends Controller
         return view('admin.testimonial.edit')->with('testimonials', $testimonial);
     }
 
-    public function manage_testimonial(Request $request)
+    public function testimonials_search(Request $request)
     {
 
-      // echo "hii"; exit;
-       $search = $request->get('testimonial_search');
-       $testimonials = DB::table('site_testimonials')
-       ->where('t_quote','like','%'.$search.'%')
-       ->orwhere('t_name','like','%'.$search.'%')
-       ->orwhere('t_company','like','%'.$search.'%')
-       ->orwhere('t_image','like','%'.$search.'%')
-       ->paginate(10);   
-      // echo "<pre>"; print_r($testimonials); exit; 
-
-       return view('admin.testimonial')->with('testimonials', $testimonials);
-       // return view('admin/testimonial',compact('testimonials',$testimonials));
+      
+	  $search_name = $request->search_name;
+	   $search_company = $request->search_company;
+	   $search_quote = $request->search_quote;
+	   $testimonials = Testimonials::getAllTestimonial($search_name,$search_company,$search_quote);
+		return view('admin.testimonial.index',compact('testimonials','search_name','search_company','search_quote'));
+   
     }
 
     public function editPostTestimonail(Request $request,$id) {

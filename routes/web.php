@@ -32,6 +32,12 @@ use App\Http\Controllers\Web\Admin\BlogCategoriesController;
 use App\Http\Controllers\Web\Admin\BlogCommentsController;
 use App\Http\Controllers\Web\Admin\BlogTagController;
 use App\Http\Controllers\Web\Admin\BlogController;
+use App\Http\Controllers\Web\Admin\SliderController;
+use App\Http\Controllers\Web\Admin\VisitorSearchRecordController;
+use App\Http\Controllers\Web\Admin\GeneralSettingController;
+use App\Http\Controllers\Web\Admin\ProfileController;
+
+
 
 
 
@@ -105,6 +111,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editTestimonail']);
         Route::post('/admin/testimonials/edit/{id}', [TestimonialController::class, 'editPostTestimonail']);
         Route::post('/admin/testimonials/delete/{id}', [TestimonialController::class, 'delete']);
+		Route::get('/admin/testimonials_search',[TestimonialController::class, 'testimonials_search']);
+		
 		
 		
         // Properties
@@ -240,6 +248,29 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/blog_search',[BlogController::class, 'blog_search']);
 		
 		
+		// Slider
+        Route::get('/admin/slider', [SliderController::class, 'index']);
+        Route::get('/admin/slider/add', [SliderController::class, 'add']);
+        Route::post('/admin/slider/add', [SliderController::class, 'addSlider']);
+        Route::get('/admin/slider/edit/{id}', [SliderController::class, 'editSlider']);
+        Route::post('/admin/slider/edit/{id}', [SliderController::class, 'editPostSlider']);
+        Route::post('/admin/slider/delete/{id}', [SliderController::class, 'delete']);
+		Route::get('/admin/slider_search',[SliderController::class, 'slider_search']);
+		
+		
+		// Visitor Search Record
+        Route::get('/admin/visitor_search_record', [VisitorSearchRecordController::class, 'index']);
+        Route::get('/admin/visitor_search_record_filter',[VisitorSearchRecordController::class, 'visitor_search_record_filter']);
+		
+		
+		//General Setting
+		Route::get('/admin/general_setting', [GeneralSettingController::class, 'index']);
+        Route::post('/admin/general_setting', [GeneralSettingController::class, 'editPostGeneralSetting']);
+        
+		//Profile Setting
+		Route::get('/admin/profile', [ProfileController::class, 'index']);
+        Route::post('/admin/profile', [ProfileController::class, 'editPostProfile']);
+    	
 
 
  

@@ -28,6 +28,43 @@
                         </div>
                
                     <div class="card-body">
+                    
+                    <form method="get" class="padd15" name="search" action="testimonials_search"  autocomplete="off">
+                        	
+                            
+                        <div class="row p-0">
+                        	<div class="col-md-3">
+                            	<div class="form-group">
+                                    <input type="text" placeholder="Name" value="{{$search_name}}" name="search_name" class="form-control" />
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                            	<div class="form-group">
+                                    <input type="text" placeholder="Company" value="{{$search_company}}" name="search_company" class="form-control" />
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                            	<div class="form-group">
+                                    <input type="text" placeholder="Quote" value="{{$search_quote}}" name="search_quote" class="form-control" />
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                           
+                            <div class="col-md-3">
+                            	<input type="submit" class="btn btn-primary" value="Submit">
+                                
+                            	
+                                 <a href="{{url('/admin/testimonials')}}" data-toggle="tooltip" title="Reset"><input type="button" class="btn btn-light" value="Reset"></a>
+                            </div>
+                        </div>   
+                        </form>
                         <div class="table-responsive mt-3">
                             <table class="table table-responsive-md table-bordered">
                                 <thead>

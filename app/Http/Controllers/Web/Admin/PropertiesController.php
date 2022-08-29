@@ -892,7 +892,7 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
        		 $thumb_img->save($destinationPath.'/'.$sample_house_video_name,80);
 			$Properties->sample_house_video =  $sample_house_video_name;
 
-		  $pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
+		 	$pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
            move_uploaded_file($_FILES["pdf_brochure"]["tmp_name"], $target_dir."/".$pdf_brochure_name);
 		   $Properties->pdf_brochure =  $pdf_brochure_name;
 		}else{
