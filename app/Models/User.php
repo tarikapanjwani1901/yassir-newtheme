@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -98,6 +99,7 @@ class User extends Authenticatable
 		if($search_status!=""){
 	  		$user =  $user->where('users.status','=',$search_status);
 		}
+		$user =  $user->where('users.id','!=',Auth::id());
 		
            $user =     $user->orderBy('id',"DESC");		
            $user =     $user->paginate(10);	

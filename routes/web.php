@@ -47,6 +47,7 @@ use App\Http\Controllers\Web\Vendor\VendorInquiryController;
 use App\Http\Controllers\Web\Vendor\VendorBookVisitController;
 use App\Http\Controllers\Web\Vendor\VendorAdvertiseController;
 use App\Http\Controllers\Web\Vendor\VendorPropertiesController;
+use App\Http\Controllers\Web\Vendor\VendorProfileController;
 
 use App\Http\Controllers\Web\Sales\SalesDashboardController;
 
@@ -319,6 +320,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/vendor/advertise/edit/{id}', [VendorAdvertiseController::class, 'update'])->name('vendor.advertise.update');
         Route::post('/vendor/advertise/delete_image',[VendorAdvertiseController::class, 'advertise_delimage'])->name('vendor.advertise.delimage');
     
+			//Profile Setting
+		Route::get('/vendor/profile', [VendorProfileController::class, 'index']);
+        Route::post('/vendor/profile', [VendorProfileController::class, 'editPostProfile']);
+    
+	
     });
 });
 

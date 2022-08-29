@@ -7,40 +7,40 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
-
-           <li>
-                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+ <li>
+                <a  href="{{ URL::to('vendor/properties') }}" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Properties</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('vendor/properties') }}" >Properties List</a></li>
-                </ul>
+               
             </li>
-            <li>
-                <a href="{{ URL::to('vendor/bookvisit') }}"  class="ai-icon" href="javascript:void()" aria-expanded="false">
+           <li>
+                <a href="{{ URL::to('vendor/bookvisit') }}"  class="ai-icon"  aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Book Visit</span>
                 </a>
             </li>
             <li>
-                <a href="{{ URL::to('vendor/inquiry') }}" class="ai-icon" href="javascript:void()" aria-expanded="false">
+                <a href="{{ URL::to('vendor/inquiry') }}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
-                    <span class="nav-text">Inquiry Listing</span>
+                    <span class="nav-text">Inquiry</span>
                 </a>
             </li>
 
-            <li>
-                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+           <?php /*?>  <li>
+                <a  href="{{ URL::to('vendor/advertise') }}" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Advertisement</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ URL::to('vendor/advertise') }}" >Advertisement List</a></li>
-                    <li><a href="{{ URL::to('vendor/advertise/add') }}" >Add Advertisement</a></li>
-                </ul>
+               
+            </li><?php */?>
+             <li>
+                <a  href="{{ URL::to('vendor/profile') }}" aria-expanded="false">
+                    <i class="flaticon-381-user"></i>
+                    <span class="nav-text">Profile</span>
+                </a>
+               
             </li>
-
         </ul>
         
         <div class="copyright"  style="display: none;">

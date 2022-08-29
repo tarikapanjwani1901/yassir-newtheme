@@ -16,7 +16,7 @@
 	<meta name="format-detection" content="telephone=no">
     <title>Yassir | Vendor </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/assests/images/favicon.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="/assests/images/favicon.png">
 
     <link href="/assests/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/assests/vendor/chartist/css/chartist.min.css">
@@ -36,8 +36,10 @@
     <link rel="stylesheet" href="/assests/vendor/select2/css/select2.min.css">
 	  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="/assests/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/assests/vendor/summernote/summernote.css" rel="stylesheet" />
     <link href="/assests/css/style.css" rel="stylesheet">
     <link href="/assests/css/custom.css" rel="stylesheet">
+
 
 </head>
 
@@ -121,6 +123,7 @@
 
     </div>
 
+
     <script src="/assests/vendor/global/global.min.js"></script>
     <script src="/assests/vendor/jquery-validation/jquery.validate.min.js"></script>
 	<script src="/assests/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
@@ -151,8 +154,12 @@
     <script src="/assests/vendor/bootstrapwizard/jquery.bootstrap.wizard.js" type="text/javascript"></script>
     <script src="/assests/vendor/bootstrapvalidator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="/assests/js/pages/adduser.js" type="text/javascript"></script>
-    <script src="/assests/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    	<script src="/assests/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
+          <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    
+    
+
+<script src="/assests/vendor/summernote/summernote.js" type="text/javascript"></script>
     
     @yield('customjs')
 

@@ -8,7 +8,6 @@ use App\Models\Properties;
 use App\Models\PropertyUnits;
 use App\Models\PropertyUnitsAreas;
 use App\Models\PropertiesImages;
-
 use Illuminate\Support\Facades\Auth;
 
 
@@ -21,15 +20,15 @@ use Image;
 
 class VendorPropertiesController extends Controller
 {
+
     public function index()
     {
         //Get all the propertiess
-        $properties = Properties::getAllProperties('',Auth::id());
+        $properties = Properties::getAllProperties("",Auth::id());
 		
 		$CommonModel = new Common;
 		
-		$vendors =$CommonModel->getVendorList();
-		$search_keyword = $search_vendor = $search_for = $search_sub_category = "";
+		$search_keyword = $search_vendor = $search_for = $search_sub_category =$search_completed_property = $search_status = "";
 		$propertyFor[''] = "Property For";
 		$propertyFor['Sell'] = "Sell";
 		$propertyFor['Rent'] = "Rent";
@@ -43,17 +42,33 @@ class VendorPropertiesController extends Controller
 		
 		
 		
+		$completed_property[''] = "Completed Property";
+		$completed_property['Yes'] = "Yes";
+		$completed_property['No'] = "No";
+		
+		
+		$status[''] = "Status";
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
+		
+		
+		
+		
 		
 
-        return view('vendor.properties.index',compact('properties','propertyFor','SubCategory','search_keyword','search_vendor','search_for','search_sub_category'));
+        return view('vendor.properties.index',compact('properties','propertyFor','SubCategory','completed_property','status','search_completed_property','search_status','search_keyword','search_vendor','search_for','search_sub_category'));
     
     }
 	public function properties_search(Request $request)
     {
 		
 		$search_keyword = $request->get('search_keyword');
+        $search_vendor = $request->get('search_vendor');
         $search_for = $request->get('search_for');
 		$search_sub_category = $request->get('search_sub_category');
+		$search_completed_property = $request->get('search_completed_property');
+		$search_status = $request->get('search_status');
 		
 		$propertyFor[''] = "Property For";
 		$propertyFor['Sell'] = "Sell";
@@ -67,26 +82,120 @@ class VendorPropertiesController extends Controller
 		$SubCategory['VacantLandPlotting'] = "Vacant Land/ Plotting";
 		
 		
+		$completed_property[''] = "Completed Property";
+		$completed_property['Yes'] = "Yes";
+		$completed_property['No'] = "No";
+		
+		
+		$status[''] = "Status";
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
+		
+		
 		
 		
 	  
         //Get all the propertiess
-        $properties = Properties::getAllProperties($search_keyword,Auth::id(),$search_for,$search_sub_category);
+        $properties = Properties::getAllProperties($search_keyword,Auth::id(),$search_for,$search_sub_category,$search_completed_property,$search_status);
 		
 		$CommonModel = new Common;
 		
 		
-	   return view('vendor.properties.index',compact('properties','propertyFor','SubCategory','search_keyword','search_for','search_sub_category'));
+	   return view('vendor.properties.index',compact('properties','propertyFor','SubCategory','completed_property','status','search_completed_property','search_status','search_keyword','search_vendor','search_for','search_sub_category'));
     
       
     }
 
     public function add() {
-		 $country = array();
+		$country = array();
 		$CommonModel = new Common;
 		$country = $CommonModel->countryList();
 		
-			$amenties = array('Power Backup','Lift','24*7 Water Supply','24*7 Security Service','Parking Space','Vaastu Compliant Design','Ventilation','Fitness Center / GYM','Spa'
+		$propertyFor[''] = "Property For";
+		$propertyFor['Sell'] = "Sell";
+		$propertyFor['Rent'] = "Rent";
+		
+		$category[''] = "Select Category";
+		$category['For Builder'] = "For Builder";
+		$category['For owner'] = "For owner";
+		
+		
+		$SubCategory[''] = "Select Sub Category";
+		$SubCategory['Residential'] = "Residential";
+		$SubCategory['Commercial'] = "Commercial";
+		$SubCategory['IndustrialParkShades'] = "Industrial Park/Shades";
+		$SubCategory['VacantLandPlotting'] = "Vacant Land/ Plotting";
+		
+		$property_type[''] = "Select Type";
+		$property_type['Apartment And Flat'] = "Apartment/Flat";
+		$property_type['IndependentHouse'] = "Independent House/ Bunglows/villas";
+		$property_type['Farmhouse'] = "Farmhouse";
+		
+		$commercial_property_type[''] = "Select Type";
+		$commercial_property_type['Office'] = "Office";
+		$commercial_property_type['Retail'] = "Retail";
+		$commercial_property_type['Hospitality'] = "Hospitality";
+	
+		$what_kind_of_vacantland['Commercial Land'] = "Commercial Land";
+		$what_kind_of_vacantland['Agriculture Land'] = "Agriculture Land";
+		$what_kind_of_vacantland['Industrial Land'] = "Industrial Land";
+		
+		
+		$what_kind_of_hospitality['Hotel / Resort'] = "Hotel / Resort";
+		$what_kind_of_hospitality['Guesthouse / Banquet Hall'] = "Guesthouse / Banquet Hall";
+		
+		
+		$retail_type['Commercial shops'] = "Commercial shops";
+		$retail_type['Commercial showrooms'] = "Commercial showrooms";
+	
+		$shop_located_inside['Mall'] = "Mall";
+		$shop_located_inside['Commercial Project'] = "Commercial Project";
+		$shop_located_inside['Residencial Project'] = "Residencial Project";
+		
+		$located_inside['IT Park'] = "IT Park";
+		$located_inside['Business Park'] = "Business Park";
+		
+		$age_of_property[''] = "Select";
+		$age_of_property['0-1 Year'] = "0-1 Year";
+		$age_of_property['1-5 Year'] = "1-5 Year";
+		$age_of_property['5-10 Year'] = "5-10 Year";
+		$age_of_property['10+ Year'] = "10+ Year";
+		
+		
+		
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
+		$MonthNameList[''] = "Month";
+		$MonthNameList['January'] = "January";
+		$MonthNameList['February'] = "February";
+		$MonthNameList['March'] = "March";
+		$MonthNameList['April'] = "April";
+		$MonthNameList['May'] = "May";
+		$MonthNameList['June'] = "June";
+		$MonthNameList['July'] = "July";
+		$MonthNameList['August'] = "August";
+		$MonthNameList['September'] = "September";
+		$MonthNameList['October'] = "October";
+		$MonthNameList['November'] = "November";
+		$MonthNameList['December'] = "December";
+		
+		$yearList[''] = 'Year'; 
+		 $year_start  = 1999;
+    	$year_end = date('Y'); // current Year
+	
+		   for ($i_year = $year_start; $i_year <= ($year_end+20); $i_year++) {
+				$yearList[$i_year] = $i_year;	
+		  }
+		
+			
+		$state[''] = "Select State";
+		$city[''] = "Select City";
+		$sub_city[''] = "Select Sub City";
+		
+		
+		$amenties = array('Power Backup','Lift','24*7 Water Supply','24*7 Security Service','Parking Space','Vaastu Compliant Design','Ventilation','Fitness Center / GYM','Spa'
 		,'Yoga','Swimming Pool','Playground','Community Center','Media Room'
 		,'Party Room','Community events and classes','Outdoor Areas','Jogging/walking','Eco Friendly','Proximity Area','On Site Maintenance','Electric car charging stations'
 		,'Pets Allowed','Wood Flooring','Storage in unit','Wi-Fi','High-Speed Internet','Cable TV','Close to schools','Babysitting Services'
@@ -95,8 +204,10 @@ class VendorPropertiesController extends Controller
 		,'Senior Citizen Seating','Indoor Games','Celebration Lawn','Rest Room','River Facing','Basement','Fire Safety','Management Office','Library','School Drop off Zone'
 		,'Earthquake Resistance RCC Structure','Indoor Games Club House','Guest waiting Room','Hydro. Pressure Pump','Z+ Security System','Adequate Street Light','Steam Bathroom','Splash Pool'
 		,'Basketball Hoop','Skating Area');
+	
 		
-         return view('vendor.properties.add',compact('country','amenties'));
+         return view('vendor.properties.add',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
+		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','age_of_property','amenties','status','MonthNameList','yearList','country'));
     }
 
     public function delete($id) {
@@ -106,6 +217,14 @@ class VendorPropertiesController extends Controller
 		DB::table('property_images')->where('property_id', '=', $id)->delete();
         return 'success';
     }
+	public function status($id,$status) {
+      $Properties = Properties::find($id);
+	  $Properties->status = $status;
+	  $Properties->save();
+	  
+	     return 'success';
+    }
+	
 
     public function editProperties($id) 
     {
@@ -178,6 +297,31 @@ class VendorPropertiesController extends Controller
 		
 		
 		
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
+		$MonthNameList[''] = "Month";
+		$MonthNameList['January'] = "January";
+		$MonthNameList['February'] = "February";
+		$MonthNameList['March'] = "March";
+		$MonthNameList['April'] = "April";
+		$MonthNameList['May'] = "May";
+		$MonthNameList['June'] = "June";
+		$MonthNameList['July'] = "July";
+		$MonthNameList['August'] = "August";
+		$MonthNameList['September'] = "September";
+		$MonthNameList['October'] = "October";
+		$MonthNameList['November'] = "November";
+		$MonthNameList['December'] = "December";
+		
+		$yearList[''] = 'Year'; 
+		 $year_start  = 1999;
+    	$year_end = date('Y'); // current Year
+	
+		   for ($i_year = $year_start; $i_year <= ($year_end+20); $i_year++) {
+				$yearList[$i_year] = $i_year;	
+		  }
+		
 		
 		$CommonModel=  new Common;	
 		$state = $CommonModel->getStateByCountry($p->country);
@@ -208,23 +352,25 @@ class VendorPropertiesController extends Controller
 		}
 		
          return view('vendor.properties.edit',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
-		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','p','property_units','unitAreas','properties_unit_type_area','images','country'));
+		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','area','age_of_property','amenties','status','MonthNameList','yearList','p','property_units','unitAreas','properties_unit_type_area','images','country'));
 
     }
 
     
-
     public function addProperties(Request $request) {
 		
 		if($request->property_id!=""){
 			$Properties = Properties::find($request->property_id);
 		}else{
 				$Properties = new Properties();	
+				$Properties->added_by = Auth::id();
+				$Properties->status = 'Inactive';
 		}
 		$Properties->property_vendor = Auth::id();
 		$Properties->property_for = $request->property_for; 
 		$Properties->category = $request->category; 
 		$Properties->sub_category = $request->sub_category; 
+		
 		$Properties->save();
 		
 		$PropertiesID = $Properties->id;
@@ -232,7 +378,7 @@ class VendorPropertiesController extends Controller
 		$this->propertyDataUpdate($PropertiesID,$request);
 		
 		return $PropertiesID;
-	   // return redirect('vendor/propertiess');
+	   // return redirect('admin/propertiess');
     }
 	public function propertyDataUpdate($id,$request){
 		
@@ -264,13 +410,14 @@ class VendorPropertiesController extends Controller
 		
 	
 		$commercial_property_type =$locality=$located_inside =$what_kind_of_vacantland =$retail_type =$what_kind_of_hospitality=$shop_located_inside
-		=$rera_number=$rera_link= "";
+		=$rera_number=$rera_link =$property_areas= "" ;
 		
 		
-$area_details = $plot_area =$carpet_area =$property_status =$age_of_property =$possession_date =$number_of_washrooms =$super_builtup_area =
+$area_details = $plot_area =$carpet_area =$property_status =$age_of_property =$possession_month=$possession_year =$number_of_washrooms =$super_builtup_area =
 $pre_leased =$fire_noc_certified =$number_of_rooms =$number_of_balconies =$furnishing_detail =$furnished_data =$entrance_width =
 $ceiling_heights =$number_of_private_washroom =$number_of_shared_washroom =$conference_room =$reception_area =$facilities =$fire_safety_measures =$number_of_floor =
-$number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$number_of_parking_allotted =$parkings =$suitable_business_type  = "";
+$number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$number_of_parking_allotted =$parkings =$suitable_business_type  = $other_features = $property_ownership = $expected_price = $basic_price = $taxandgovcharges_price = $all_inclusive_price= 
+$booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_price = "";
 		
 		
 		if($sub_category=="Residential"){
@@ -312,13 +459,29 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 							}
 							$PropertyUnits->propertystatus = $singleBhkData['propertystatus'];
 							if($singleBhkData['propertystatus']=="Ready to move"){
-								$PropertyUnits->possession_date = "";
+								$PropertyUnits->possession_month = "";
+								$PropertyUnits->possession_year = "";
 								$PropertyUnits->age_of_property = $singleBhkData['age_of_property'];
 							}else{
 								
 								$PropertyUnits->age_of_property = "";
-								$PropertyUnits->possession_date = $singleBhkData['possession_date'];	
+								
+								$PropertyUnits->possession_month = $singleBhkData['possession_month'];
+								$PropertyUnits->possession_year = $singleBhkData['possession_year'];
+								
 							}
+							$PropertyUnits->property_ownership = $singleBhkData['Residentialproperty_ownership'];
+							$PropertyUnits->expected_price = $singleBhkData['ResidentialExpectedPrice'];
+							$PropertyUnits->basic_price = $singleBhkData['ResidentialBasicPrice'];
+							$PropertyUnits->taxandgovcharges_price = $singleBhkData['ResidentialTaxandgovchargesPrice'];
+							$PropertyUnits->all_inclusive_price = $singleBhkData['ResidentialAllinclusivePrice'];
+							$PropertyUnits->booking_amount = $singleBhkData['ResidentialBookingamount'];
+							$PropertyUnits->membership_charge = $singleBhkData['ResidentialMembershipCharge'];
+							$PropertyUnits->maintenance = $singleBhkData['ResidentialMaintenance'];
+							$PropertyUnits->total_price = $singleBhkData['HiddenResidentialTotal'];
+							
+							
+							
 							if($request->stepNumber==1){
 								$PropertyUnits->save();
 							}
@@ -352,6 +515,7 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		$Properties->amenities =  "";
 		$Properties->property_features =  "";
 		if($sub_category=="Residential"){
+			$property_areas =$request->property_areas;
 			$rera_number =  $request->rera_number;
 			$rera_link =  $request->rera_link;
 			if(!empty($request->amenities)){
@@ -360,11 +524,17 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 			if(!empty($request->property_features)){
 				$Properties->property_features =  implode(", ",$request->property_features);
 			}
+			if($request->property_type=="Apartment And Flat" || $request->property_type=="IndependentHouse"){
+				if(!empty($request->other_features)){
+				$other_features= implode(", ",$request->other_features);
+				}
+			}
 		
 		}
 		
 		if($sub_category=="Commercial"){
 			$commercial_property_type = $request->commercial_property_type;
+			$property_areas =$request->commerical_property_areas;
 			
 			
 	
@@ -447,6 +617,7 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 			
 				
 			}if($commercial_property_type=="Hospitality"){
+				$property_areas =$request->Hospitalitycommerical_property_areas;	
 				$what_kind_of_hospitality =  $request->what_kind_of_hospitality;
 				$locality = $request->locality;
 				$located_inside = $request->located_inside;
@@ -484,16 +655,39 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 				
 			}
 			if($property_status=="Ready to move"){
-					$possession_date = "";
+					$possession_month = "";
+					$possession_year = "";
+								
 					$age_of_property = 	$request->age_of_property;
 				}else{
-						$possession_date = $request->possession_date;
+						$possession_month = $request->possession_month;
+						$possession_year = $request->possession_year;
+					
 						$age_of_property = 	"";
 				}
 				
+		
+			$property_ownership = $request->Commercialproperty_ownership;
+			$expected_price = $request->CommercialExpectedPrice;
+			$basic_price = $request->CommercialBasicPrice;
+			$taxandgovcharges_price = $request->CommercialTaxandgovchargesPrice;
+			$all_inclusive_price = $request->CommercialAllinclusivePrice;
+			$booking_amount = $request->CommercialBookingamount;
+			$membership_charge = $request->CommercialMembershipCharge;
+			$maintenance = $request->CommercialMaintenance;
+			$maintenance_type = $request->Commercialmaintenance_type;
+			$total_price =0;
+			
+			if($expected_price>0 && $super_builtup_area>0){
+				$basic_price = $expected_price*$super_builtup_area;
+			}
+			$all_inclusive_price = $taxandgovcharges_price +$basic_price;
+			$total_price = $all_inclusive_price;
+			
 			
 		}
 		if($sub_category=="IndustrialParkShades"){
+			$property_areas =$request->Industrial_property_areas;
 			$locality = $request->locality;
 			$located_inside = $request->located_inside;
 			$number_of_washrooms =  $request->Industrialnumber_of_washrooms;
@@ -503,31 +697,82 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 			$furnishing_detail =  $request->furnishing_detail;
 			$property_status =  $request->Industrialpropertystatus;
 			if($property_status=="Ready to move"){
-				$possession_date = "";
+					$possession_month = "";
+					$possession_year = "";
+					
 				$age_of_property = 	$request->Industrialage_of_property;
 			}else{
-					$possession_date = $request->Industrialpossession_date;
+					$possession_month = $request->Industrialpossession_month;
+					$possession_year = $request->Industrialpossession_year;
+					
 					$age_of_property = 	"";
 			}
 			
 				$pre_leased = $request->Industrialpre_leased;
 				$fire_noc_certified = $request->Industrialfire_noc_certified;	
+		
+			$property_ownership = $request->Industrialproperty_ownership;
+			$expected_price = $request->IndustrialExpectedPrice;
+			$taxandgovcharges_price = $request->IndustrialTaxandgovchargesPrice;
+			$total_price =0;
+			
+			if($expected_price>0 && $super_builtup_area>0){
+				$basic_price = $expected_price*$super_builtup_area;
+			}
+			$all_inclusive_price = $taxandgovcharges_price +$basic_price;
+			$total_price = $all_inclusive_price;
 			
 		}
 		if($sub_category=="VacantLandPlotting"){
+			$property_areas =$request->VacantLandPlottingproperty_areas;
 			$locality = $request->locality;
 			$what_kind_of_vacantland =  $request->what_kind_of_vacantland;
 			$area_details =  $request->VacantLandPlottingAreadetails;
 			$plot_area =  $request->VacantLandPlottingCarpetarea;
 			$property_status =  $request->VacantLandPlottingpropertystatus;
 			if($property_status=="Ready to move"){
-				$possession_date = "";
+					$possession_month = "";
+					$possession_year = "";
+				
 				$age_of_property = 	$request->VacantLandPlottingage_of_property;
 			}else{
-					$possession_date = $request->VacantLandPlottingpossession_date;
+					$possession_month = $request->VacantLandPlottingpossession_month;
+					$possession_year = $request->VacantLandPlottingpossession_year;
+				
+					
 					$age_of_property = 	"";
 			}
+			
+			$property_ownership = $request->VacantLandPlottingproperty_ownership;
+			$expected_price = $request->VacantLandPlottingExpectedPrice;
+			$basic_price = $request->VacantLandPlottingBasicPrice;
+			$taxandgovcharges_price = $request->VacantLandPlottingTaxandgovchargesPrice;
+			$all_inclusive_price = $request->VacantLandPlottingAllinclusivePrice;
+			$total_price =0;
+			
+			if($expected_price>0 && $plot_area>0){
+				$basic_price = $expected_price*$plot_area;
+			}
+			$all_inclusive_price = $taxandgovcharges_price +$basic_price;
+			$total_price = $all_inclusive_price;
+			
 		}
+		$Properties->property_areas =  $property_areas;
+		$Properties->property_ownership =  $property_ownership;
+		$Properties->expected_price =  $expected_price;
+		$Properties->basic_price =  $basic_price;
+		$Properties->taxandgovcharges_price =  $taxandgovcharges_price;
+		$Properties->all_inclusive_price =  $all_inclusive_price;
+		
+		$Properties->booking_amount =  $booking_amount;
+		$Properties->membership_charge =  $membership_charge;
+		$Properties->maintenance =  $maintenance;
+		$Properties->maintenance_type =  $maintenance_type;
+			
+		
+		$Properties->total_price =  $total_price;
+		
+		
 		
 		$Properties->commercial_property_type =  $commercial_property_type;
 		
@@ -558,7 +803,9 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		$Properties->property_status =  $property_status;
 		
 		$Properties->age_of_property =  $age_of_property;
-		$Properties->possesion_date =  $possession_date;
+		$Properties->possession_month =  $possession_month;
+		$Properties->possession_year =  $possession_year;
+		
 		$Properties->pre_leased =  $pre_leased;
 		$Properties->fire_noc_certified =  $fire_noc_certified;
 		
@@ -582,24 +829,23 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 		$Properties->project_features =  $request->project_features;
 		$Properties->additional_features =  $request->additional_features;
 		
-		
-		if(!empty($request->other_features)){
-			$Properties->other_features =  implode(", ",$request->other_features);
-		}else{
-			$Properties->other_features =  "";	
-		}
+		$Properties->other_features =  $other_features;
 		$Properties->location_advantages =  $request->location_advantages;
 		$Properties->suggestions =  $request->suggestions;
 		
 		//step 4
+
+		$Properties->video_toor =  $request->video_toor;
 		$Properties->sample_house_video =  $request->sample_house_video;
 		
 		
 		
 			
         $target_dir = "images/properties/".$id;
+
 		
 		if($request->stepNumber=="3" && $request->stepDirection=="last_step"){
+		$Properties->completed_property ="Yes";	
 		
 		if(!empty($request->project_gallery_hidden)){
 			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_gallery')->whereNotIn('id', $request->project_gallery_hidden)->delete();
@@ -620,13 +866,17 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 			DB::table('property_images')->where('property_id', '=', $id)->where('type','=','project_status_gallery')->delete();
 		}		
 		
+
         if (!file_exists($target_dir))
         {
             mkdir($target_dir, 0777, true);
         }
 		$destinationPath = public_path().'/images/properties/'.$id;
+		
+		
 		if($request->file('pdf_brochure')){	
-		  $pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
+			
+		 	$pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
            move_uploaded_file($_FILES["pdf_brochure"]["tmp_name"], $target_dir."/".$pdf_brochure_name);
 		   $Properties->pdf_brochure =  $pdf_brochure_name;
 		}else{
@@ -696,11 +946,10 @@ $number_of_passenger_lifts =$number_of_service_lift =$number_of_staircases =$num
 					
 				}
 			}
-			
-			
+	
 		}
 		$Properties->save();
 
 	}
-
+	
 }

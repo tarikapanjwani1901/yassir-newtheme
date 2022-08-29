@@ -80,17 +80,16 @@ label {
 </style>
 
     <div class="container-fluid">
-        
+        <?php //echo "<pre>";print_r($properties); ?>
         <div class="row p-0">
    <div class="col-lg-12">
       <div class="card">
       	
         	<div class="card-header pb-3 pt-3 text-uppercase">
-                
-        Add Property</div>
+                Add Property</div>
          <div class="card-body">
             <form method="post" id="propertyForm" enctype="multipart/form-data">
-               <input type="hidden" name="property_id" id="property_id" value="" />
+               <input type="hidden" name="property_id" id="property_id"  />
                <div id="smartwizard" class="form-wizard order-create">
                   <ul class="nav nav-wizard">
                      <li><a class="nav-link" href="#step1"> 
@@ -115,74 +114,54 @@ label {
                         <div class="col-md-12 paddleft0">
                            <div class="row">
                               
+                              
+                              
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Property For <span class="required_field">*</span></label>
-                                    <select name="property_for" id="property_for" class="form-control select2 required" >
-                                       <option value="">Select Property For</option>
-                                       <option value="Sell">Sell</option>
-                                       <option value="Rent">Rent</option>
-                                    </select>
+                                    {!! Form::select('property_for', $propertyFor,'',['class' => 'select2 required form-control', 'id' => 'property_for']) !!}
                                  </div>
                               </div>
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Property Category <span class="required_field">*</span></label>
-                                    <select name="category" id="category" class="form-control select2 required" >
-                                       <option value="">Select Category</option>
-                                       <option value="For Builder">For Builder</option>
-                                       <option value="For owner">For owner</option>
-                                    </select>
+                                    {!! Form::select('category', $category,'',['class' => 'select2 required form-control', 'id' => 'category']) !!}
+                                    
                                  </div>
                               </div>
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Property Sub Category <span class="required_field">*</span></label>
-                                    <select name="sub_category" id="sub_category" class="form-control select2 required" >
-                                       <option value="">Select Sub Category</option>
-                                       <option value="Residential">Residential </option>
-                                       <option value="Commercial">Commercial</option>
-                                       <option value="IndustrialParkShades">Industrial Park/Shades</option>
-                                       <option value="VacantLandPlotting">Vacant Land/ Plotting </option>
-                                    </select>
+                                    
+                                        {!! Form::select('sub_category', $SubCategory,'',['class' => 'select2 required form-control', 'id' => 'sub_category']) !!}
+                                
                                  </div>
                               </div>
                               <div class="col-md-4 residential_prop">
                                  <div class="form-group">
                                     <label class="control-label">Property Type <span class="required_field">*</span></label>
-                                    <select name="property_type" id="property_type" class="form-control  select2 required" >
-                                       <option value="">Select Type</option>
-                                       <option value="Apartment And Flat">Apartment/Flat</option>
-                                       <option value="IndependentHouse">Independent House/ Bunglows/villas</option>
-                                       <option value="Farmhouse">Farmhouse </option>
-                                    </select>
+                                   {!! Form::select('property_type', $property_type,'',['class' => 'select2 required form-control', 'id' => 'property_type']) !!}
+                                
                                  </div>
                               </div>
                               <div class="col-md-4 commercial_prop">
                                  <div class="form-group">
                                     <label class="control-label">Property Type <span class="required_field">*</span></label>
-                                    <select name="commercial_property_type" id="commercial_property_type" class="form-control  select2 required">
-                                       <option value="">Select Type</option>
-                                       <option value="Office">Office</option>
-                                       <option value="Retail">Retail</option>
-                                       <option value="Hospitality">Hospitality</option>
-                                    </select>
+                                      {!! Form::select('commercial_property_type', $commercial_property_type,'',['class' => 'select2 required form-control', 'id' => 'commercial_property_type']) !!}
+                                
                                  </div>
                               </div>
                               <div class="col-md-4 vacantlandplotting_prop">
                                  <div class="form-group">
                                     <label class="control-label">What kind of vacant land/ plotting is it?</label>
-                                    <select name="what_kind_of_vacantland" id="what_kind_of_vacantland" class="select2 form-control" >
-                                       <option value="Commercial Land">Commercial Land</option>
-                                       <option value="Agriculture Land">Agriculture Land</option>
-                                       <option value="Industrial Land">Industrial Land</option>
-                                    </select>
+                                       {!! Form::select('what_kind_of_vacantland', $what_kind_of_vacantland,'',['class' => 'select2 required form-control', 'id' => 'what_kind_of_vacantland']) !!}
+                                
                                  </div>
                               </div>
                               <div class="col-md-8" id="ProjectNameApartmentName">
                                  <div class="form-group">
                                     <label class="control-label">Project Name / Apartment Name/ Society Name  <span class="required_field">*</span></label>
-                                    <input type="text" class="form-control required" name="project_name"/>
+                                    <input type="text" placeholder="Project Name / Apartment Name/ Society Name" class="form-control required"  name="project_name"/>
                                  </div>
                               </div>
                            </div>
@@ -190,10 +169,8 @@ label {
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label class="control-label">What kind of Hospitality is it?</label>
-                                    <select name="what_kind_of_hospitality" id="what_kind_of_hospitality" class="select2 form-control" >
-                                       <option value="Hotel / Resort">Hotel / Resort</option>
-                                       <option value="Guesthouse / Banquet Hall">Guesthouse / Banquet Hall </option>
-                                    </select>
+                                   {!! Form::select('what_kind_of_hospitality', $what_kind_of_hospitality,'',['class' => 'select2 required form-control', 'id' => 'what_kind_of_hospitality']) !!}
+
                                  </div>
                               </div>
                            </div>
@@ -201,20 +178,15 @@ label {
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label class="control-label">Retail Type:</label>
-                                    <select name="retail_type"  class="select2 form-control" >
-                                       <option value="Commercial shops">Commercial shops</option>
-                                       <option value="Commercial showrooms">Commercial showrooms</option>
-                                    </select>
+                                    {!! Form::select('retail_type', $retail_type,'',['class' => 'select2 required form-control', 'id' => 'retail_type']) !!}
+
                                  </div>
                               </div>
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label class="control-label">Shop is located inside</label>
-                                    <select name="shop_located_inside" class="select2 form-control" >
-                                       <option value="Mall">Mall</option>
-                                       <option value="Commercial Project">Commercial Project</option>
-                                       <option value="Residencial Project">Residencial Project</option>
-                                    </select>
+                                      {!! Form::select('shop_located_inside', $shop_located_inside,'',['class' => 'select2 required form-control', 'id' => 'shop_located_inside']) !!}
+
                                  </div>
                               </div>
                            </div>
@@ -222,16 +194,14 @@ label {
                               <div class="col-md-6 locality_prop">
                                  <div class="form-group">
                                     <label class="control-label">Locality</label>
-                                    <input type="text" class="form-control" name="locality"/>
+                                    <input type="text" placeholder="Locality" class="form-control" name="locality"/>
                                  </div>
                               </div>
                               <div class="col-md-6 locatedinside_prop">
                                  <div class="form-group">
                                     <label class="control-label">Located inside</label>
-                                    <select class="form-control select2" name="located_inside">
-                                       <option value="IT Park">IT Park</option>
-                                       <option value="Business Park">Business Park</option>
-                                    </select>
+                                   {!! Form::select('located_inside', $located_inside,'',['class' => 'select2 required form-control', 'id' => 'located_inside']) !!}
+
                                  </div>
                               </div>
                            </div>
@@ -239,13 +209,13 @@ label {
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label class="control-label">Rera Number</label>
-                                    <input type="text" class="form-control" name="rera_number"/>
+                                    <input type="text" class="form-control" placeholder="Rera Number" name="rera_number"/>
                                  </div>
                               </div>
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label class="control-label">Rera Profile Link </label>
-                                    <input type="text" class="form-control" name="rera_link"/>
+                                    <input type="text" class="form-control" placeholder="Rera Profile Link" name="rera_link"/>
                                  </div>
                               </div>
                            </div>
@@ -256,7 +226,7 @@ label {
                                     <label class="control-label">Country <span class="required_field">*</span></label>
                                     <select class="form-control required select2" name="country" id="country">
                                        @foreach($country as $k=>$v)
-                                       <option value="{{$k}}">{{$v}}</option>
+                                        <option value="{{$k}}">{{$v}}</option>
                                        @endforeach
                                     </select>
                                  </div>
@@ -264,39 +234,33 @@ label {
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">State <span class="required_field">*</span></label>
-                                    <select class="form-control required select2" name="state" id="state">
-                                       <option value="">Select State</option>
-                                    </select>
+                                     {!! Form::select('state', $state,'',['class' => 'select2 required form-control', 'id' => 'state']) !!}
+
                                  </div>
                               </div>
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">City <span class="required_field">*</span></label>
-                                    <select class="form-control required select2" name="city" id="city">
-                                       <option value="">Select City</option>
-                                    </select>
+                                     {!! Form::select('city', $city,'',['class' => 'select2 required form-control', 'id' => 'city']) !!}
                                  </div>
                               </div>
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Sub City <span class="required_field">*</span></label>
-                                    <select class="form-control required select2" name="sub_city" id="sub_city">
-                                       <option value="">Select Sub City</option>
-                                    </select>
+                                     {!! Form::select('sub_city', $sub_city,'',['class' => 'select2 required form-control', 'id' => 'sub_city']) !!}
                                  </div>
                               </div>
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Area <span class="required_field">*</span></label>
-                                    <select class="form-control required select2" name="area" id="area">
-                                       <option value="">Select Area</option>
-                                    </select>
+                                  <input type="text" class="form-control required"  name="area" id="area" placeholder="Area"  >
+                                 
                                  </div>
                               </div>
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label class="control-label">Zipcode <span class="required_field">*</span></label>
-                                    <input type="text" class="form-control required" name="zip_code" id="zip_code" placeholder="Zip Code"  >
+                                    <input type="text" class="form-control required"  name="zip_code" id="zip_code" placeholder="Zip Code"  >
                                  </div>
                               </div>
                            </div>
@@ -304,7 +268,7 @@ label {
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label class="control-label" for="address">Address <span class="required_field">*</span></label>
-                                    <input type="text" class="form-control required" name="address" id="address" placeholder="Address" >
+                                    <input type="text" class="form-control required"  name="address" id="address" placeholder="Address" >
                                  </div>
                               </div>
                            </div>
@@ -315,12 +279,15 @@ label {
                            <div class="col-lg-12">
                               <div class="panel panel-primary ">
                                  <div class="panel-body">
-                                    <div class="form-group col-md-12">
+                                    <div class="row">
+                                    <div class="form-group col-md-6">
                                        <label class="col-sm-2 control-label">
                                        Select <span class="required_field">*</span>
                                        </label>
                                        <div class="row p-0">
-                                          <div class="col-sm-5">
+                                          <div class="col-sm-8">
+                                             <div class="property_unit_type_prop">
+                                             
                                              <select name="property_unit_type" id="property_unit_type" class="select2 form-control" >
                                                 <option value="">Select</option>
                                                 <option value="1BHK">1BHK</option>
@@ -330,37 +297,79 @@ label {
                                                 <option value="3.5 BHK">3.5 BHK</option>
                                                 <option value="4BHK">4BHK</option>
                                                 <option value="5BHK">5BHK</option>
-                                                <option value="6BHK">6BHK</option>
                                              </select>
+                                             </div>
+                                             <div class="property_unit_type_ind_prop">
+                                              <select name="property_unit_type_ind" id="property_unit_type_ind" class="select2 form-control" >
+                                                <option value="">Select</option>
+                                                <option value="2BHK">2BHK</option>
+                                                <option value="3BHK">3BHK</option>
+                                                <option value="4BHK">4BHK</option>
+                                                <option value="5BHK">5BHK</option>
+                                                <option value="6BHK" >6BHK</option>
+                                             </select>
+                                             </div>
                                           </div>
                                           <div class="col-sm-2">   <button id="add_property" type="button" name="" class="add_property btn btn-primary " >Add</button></div>
                                        </div>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                       <label class="col-sm-2 control-label">Select Area
+                                        <span class="required_field">*</span>
+                                       </label>
+                                       <div class="row p-0">
+                                          <div class="col-sm-10">
+                                             <select name="property_areas" id="property_areas" class="select2 form-control" >
+                                                 <option value="Square Yard">Square Yard</option>
+                                                <option value="Square Feet">Square Feet</option>
+                                                <option value="Square Meter">Square Meter</option>
+                                             
+                                             </select>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    </div>
                                     <div class="accordion accordion-header-bg accordion-bordered property_type_accordion" id="accordionUnitType" >
+                                    	
+                                    
                                     </div>
                                  </div>
                               </div>
                            </div>
                         </div>
                         <div class="VacantLandPlotting_prop">
+                        
+                        	
                            <div class="row">
-                              <div class="col-md-6">
+                                          <div class="col-md-4">
+                                              <div class="form-group">
+                               
+                                            <label>Select Area</label>
+                                      		 <select name="VacantLandPlottingproperty_areas" id="VacantLandPlottingproperty_areas" class="select2 form-control" >
+                                                <option value="Square Yard">Square Yard</option>
+                                                <option value="Square Feet">Square Feet</option>
+                                                <option value="Square Meter">Square Meter</option>
+                                             
+                                             </select>
+                                             </div>
+                                          </div>
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Area details <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Area details" name="VacantLandPlottingAreadetails" class="form-control required number" />
+                                    <input type="text" placeholder="Area details"  name="VacantLandPlottingAreadetails" class="form-control required number" />
                                  </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Ploat area <span class="required_field">*</span> </label>
-                                    <input type="text" placeholder="Ploat area" name="VacantLandPlottingCarpetarea" class="form-control required number" />
+                                    <input type="text" placeholder="Ploat area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"  name="VacantLandPlottingCarpetarea" class="form-control required number" />
                                  </div>
                               </div>
                            </div>
                            <div class="form-group row label-floating is-empty">
-                              <label  class="col-sm-2 control-label"> Status </label>
+                              <label  class="col-sm-2 control-label"> Status <span class="required_field">*</span></label>
                               <div class="col-sm-10">
-                                 <input type="radio"  name="VacantLandPlottingpropertystatus" data-id="0" data-type="VacantLandPlottingpropertyStatus" class="propertystatus" checked value="Ready to move">
+                                 <input type="radio"  name="VacantLandPlottingpropertystatus" data-id="0" data-type="VacantLandPlottingpropertyStatus" class="propertystatus" checked="checked" value="Ready to move">
                                  &nbsp;
                                  <label for="">Ready to move</label>
                                  &nbsp;&nbsp;&nbsp;
@@ -370,90 +379,214 @@ label {
                                  &nbsp;&nbsp;&nbsp; 
                               </div>
                            </div>
-                           <div class="form-group row label-floating is-empty" id="age_property_div_VacantLandPlottingpropertyStatus_0">
+                           <div class="form-group row label-floating is-empty" id="age_property_div_VacantLandPlottingpropertyStatus_0" style="display:flex;">
                               <label  class="col-sm-2 control-label"> Age of Property <span class="required_field">*</span></label>
                               <div class="col-sm-10">
-                                 <select name="VacantLandPlottingage_of_property" id="VacantLandPlottingage_of_property" class="form-control required select2" >
-                                    <option value="">Select</option>
-                                    <option value="0-1 Year">0-1 Year</option>
-                                    <option value="1-5 Year">1-5 Year</option>
-                                    <option value="5-10 Year">5-10 Year</option>
-                                    <option value="10+ Year">10+ Year</option>
-                                 </select>
-                              </div>
+                                      {!! Form::select('VacantLandPlottingage_of_property', $age_of_property,'',['class' => 'select2 required form-control', 'id' => 'VacantLandPlottingage_of_property']) !!}
+                                </div>
                            </div>
                            <div class="form-group row label-floating is-empty" id="possesion_by_div_VacantLandPlottingpropertyStatus_0" style="display:none;">
                               <label  class="col-sm-2 control-label"> Possession Date <span class="required_field">*</span></label>
-                              <div class="col-sm-10">
-                                 <input type="text" class="form-control required possesion_date" name="VacantLandPlottingpossession_date" placeholder="Possession Date">
-                              </div>
+                              
+                              <div class="col-sm-2">
+                	 {!! Form::select('VacantLandPlottingpossession_month', $MonthNameList,'',['class' => 'select2 required form-control']) !!}
+
+                  </div>  
+                  <div class="col-sm-2">
+                	{!! Form::select('VacantLandPlottingpossession_year', $yearList,'',['class' => 'select2 required form-control']) !!}
+					
+                </div>
+                           
+                           </div>
+                           <div class="VacantLandPlottingPricingBlock">
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label class="d-block">Property Ownership: </label>
+                                	<input type="radio"  name="VacantLandPlottingproperty_ownership" checked="checked"  value="Freehold">
+                                    &nbsp;
+                                    <label class="fw-normal">Freehold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="VacantLandPlottingproperty_ownership"    value="Leases hold">
+                                    &nbsp;
+                                    <label class="fw-normal">Leases hold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="VacantLandPlottingproperty_ownership"   value="Cooperative">
+                                    &nbsp;
+                                    <label class="fw-normal">Cooperative</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="VacantLandPlottingproperty_ownership"   value="Power of attorney">
+                                    &nbsp;
+                                    <label class="fw-normal">Power of attorney</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Expected Price <span class="basic_price_converstion"></span> <span class="required_field">*</span></label>
+                                        <input type="text"  onkeyup="calculateBasicPrice()"  onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingExpectedPrice" placeholder="Expected Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Basic Price <span class="required_field">*</span></label>
+                                        <input type="text" style="background:#eee;"  readonly="readonly" disabled="disabled" class="form-control" name="VacantLandPlottingBasicPrice" placeholder="Basic Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Tax and gov charges <span class="required_field">*</span> </label>
+                                        <input type="text"  onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="VacantLandPlottingTaxandgovchargesPrice" placeholder="Tax and gov charges" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>All-inclusive Price <span class="required_field">*</span> </label>
+                                        <input type="text" style="background:#eee;"  readonly="readonly"  disabled="disabled" class="form-control required" name="VacantLandPlottingAllinclusivePrice" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label>Total Price: <span class="VacantLandPlottingTotalPrice">0.00</span></label>
+                                </div>
+                           </div>
                            </div>
                         </div>
                         <div class="industrial_prop industrial_prop_hide">
                            <div class="row">
-                              <div class="col-md-3">
+                           <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label>Select Area<span class="required_field">*</span></label>
+                                   <select name="Industrial_property_areas" id="Industrial_property_areas" class="select2 form-control" >
+                                               <option value="Square Yard" >Square Yard</option>
+                                                <option value="Square Feet" >Square Feet</option>
+                                                <option value="Square Meter" >Square Meter</option>
+                                             </select>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>No of washrooms <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of washrooms" name="Industrialnumber_of_washrooms" class="form-control number required" />
+                                    <input type="text" placeholder="No of washrooms"  name="Industrialnumber_of_washrooms" class="form-control number required" />
                                  </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Area details <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Area details" name="IndustrialAreadetails" class="form-control number required" />
+                                    <input type="text" placeholder="Area details"  name="IndustrialAreadetails" class="form-control number required" />
                                  </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-6">
                                  <div class="form-group">
                                     <label>Carpet area <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Carpet area" name="IndustrialCarpetarea" class="form-control number required" />
+                                    <input type="text" placeholder="Carpet area"  name="IndustrialCarpetarea" class="form-control number required" />
                                  </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-6">
                                  <div class="form-group">
                                     <label>Super built-up area <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Super built-up area" name="Industrialsuper_builtup_area" class="form-control number required" />
+                                    <input type="text" placeholder="Super built-up area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"   name="Industrialsuper_builtup_area" class="form-control number required" />
                                  </div>
                               </div>
                            </div>
+                           
+                           
+                           
                            <div class="form-group row label-floating is-empty">
-                              <label  class="col-sm-2 control-label"> Status </label>
+                              <label  class="col-sm-2 control-label"> Status <span class="required_field">*</span></label>
                               <div class="col-sm-10">
                                  <input type="radio"  name="Industrialpropertystatus" data-id="0" data-type="IndustrialpropertyStatus" class="propertystatus" checked value="Ready to move">
                                  &nbsp;
                                  <label for="">Ready to move</label>
                                  &nbsp;&nbsp;&nbsp;
-                                 <input type="radio" class="propertystatus" data-id="0" data-type="IndustrialpropertyStatus" name="Industrialpropertystatus" value="Under Construction">
+                                 <input type="radio" class="propertystatus" data-id="0" data-type="IndustrialpropertyStatus" name="Industrialpropertystatus"  value="Under Construction">
                                  &nbsp;
                                  <label for="">Under Construction</label>
                                  &nbsp;&nbsp;&nbsp; 
                               </div>
                            </div>
-                           <div class="form-group row label-floating is-empty" id="age_property_div_IndustrialpropertyStatus_0">
+                           <div class="form-group row label-floating is-empty" id="age_property_div_IndustrialpropertyStatus_0" style="display:flex;">
                               <label  class="col-sm-2 control-label"> Age of Property <span class="required_field">*</span></label>
                               <div class="col-sm-10">
-                                 <select name="Industrialage_of_property" id="Industrialage_of_property" class="form-control required select2" >
-                                    <option value="">Select</option>
-                                    <option value="0-1 Year">0-1 Year</option>
-                                    <option value="1-5 Year">1-5 Year</option>
-                                    <option value="5-10 Year">5-10 Year</option>
-                                    <option value="10+ Year">10+ Year</option>
-                                 </select>
-                              </div>
+                                 
+                                      {!! Form::select('Industrialage_of_property', $age_of_property,'',['class' => 'select2 required form-control', 'id' => 'Industrialage_of_property']) !!}
+ </div>
                            </div>
                            <div class="form-group row label-floating is-empty" id="possesion_by_div_IndustrialpropertyStatus_0" style="display:none;">
                               <label  class="col-sm-2 control-label"> Possession Date <span class="required_field">*</span></label>
-                              <div class="col-sm-10">
-                                 <input type="text" class="form-control required possesion_date" name="Industrialpossession_date" placeholder="Possession Date">
-                              </div>
+                              
+                               <div class="col-sm-2">
+                	 {!! Form::select('Industrialpossession_month', $MonthNameList,'',['class' => 'select2 required form-control']) !!}
+
+                  </div>  
+                  <div class="col-sm-2">
+                	{!! Form::select('Industrialpossession_year', $yearList,'',['class' => 'select2 required form-control']) !!}
+					
+                </div>
+                             
+                           </div>
+                           <div class="IndustrialPricingBlock">
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label class="d-block">Property Ownership: </label>
+                                	<input type="radio"  name="Industrialproperty_ownership" checked   value="Freehold">
+                                    &nbsp;
+                                    <label class="fw-normal">Freehold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="Industrialproperty_ownership"    value="Leases hold">
+                                    &nbsp;
+                                    <label class="fw-normal">Leases hold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Industrialproperty_ownership"   value="Cooperative">
+                                    &nbsp;
+                                    <label class="fw-normal">Cooperative</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Industrialproperty_ownership"   value="Power of attorney">
+                                    &nbsp;
+                                    <label class="fw-normal">Power of attorney</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Expected Price <span class="basic_price_converstion"></span><span class="required_field">*</span></label>
+                                        <input type="text"  onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialExpectedPrice" placeholder="Expected Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Basic Price  <span class="required_field">*</span></label>
+                                        <input type="text"  style="background:#eee;" readonly="readonly" disabled="disabled" class="form-control required number" name="IndustrialBasicPrice" placeholder="Basic Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>Tax and gov charges <span class="required_field">*</span> </label>
+                                        <input type="text"  onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="IndustrialTaxandgovchargesPrice" placeholder="Tax and gov charges" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                	<div class="form-group">
+                                    	<label>All-inclusive Price <span class="required_field">*</span> </label>
+                                        <input type="text"  style="background:#eee;" readonly="readonly" disabled="disabled" class="form-control required number" name="IndustrialAllinclusivePrice" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label>Total Price: <span class="IndustrialTotalPrice">0.00</span></label>
+                                </div>
+                           </div>
                            </div>
                            <div class="row">
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label>It is pre-Leased / pre rented? &nbsp;&nbsp;&nbsp;
-                                    <input class="form-check-input" type="radio" name="Industrialpre_leased"  value="Yes">&nbsp;&nbsp;
+                                    <input class="form-check-input" type="radio" name="Industrialpre_leased"   value="Yes">&nbsp;&nbsp;
                                     Yes&nbsp;&nbsp;
-                                    <input class="form-check-input" checked="checked" type="radio" name="Industrialpre_leased"  value="No">&nbsp;&nbsp;No&nbsp;</label>
+                                    <input class="form-check-input" checked  type="radio" name="Industrialpre_leased"  value="No">&nbsp;&nbsp;No&nbsp;</label>
                                  </div>
                               </div>
                            </div>
@@ -461,9 +594,9 @@ label {
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label> Is your office Fire NOC Certified?  &nbsp;&nbsp;&nbsp;
-                                    <input class="form-check-input" type="radio" name="Industrialfire_noc_certified"  value="Yes">&nbsp;&nbsp;
+                                    <input class="form-check-input" type="radio"  name="Industrialfire_noc_certified"  value="Yes">&nbsp;&nbsp;
                                     Yes&nbsp;&nbsp;
-                                    <input class="form-check-input" checked="checked" type="radio" name="Industrialfire_noc_certified"  value="No">&nbsp;&nbsp;No&nbsp;</label>
+                                    <input class="form-check-input" checked="checked"   type="radio" name="Industrialfire_noc_certified"  value="No">&nbsp;&nbsp;No&nbsp;</label>
                                  </div>
                               </div>
                            </div>
@@ -474,52 +607,63 @@ label {
                                  <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Add room Details <span class="required_field">*</span></label>
-                                       <input type="text" placeholder="Add room Details" name="HospitalityAddroomDetails" class="form-control number required" />
+                                       <input type="text" placeholder="Add room Details"  name="HospitalityAddroomDetails" class="form-control number required" />
                                     </div>
                                  </div>
                                  <div class="col-md-3">
                                     <div class="form-group">
                                        <label>No of Rooms <span class="required_field">*</span></label>
-                                       <input type="text" placeholder="No of Rooms" name="Hospitalitynumber_of_rooms" class="form-control number required" />
+                                       <input type="text" placeholder="No of Rooms"  name="Hospitalitynumber_of_rooms" class="form-control number required" />
                                     </div>
                                  </div>
                                  <div class="col-md-3">
                                     <div class="form-group">
                                        <label>No of washrooms <span class="required_field">*</span></label>
-                                       <input type="text" placeholder="No of washrooms"  name="Hospitalitynumber_of_washrooms" class="form-control number required" />
+                                       <input type="text" placeholder="No of washrooms"   name="Hospitalitynumber_of_washrooms" class="form-control number required" />
                                     </div>
                                  </div>
                                  <div class="col-md-3">
                                     <div class="form-group">
                                        <label>No of Balconies <span class="required_field">*</span></label>
-                                       <input type="text" name="Hospitalitynumber_of_balconies" placeholder="No of Balconies" class="form-control number required" />
+                                       <input type="text" name="Hospitalitynumber_of_balconies"  placeholder="No of Balconies" class="form-control number required" />
                                     </div>
                                  </div>
                               </div>
                               <div class="row">
-                                 <div class="col-md-4">
+                              	<div class="col-md-3">
+                                 <div class="form-group">
+                                    <label>Select Area<span class="required_field">*</span></label>
+                                   <select name="Hospitalitycommerical_property_areas" id="Hospitalitycommerical_property_areas" class="select2 form-control" >
+                                                <option value="Square Yard" >Square Yard</option>
+                                                <option value="Square Feet" >Square Feet</option>
+                                                <option value="Square Meter" >Square Meter</option>
+                                             
+                                             </select>
+                                 </div>
+                              </div>
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Plot Area<span class="required_field">*</span> </label>
-                                       <input type="text" placeholder="Plot Area" name="Hospitalityplot_area" class="form-control number required" />
+                                       <input type="text" placeholder="Plot Area"  name="Hospitalityplot_area" class="form-control number required" />
                                     </div>
                                  </div>
-                                 <div class="col-md-4">
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Carpet Area <span class="required_field">*</span></label>
-                                       <input type="text" placeholder="Carpet Area" name="Hospitalitycarpet_area" class="form-control number required" />
+                                       <input type="text" placeholder="Carpet Area"  name="Hospitalitycarpet_area" class="form-control number required" />
                                     </div>
                                  </div>
-                                 <div class="col-md-4">
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Super Built-up Area <span class="required_field">*</span></label>
-                                       <input type="text" placeholder="Super Built-up Area" name="Hospitalitysuper_builtup_area" class="form-control number required" />
+                                       <input type="text" placeholder="Super Built-up Area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"   name="Hospitalitysuper_builtup_area" class="form-control number required" />
                                     </div>
                                  </div>
                               </div>
                               <div class="form-group row label-floating is-empty">
                                  <label for="title" class="col-sm-2 control-label"> Furnishing detail </label>
                                  <div class="col-sm-10">
-                                    <input type="radio"  name="furnishing_detail"  value="Furnished">
+                                    <input type="radio"  name="furnishing_detail"   value="Furnished">
                                     &nbsp;
                                     <label for="">Furnished</label>
                                     &nbsp;&nbsp;&nbsp;
@@ -527,66 +671,69 @@ label {
                                     &nbsp;
                                     <label for="">Semi furnished</label>
                                     &nbsp;&nbsp;&nbsp;
-                                    <input type="radio"  checked name="furnishing_detail" value="Un furnished">
+                                    <input type="radio"  checked name="furnishing_detail"   value="Un furnished">
                                     &nbsp;
                                     <label for="">Un furnished</label>
                                     &nbsp;&nbsp;&nbsp; 
                                  </div>
                               </div>
+                              
+                              
                               <div class="form-group row label-floating is-empty" id="Furnished_Block" style="display:none;">
                                  <div class="col-sm-2"></div>
                                  <div class="col-sm-10 PropertyFeatures">
+                                   
                                     <ul>
                                        <li>
-                                          <input type="checkbox" value="Light" name="furnished_data[]" />
+                                          <input type="checkbox"   value="Light" name="furnished_data[]" />
                                           Light
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="fans" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="fans" name="furnished_data[]"/>
                                           fans
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="AC" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="AC" name="furnished_data[]"/>
                                           AC
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="TV" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="TV" name="furnished_data[]"/>
                                           TV
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Beds" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="Beds" name="furnished_data[]"/>
                                           Beds
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Wardrobe" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="Wardrobe" name="furnished_data[]"/>
                                           Wardrobe
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Geyser" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="Geyser" name="furnished_data[]"/>
                                           Geyser
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Sofa" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="Sofa" name="furnished_data[]"/>
                                           Sofa
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Washing machine" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="Washing machine" name="furnished_data[]"/>
                                           Washing machine
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Stove" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="Stove" name="furnished_data[]"/>
                                           Stove
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="fridge" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="fridge" name="furnished_data[]"/>
                                           fridge
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="water purifier" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="water purifier" name="furnished_data[]"/>
                                           water purifier
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="microwave" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="microwave" name="furnished_data[]"/>
                                           microwave
                                        </li>
                                        <li>
@@ -598,7 +745,7 @@ label {
                                           Chimney
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Dinning Table" name="furnished_data[]"/>
+                                          <input type="checkbox"  value="Dinning Table" name="furnished_data[]"/>
                                           Dinning Table
                                        </li>
                                        <li>
@@ -606,7 +753,7 @@ label {
                                           Curtains
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Exhaust Fan" name="furnished_data[]"/>
+                                          <input type="checkbox"   value="Exhaust Fan" name="furnished_data[]"/>
                                           Exhaust Fan
                                        </li>
                                     </ul>
@@ -615,57 +762,58 @@ label {
                               <div class="form-group row label-floating is-empty" id="Semifurnished_Block" style="display:none;">
                                  <div class="col-sm-2"></div>
                                  <div class="col-sm-10 PropertyFeatures">
-                                    <ul>
+                                     <ul>
                                        <li>
-                                          <input type="checkbox" value="Light" name="semifurnished_data[]" />
+                                          <input type="checkbox"   value="Light" name="semifurnished_data[]" />
                                           Light
+
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="fans" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="fans" name="semifurnished_data[]"/>
                                           fans
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="AC" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="AC" name="semifurnished_data[]"/>
                                           AC
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="TV" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="TV" name="semifurnished_data[]"/>
                                           TV
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Beds" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="Beds" name="semifurnished_data[]"/>
                                           Beds
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Wardrobe" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="Wardrobe" name="semifurnished_data[]"/>
                                           Wardrobe
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Geyser" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="Geyser" name="semifurnished_data[]"/>
                                           Geyser
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Sofa" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="Sofa" name="semifurnished_data[]"/>
                                           Sofa
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Washing machine" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="Washing machine" name="semifurnished_data[]"/>
                                           Washing machine
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Stove" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="Stove" name="semifurnished_data[]"/>
                                           Stove
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="fridge" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="fridge" name="semifurnished_data[]"/>
                                           fridge
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="water purifier" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="water purifier" name="semifurnished_data[]"/>
                                           water purifier
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="microwave" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="microwave" name="semifurnished_data[]"/>
                                           microwave
                                        </li>
                                        <li>
@@ -677,7 +825,7 @@ label {
                                           Chimney
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Dinning Table" name="semifurnished_data[]"/>
+                                          <input type="checkbox"  value="Dinning Table" name="semifurnished_data[]"/>
                                           Dinning Table
                                        </li>
                                        <li>
@@ -685,7 +833,7 @@ label {
                                           Curtains
                                        </li>
                                        <li>
-                                          <input type="checkbox" value="Exhaust Fan" name="semifurnished_data[]"/>
+                                          <input type="checkbox"   value="Exhaust Fan" name="semifurnished_data[]"/>
                                           Exhaust Fan
                                        </li>
                                     </ul>
@@ -693,16 +841,30 @@ label {
                               </div>
                            </div>
                            <div class="row hospitality_prop_hide">
-                              <div class="col-md-6">
+                              
+                              
+                              <div class="col-md-4">
                                  <div class="form-group">
-                                    <label>Carpet Area <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Carpet Area" name="carpet_area" class="form-control required number" />
+                                    <label>Select Area<span class="required_field">*</span></label>
+                                   <select name="commerical_property_areas" id="commerical_property_areas" class="select2 form-control" >
+                                                 <option value="Square Yard" >Square Yard</option>
+                                                <option value="Square Feet" >Square Feet</option>
+                                                <option value="Square Meter" >Square Meter</option>
+                                             
+                                             </select>
                                  </div>
                               </div>
-                              <div class="col-md-6">
+                              
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label>Carpet Area <span class="required_field">*</span></label>
+                                    <input type="text" placeholder="Carpet Area"  name="carpet_area" class="form-control required number" />
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Super Built-up Area <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="Super Built-up Area" name="super_builtup_area" class="form-control required number" />
+                                    <input type="text" placeholder="Super Built-up Area" onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()"   name="super_builtup_area" class="form-control required number" />
                                  </div>
                               </div>
                            </div>
@@ -710,25 +872,25 @@ label {
                               <div class="col-md-3 retail_type">
                                  <div class="form-group">
                                     <label>Entrance width <span class="required_field">*</span></label>
-                                    <input type="text" name="entrance_width" class="form-control required number" />
+                                    <input type="text" name="entrance_width"  class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3 retail_type">
                                  <div class="form-group">
                                     <label>Ceiling Heights <span class="required_field">*</span></label>
-                                    <input type="text" name="ceiling_heights" class="form-control required number" />
+                                    <input type="text" name="ceiling_heights"  class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>No of Private Washroom <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of Private Washroom" name="number_of_private_washroom" class="form-control required number" />
+                                    <input type="text" placeholder="No of Private Washroom"  name="number_of_private_washroom" class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>No of Shared Washroom <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of Shared Washroom" name="number_of_shared_washroom" class="form-control required number" />
+                                    <input type="text" placeholder="No of Shared Washroom"  name="number_of_shared_washroom" class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3 retail_type_hide">
@@ -746,6 +908,7 @@ label {
                                     <select class="form-control select2" name="reception_area">
                                        <option value="Available">Available</option>
                                        <option value="Not Available">Not Available</option>
+                                     
                                     </select>
                                  </div>
                               </div>
@@ -754,8 +917,10 @@ label {
                               <div class="form-group">
                                  <div class="col-sm-12 PropertyFeatures">
                                     <label class="control-label">Facilities</label>
+                                   
+                                  
                                     <ul>
-                                       <li><input type="checkbox" name="facilities[]"  value="Furnishing"/> Furnishing</li>
+                                       <li><input type="checkbox"   name="facilities[]"  value="Furnishing"/> Furnishing</li>
                                        <li><input type="checkbox" name="facilities[]" value="Central air conditioning"/> Central air conditioning</li>
                                        <li><input type="checkbox" name="facilities[]" value="Oxygen Duct"/> Oxygen Duct</li>
                                        <li><input type="checkbox" name="facilities[]" value="UPS"/> UPS</li>
@@ -768,7 +933,7 @@ label {
                                  <div class="col-sm-12 PropertyFeatures">
                                     <label class="control-label"> Fire Safety Measures </label>
                                     <ul>
-                                       <li><input type="checkbox" name="fire_safety_measures[]" value="Fire Safety Extinguisher" /> Fire Safety Extinguisher</li>
+                                       <li><input type="checkbox" name="fire_safety_measures[]" value="Fire Safety Extinguisher"/> Fire Safety Extinguisher</li>
                                        <li><input type="checkbox" name="fire_safety_measures[]" value="Fire Sensors"/> Fire Sensors</li>
                                        <li><input type="checkbox" name="fire_safety_measures[]" value="Sprinklers"/> Sprinklers</li>
                                        <li><input type="checkbox" name="fire_safety_measures[]" value="Fire House"/> Fire House</li>
@@ -780,38 +945,39 @@ label {
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>No of floor <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of floor" name="number_of_floor" class="form-control required number" />
+                                    <input type="text" placeholder="No of floor"  name="number_of_floor" class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>No of Passenger lifts <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of Passenger lifts" name="number_of_passenger_lifts" class="form-control required number" />
+                                    <input type="text" placeholder="No of Passenger lifts"  name="number_of_passenger_lifts" class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>No of Service Lift <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of Service Lift" name="number_of_service_lift" class="form-control required number" />
+                                    <input type="text" placeholder="No of Service Lift"  name="number_of_service_lift" class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>No of Staircases <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of Staircases" name="number_of_staircases" class="form-control required number" />
+                                    <input type="text" placeholder="No of Staircases"  name="number_of_staircases" class="form-control required number" />
                                  </div>
                               </div>
                            </div>
                            <div class="row hospitality_prop_hide">
+                             
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label>No of parking allotted <span class="required_field">*</span></label>
-                                    <input type="text" placeholder="No of parking allotted" name="number_of_parking_allotted" class="form-control required number" />
+                                    <input type="text" placeholder="No of parking allotted"  name="number_of_parking_allotted" class="form-control required number" />
                                  </div>
                               </div>
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <input type="checkbox" name="parkings[]" value="Private parking in basement">
+                                    <input type="checkbox" name="parkings[]" value="Private parking in basement" >
                                     <label>Private parking in basement
                                     </label>
                                  </div>
@@ -831,8 +997,14 @@ label {
                                  </div>
                               </div>
                            </div>
+                           
+                           
+                           
+                           
+                           
+                           
                            <div class="form-group row label-floating is-empty">
-                              <label  class="col-sm-2 control-label"> Status </label>
+                              <label  class="col-sm-2 control-label"> Status <span class="required_field">*</span></label>
                               <div class="col-sm-10">
                                  <input type="radio"  name="propertystatus" data-id="0" data-type="propertyStatus" class="propertystatus" checked value="Ready to move">
                                  &nbsp;
@@ -844,23 +1016,121 @@ label {
                                  &nbsp;&nbsp;&nbsp; 
                               </div>
                            </div>
-                           <div class="form-group row label-floating is-empty" id="age_property_div_propertyStatus_0">
+                           <div class="form-group row label-floating is-empty" id="age_property_div_propertyStatus_0" style="display:flex;">
                               <label  class="col-sm-2 control-label"> Age of Property <span class="required_field">*</span></label>
                               <div class="col-sm-10">
-                                 <select name="age_of_property" id="age_of_property" class="form-control required select2" >
-                                    <option value="">Select</option>
-                                    <option value="0-1 Year">0-1 Year</option>
-                                    <option value="1-5 Year">1-5 Year</option>
-                                    <option value="5-10 Year">5-10 Year</option>
-                                    <option value="10+ Year">10+ Year</option>
-                                 </select>
+                               
+                                    {!! Form::select('age_of_property', $age_of_property,'',['class' => 'select2 required form-control', 'id' => 'age_of_property']) !!}
+                                    
                               </div>
                            </div>
                            <div class="form-group row label-floating is-empty" id="possesion_by_div_propertyStatus_0" style="display:none;">
                               <label  class="col-sm-2 control-label"> Possession Date <span class="required_field">*</span></label>
-                              <div class="col-sm-10">
-                                 <input type="text" class="form-control required possesion_date" name="possession_date" placeholder="Possession Date">
-                              </div>
+                              
+                                 <div class="col-sm-2">
+                	 {!! Form::select('possession_month', $MonthNameList,'',['class' => 'select2 required form-control']) !!}
+
+                  </div>  
+                  <div class="col-sm-2">
+                	{!! Form::select('possession_year', $yearList,'',['class' => 'select2 required form-control']) !!}
+					
+                </div>
+                              
+                           </div>
+                           
+                           <div class="CommercialPricingBlock">
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label class="d-block">Property Ownership: </label>
+                                	<input type="radio"  name="Commercialproperty_ownership" checked   value="Freehold">
+                                    &nbsp;
+                                    <label class="fw-normal">Freehold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="Commercialproperty_ownership"    value="Leases hold">
+                                    &nbsp;
+                                    <label class="fw-normal">Leases hold</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialproperty_ownership"   value="Cooperative">
+                                    &nbsp;
+                                    <label class="fw-normal">Cooperative</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialproperty_ownership"   value="Power of attorney">
+                                    &nbsp;
+                                    <label class="fw-normal">Power of attorney</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>Expected Price <span class="basic_price_converstion"></span> <span class="required_field">*</span></label>
+                                        <input type="text"  onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialExpectedPrice" placeholder="Expected Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>Basic Price <span class="required_field">*</span></label>
+                                        <input type="text"   style="background:#eee;" readonly="readonly" disabled="disabled"  class="form-control required number" name="CommercialBasicPrice" placeholder="Basic Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>Tax and gov charges <span class="required_field">*</span> </label>
+                                        <input type="text"  onkeyup="calculateBasicPrice()" onchange="calculateBasicPrice()" class="form-control required number" name="CommercialTaxandgovchargesPrice" placeholder="Tax and gov charges" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price">
+                                	<div class="form-group">
+                                    	<label>All-inclusive Price <span class="required_field">*</span> </label>
+                                        <input type="text"  style="background:#eee;" readonly="readonly" disabled="disabled" class="form-control required number" name="CommercialAllinclusivePrice" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price commericial_price_hospital">
+                                	<div class="form-group">
+                                    	<label>Booking amount</label>
+                                        <input type="text"  class="form-control" name="CommercialBookingamount" placeholder="Booking amount" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 commericial_price commericial_price_hospital">
+                                	<div class="form-group">
+                                    	<label>Membership Charge</label>
+                                        <input type="text"  class="form-control" name="CommercialMembershipCharge" placeholder="All-inclusive Price" />
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="row commericial_price_hospital">
+                           	<div class="col-md-5">
+                                	<label class="d-block">Maintenance Type: </label>
+                                	<input type="radio"  name="Commercialmaintenance_type" checked="checked" value="Monthly">
+                                    &nbsp;
+                                    <label class="fw-normal">Monthly</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"  name="Commercialmaintenance_type"   value="Annually">
+                                    &nbsp;
+                                    <label class="fw-normal">Annually</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialmaintenance_type" value="One time">
+                                    &nbsp;
+                                    <label class="fw-normal">One time</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="radio"   name="Commercialmaintenance_type"  value="Per unit/ Monthly">
+                                    &nbsp;
+                                    <label class="fw-normal">Per unit/ Monthly</label>
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                                
+                               <div class="col-md-7">
+                                	<div class="form-group">
+                                    	<label>Maintenance </label>
+                                        <input type="text"  class="form-control" name="CommercialMaintenance" placeholder="Maintenance" />
+                                    </div>
+                                </div> 
+                           </div>
+                           <div class="row">
+                           		<div class="col-md-12">
+                                	<label>Total Price: <span class="CommercialTotalPrice">0.00</span></label>
+                                </div>
+                           </div>
                            </div>
                            <div class="row retail_type hospitality_prop_hide">
                               <div class="form-group">
@@ -890,9 +1160,13 @@ label {
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label>It is pre-Leased / pre rented? &nbsp;&nbsp;&nbsp;
-                                    <input class="form-check-input" type="radio" name="pre_leased"  value="Yes">&nbsp;&nbsp;
+                                    
+                                     <input class="form-check-input" type="radio" name="pre_leased"   value="Yes">&nbsp;&nbsp;
                                     Yes&nbsp;&nbsp;
-                                    <input class="form-check-input" checked="checked" type="radio" name="pre_leased"  value="No">&nbsp;&nbsp;No&nbsp;</label>
+                                    <input class="form-check-input" checked  type="radio" name="pre_leased"  value="No">&nbsp;&nbsp;No&nbsp;</label>
+                             
+                                    
+                                    
                                  </div>
                               </div>
                            </div>
@@ -900,10 +1174,13 @@ label {
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label> Is your office Fire NOC Certified?  &nbsp;&nbsp;&nbsp;
-                                    <input class="form-check-input" type="radio" name="fire_noc_certified"  value="Yes">&nbsp;&nbsp;
+                                    
+                                   <input class="form-check-input" type="radio"  name="fire_noc_certified"  value="Yes">&nbsp;&nbsp;
                                     Yes&nbsp;&nbsp;
-                                    <input class="form-check-input" checked="checked" type="radio" name="fire_noc_certified"  value="No">&nbsp;&nbsp;No&nbsp;</label>
+                                    <input class="form-check-input" checked="checked"   type="radio" name="fire_noc_certified"  value="No">&nbsp;&nbsp;No&nbsp;</label>
                                  </div>
+                            
+                                 
                               </div>
                            </div>
                         </div>
@@ -913,8 +1190,9 @@ label {
                            <div class="form-group">
                               <div class="col-sm-12">
                                  <label class="control-label" for="amenities" >Amenities:</label>
+                                   
                                  <select class="form-control select2" name="amenities[]" style="width:100%" multiple="multiple">
-                                     <?php foreach($amenties as $v){ ?>
+                                    <?php foreach($amenties as $v){ ?>
                                     <option value="<?php echo $v ?>"><?php echo $v; ?></option>
                                     <?php } ?>
                                  </select>
@@ -926,8 +1204,8 @@ label {
                               <div class="col-sm-12 PropertyFeatures">
                                  <label class="control-label">Property Features:</label>
                                  <ul>
-                                    <li><input type="checkbox" name="property_features[]" value="Gas Pipeline" /> Gas Pipeline</li>
-                                    <li><input type="checkbox" name="property_features[]" value="Central air conditioning" /> Central air conditioning</li>
+                                    <li><input type="checkbox" name="property_features[]" value="Gas Pipeline"/> Gas Pipeline</li>
+                                    <li><input type="checkbox" name="property_features[]" value="Central air conditioning"/> Central air conditioning</li>
                                     <li><input type="checkbox" name="property_features[]" value="Natural light"/> Natural light</li>
                                     <li><input type="checkbox"  name="property_features[]" value="Airy rooms"/> Airy rooms</li>
                                     <li><input type="checkbox" name="property_features[]" value="Spacious"/> Spacious</li>
@@ -953,10 +1231,11 @@ label {
                               </div>
                            </div>
                         </div>
-                        <div class="row">
+                        <div class="row residential_prop farmhouse_prop">
                            <div class="form-group">
                               <div class="col-sm-12 PropertyFeatures">
                                  <label class="control-label">Other features</label>
+                                 
                                  <ul>
                                     <li><input type="checkbox"  name="other_features[]" value="Gated Society"/> Gated Society</li>
                                     <li><input type="checkbox"  name="other_features[]" value="Corner side property"/> Corner side property</li>
@@ -988,17 +1267,19 @@ label {
                      </div>
                      <div id="step4" class="tab-pane" role="tabpanel">
                         <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                               <div class="form-group" id="gallery_images">
                                  <div class="row">
                                     <label class="control-label p-0" for="form-file-multiple-input"> Project Gallery (Render images)</label>
                                     <div class="form-file p-0">
                                        <input type="file" name="project_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
                                     </div>
+                                    
                                  </div>
+                                
                               </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                               <div class="form-group">
                                  <div class="row">
                                     <label class="control-label  p-0" for="form-file-multiple-input">Floor Plan Gallery</label>
@@ -1006,38 +1287,17 @@ label {
                                        <input type="file" name="floor_plan_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
                                     </div>
                                  </div>
+                                
                               </div>
                            </div>
                         </div>
                         <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                               <div class="form-group">
                                  <div class="row">
                                     <label class="control-label  p-0" >Project Status Gallery</label>
                                     <div class="form-file p-0">
                                        <input type="file" name="project_status_gallery[]" accept="image/*" multiple="multiple" class="form-file-input form-control">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <div class="row">
-                                    <label class="control-label  p-0" >Video Toor</label>
-                                    <div class="form-file p-0">
-                                       <input type="file" accept="video/mp4,video/x-m4v,video/*" name="video_toor" class="form-file-input form-control">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <div class="row">
-                                    <label class="control-label  p-0" > PDF Brochure</label>
-                                    <div class="form-file p-0">
-                                       <input type="file" name="pdf_brochure" accept=".pdf,.doc" class="form-file-input form-control">
                                     </div>
                                  </div>
                                 
@@ -1046,8 +1306,32 @@ label {
                            <div class="col-md-6">
                               <div class="form-group">
                                  <div class="row">
+                                    <label class="control-label  p-0" >Video Toor</label>
+                                    <div class="form-file p-0">
+                                       <input type="file" name="video_toor" accept="video/mp4,video/x-m4v,video/*" class="form-file-input form-control">
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <div class="row">
+                                    <label class="control-label  p-0" > PDF Brochure</label>
+                                    <div class="form-file p-0">
+                                       <input type="file" name="pdf_brochure" accept=".pdf" class="form-file-input form-control">
+                                    </div>
+                                 </div>
+                                 </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                 <div class="row">
                                     <label class="control-label  p-0" >Sample house video(Youtube URL)</label>
-                                    <input type="text" class="form-control" name="sample_house_video">
+                                    <input type="text" class="form-control" name="sample_house_video" >
                                  </div>
                               </div>
                            </div>
@@ -1065,19 +1349,172 @@ label {
 </div>
 
     </div>
-        <div class="overlayLoader" style="display: none;"> <div class="loaderBlock"></div> </div>
+    <div class="overlayLoader" style="display: none;"> <div class="loaderBlock"></div> </div>
 @endsection
 
 @section('customjs')
 <script>
+function toFixed(x) {
+  return Number.parseFloat(x).toFixed(2);
+}
+
+jQuery(document).on("change","#property_areas",function(){
+		jQuery(".basic_price_converstion").html("("+jQuery("#property_areas").val()+")");		
+		
+});
+
+jQuery(document).on("change","#VacantLandPlottingproperty_areas",function(){
+		jQuery(".basic_price_converstion").html("("+jQuery("#VacantLandPlottingproperty_areas").val()+")");		
+		
+});
+
+
+jQuery(document).on("change","#Industrial_property_areas",function(){
+		jQuery(".basic_price_converstion").html("("+jQuery("#Industrial_property_areas").val()+")");		
+		
+});
+
+jQuery(document).on("change","#commerical_property_areas",function(){
+		jQuery(".basic_price_converstion").html("("+jQuery("#commerical_property_areas").val()+")");		
+		
+});
+
+function calculateBasicPrice(data_id="",data_type="",data_value=""){
+	var sub_category = jQuery("#sub_category").val();
+	var totalPrice = 0;
+	
+	
+	if(sub_category=="VacantLandPlotting"){
+		
+		jQuery(".basic_price_converstion").html("("+jQuery("#VacantLandPlottingproperty_areas").val()+")");
+		jQuery(".VacantLandPlottingTotalPrice").html("0.00");
+		var super_area = jQuery("input[name='VacantLandPlottingCarpetarea']").val();
+		var expected_price = jQuery("input[name='VacantLandPlottingExpectedPrice']").val();
+		var basic_price = 0;
+		var govcharges_price = jQuery("input[name='VacantLandPlottingTaxandgovchargesPrice']").val();
+		var inclusive_price = 0;
+		
+			if(expected_price>0 && super_area>0){
+				basic_price = parseFloat(expected_price)*parseFloat(super_area);
+			}
+			 inclusive_price = parseFloat(govcharges_price)+parseFloat(basic_price);
+			
+			jQuery("input[name='VacantLandPlottingBasicPrice']").val(toFixed(basic_price));
+			jQuery("input[name='VacantLandPlottingAllinclusivePrice']").val(toFixed(inclusive_price));
+			jQuery(".VacantLandPlottingTotalPrice").html(toFixed(inclusive_price));
+				
+	}	
+	
+	if(sub_category=="IndustrialParkShades"){
+		jQuery(".basic_price_converstion").html("("+jQuery("#Industrial_property_areas").val()+")");
+		jQuery(".IndustrialTotalPrice").html("0.00");
+		var super_area = jQuery("input[name='Industrialsuper_builtup_area']").val();
+		var expected_price = jQuery("input[name='IndustrialExpectedPrice']").val();
+		var basic_price = 0;
+		var govcharges_price = jQuery("input[name='IndustrialTaxandgovchargesPrice']").val();
+		var inclusive_price = 0;
+		
+			if(expected_price>0 && super_area>0){
+				basic_price = parseFloat(expected_price)*parseFloat(super_area);
+			}
+			 inclusive_price = parseFloat(govcharges_price)+parseFloat(basic_price);
+			jQuery("input[name='IndustrialBasicPrice']").val(toFixed(basic_price));
+			jQuery("input[name='IndustrialAllinclusivePrice']").val(toFixed(inclusive_price));
+			jQuery(".IndustrialTotalPrice").html(toFixed(inclusive_price));
+			
+				
+	}	
+	
+	if(sub_category=="Commercial"){
+		
+		jQuery(".basic_price_converstion").html("("+jQuery("#commerical_property_areas").val()+")");
+	
+		var commercial_property_type = jQuery("#commercial_property_type").val();
+		
+		jQuery(".commericial_price_hospital").show();
+		
+		jQuery(".commericial_price").addClass("col-md-4").removeClass("col-md-3");
+			var super_area = jQuery("input[name='super_builtup_area']").val();
+		
+		if(commercial_property_type=="Hospitality"){
+			jQuery(".commericial_price_hospital").hide();
+			jQuery(".commericial_price").addClass("col-md-3").removeClass("col-md-4");
+			super_area = jQuery("input[name='Hospitalitysuper_builtup_area']").val();
+		}
+		jQuery(".CommercialTotalPrice").html("0.00");
+		var expected_price = jQuery("input[name='CommercialExpectedPrice']").val();
+		var basic_price = 0;
+		var govcharges_price = jQuery("input[name='CommercialTaxandgovchargesPrice']").val();
+		var inclusive_price = 0;
+		
+		var booking_amount = jQuery("input[name='CommercialBookingamount']").val();
+		var membership_charge = jQuery("input[name='CommercialMembershipCharge']").val();
+		var maintenance = jQuery("input[name='CommercialMaintenance']").val();
+		
+			
+			if(expected_price>0 && super_area>0){
+				basic_price = parseFloat(expected_price)*parseFloat(super_area);
+			}
+			 inclusive_price = parseFloat(govcharges_price)+parseFloat(basic_price);
+			jQuery("input[name='CommercialBasicPrice']").val(toFixed(basic_price));
+			jQuery("input[name='CommercialAllinclusivePrice']").val(toFixed(inclusive_price));
+			jQuery(".CommercialTotalPrice").html(toFixed(inclusive_price));
+			
+				
+	}	
+	if(sub_category=="Residential"){
+		jQuery(".basic_price_converstion").html("("+jQuery("#property_areas").val()+")");		
+		
+		jQuery("#ResidentialTotalPrice_"+data_type+"_"+data_value).html("0.00");
+		jQuery("#HiddenResidentialTotalPrice_"+data_type+"_"+data_value).html("0.00");
+		var expected_price = jQuery(".ResidentialExpectedPrice_"+data_type+"_"+data_value).val();
+		var govcharges_price = jQuery(".ResidentialTaxandgovchargesPrice_"+data_type+"_"+data_value).val();
+		
+		var booking_amount = jQuery(".ResidentialBookingamount_"+data_type+"_"+data_value).val();
+		var membership_charge = jQuery(".ResidentialMembershipCharge_"+data_type+"_"+data_value).val();
+		var maintenance = jQuery(".ResidentialMaintenance_"+data_type+"_"+data_value).val();
+			var super_area=[];
+			jQuery( "."+data_type+"_items_table_"+data_id+ " .super_builtup_area_txt" ).each(function( index ) {
+				super_area.push(jQuery(this).val());
+			});
+			var super_area_max = Math.max.apply(Math,super_area); // 3
+			var super_area_min = Math.min.apply(Math,super_area); // 1
+			var max_basic_price_rang = max_inclusive_price =min_inclusive_price  = 0;
+			var min_basic_price_rang = 0;
+			 
+	
+			if(expected_price>0){
+				max_basic_price_rang = parseFloat(expected_price)*parseFloat(super_area_max);
+				min_basic_price_rang = parseFloat(expected_price)*parseFloat(super_area_min);
+			}
+			if(govcharges_price>0 || expected_price>0){
+				if(govcharges_price==""){
+					govcharges_price = 0;	
+				}
+				max_inclusive_price = parseFloat(govcharges_price)+parseFloat(max_basic_price_rang);
+				min_inclusive_price = parseFloat(govcharges_price)+parseFloat(min_basic_price_rang);
+			}
+			jQuery(".ResidentialBasicPrice_"+data_type+"_"+data_value).val(toFixed(min_basic_price_rang)+"-"+toFixed(max_basic_price_rang));
+			jQuery(".ResidentialAllinclusivePrice_"+data_type+"_"+data_value).val(toFixed(min_inclusive_price)+"-"+toFixed(max_inclusive_price));
+			//alert("#ResidentialTotalPrice_"+data_type+"_"+data_value);
+		//	alert(min_inclusive_price);
+			jQuery("#ResidentialTotalPrice_"+data_type+"_"+data_value).html(toFixed(min_inclusive_price)+"-"+toFixed(max_inclusive_price));
+			
+			
+				
+	
+	}
+}
+
   $(document).ready(function(){
 	  
-
- $( ".possesion_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
-         
+var hash = window.location.hash;
+if(hash=="#step4" || hash=="#step3" || hash=="#step2"){
+	window.location="{{url('/vendor/properties/add')}}";	
+}
   jQuery(".select2").select2();
+
  
-  
     $(document).on("change",".propertystatus",function(){
         var data_id = jQuery(this).attr("data-id");
 		var data_type = jQuery(this).attr("data-type");
@@ -1101,7 +1538,7 @@ label {
         if(confirm("Are you sure you want to delete this?")){
             $("#"+data_type+"_accordion_"+data_id).remove();
 			getPropertyTypeDisable();
-			$("#property_unit_type").prop("selectedIndex", 0); 
+			$("#property_unit_type,#property_unit_type_ind").prop("selectedIndex", 0); 
         }
         else{
             return false;
@@ -1111,10 +1548,14 @@ label {
     $(document).on("click","#add_property",function(){
       var property_type = jQuery("#property_type").val().replace(/\s+/g, '');; 
       var length = $(".property_type_"+property_type).length;
-        var value = $("#property_unit_type").val();
+      var property_areas  = jQuery("#property_areas").val(); 
+	    if(property_type=="ApartmentAndFlat"){
+			var value = $("#property_unit_type").val();
+		}else{
+			var value = $("#property_unit_type_ind").val();	
+		}
         jQuery(".accordion-item").hide();
 		jQuery(".property_type_"+property_type).show();
-		
 		if(value!=''){
 
             var html = '';
@@ -1143,7 +1584,7 @@ html +='<th width="100">Action</th>';
 html +='</tr>';
 html +='</thead>';
 html +='<tbody>';
-html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+length+'" data-value="'+value+'" class="delelteItem" data-type="'+property_type+'"><i class="fa fa-times"></i></div></td></tr>';
+html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" onkeyup="calculateBasicPrice("0",'+property_type+','+value+')" onchange="calculateBasicPrice("0",'+property_type+','+value+')" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+length+'" data-value="'+value+'" class="delelteItem" data-type="'+property_type+'"><i class="fa fa-times"></i></div></td></tr>';
 
 html +='</tbody>';
 html +='</table>';
@@ -1163,7 +1604,7 @@ html +='<th width="100">Action</th>';
 html +='</tr>';
 html +='</thead>';
 html +='<tbody>';
-html +='<tr><td><span class="counter">1</span></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][plot_area][0]" class="plot_area_txt form-control number required" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area" value=""></td><td><div  data-type="'+property_type+'" data-id="'+length+'" data-value="'+value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+html +='<tr><td><span class="counter">1</span></td><td><input type="text"  name="propertyDetails['+property_type+']['+value+'][plot_area][0]" class="plot_area_txt form-control number required" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+property_type+']['+value+'][carpet_area][0]" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" onkeyup="calculateBasicPrice("0",'+property_type+','+value+')" onchange="calculateBasicPrice("0",'+property_type+','+value+')" name="propertyDetails['+property_type+']['+value+'][super_builtup_area][0]" class="super_builtup_area_txt form-control number required" placeholder="Super Built-up Area" value=""></td><td><div  data-type="'+property_type+'" data-id="'+length+'" data-value="'+value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
 
 html +='</tbody>';
 html +='</table>';
@@ -1283,11 +1724,95 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
                 html += '<label class="col-sm-2 control-label">';
                     html += 'Possession Date <span class="required_field">*</span>';
                 html += '</label>';
-                html += '<div class="col-sm-10">';
-                    html += '<input type="text" name="propertyDetails['+property_type+']['+value+'][possession_date]" class="form-control required possesion_by">';
-                    
-                html += '</div>';
+                html +='<div class="col-sm-2"><select name="propertyDetails['+property_type+']['+value+'][possession_month]" class="form-control select2 required">';
+				<?php foreach($MonthNameList as $singleKey=>$singleValue){
+				?>
+				html +='<option value="<?php echo $singleKey; ?>"><?php echo $singleValue; ?></option>';
+				<?php 	
+				} ?>
+				html += "</select></div>";
+				html +='<div class="col-sm-2"><select name="propertyDetails['+property_type+']['+value+'][possession_year]" class="form-control select2 required">';
+				<?php foreach($yearList as $singleKey=>$singleValue){
+				?>
+				html +='<option value="<?php echo $singleKey; ?>"><?php echo $singleValue; ?></option>';
+				<?php 	
+				} ?>
+				html += "</select></div>";
+				
             html += '</div>';
+			
+			html += '<div class="ResidentialPricingBlock">';
+  html += '<div class="row">';
+    html += '<div class="col-md-12">';
+      html += '<label class="d-block">Property Ownership: </label>';
+      html += '<input type="radio"  name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]" checked  value="Freehold">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Freehold</label>';
+      html += '&nbsp;&nbsp;&nbsp;';
+      html += '<input type="radio" name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]"  value="Leases hold">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Leases hold</label>';
+      html += '&nbsp;&nbsp;&nbsp;';
+      html += '<input type="radio" name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]"  value="Cooperative">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Cooperative</label>';
+      html += '&nbsp;&nbsp;&nbsp;';
+      html += '<input type="radio" name="propertyDetails['+property_type+']['+value+'][Residentialproperty_ownership]"  value="Power of attorney">';
+      html += '&nbsp;';
+      html += '<label class="fw-normal">Power of attorney</label>';
+      html += '&nbsp;&nbsp;&nbsp; </div>';
+  html += '</div>';
+  html += '<div class="row">';
+    html += '<div class="col-md-3">';
+      html += '<div class="form-group">';
+       html += ' <label>Expected Price <span class="basic_price_converstion">('+property_areas+')</span><span class="required_field">*</span></label>';
+       html += ' <input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialExpectedPrice_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialExpectedPrice]" placeholder="Expected Price" />';
+     html += ' </div>';
+    html += '</div>';
+    html += '<div class="col-md-3">';
+      html += '<div class="form-group">';
+      html += '<label>Basic Price<span class="required_field">*</span></label>';
+     html += '<input type="text"  style="background:#eee;" readonly="readonly" class="form-control required  ResidentialBasicPrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBasicPrice]" placeholder="Basic Price" />';
+      html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-3">';
+    html += '<div class="form-group">';
+    html += '<label>Tax and gov charges <span class="required_field">*</span> </label>';
+    html += '<input type="text" onkeyup=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") onchange=calculateBasicPrice("'+length+'","'+property_type+'","'+value+'") class="form-control required number ResidentialTaxandgovchargesPrice_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialTaxandgovchargesPrice]"  placeholder="Tax and gov charges" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-3">';
+    html += '<div class="form-group">';
+    html += '<label>All-inclusive Price <span class="required_field">*</span> </label>';
+    html += '<input type="text" style="background:#eee;" readonly="readonly" class="form-control required  ResidentialAllinclusivePrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialAllinclusivePrice]"  placeholder="All-inclusive Price" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<div class="form-group">';
+    html += '<label>Booking amount</label>';
+    html += '<input type="text"  class="form-control ResidentialBookingamount_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][ResidentialBookingamount]" placeholder="Booking amount" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<div class="form-group">';
+    html += '<label>Membership Charge</label>';
+    html += '<input type="text" class="form-control ResidentialMembershipCharge_'+property_type+'_'+value+'"    name="propertyDetails['+property_type+']['+value+'][ResidentialMembershipCharge]"  placeholder="All-inclusive Price" />';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<div class="form-group">';
+    html += '<label>Maintenance</label>';
+    html += '<input type="text" class="form-control ResidentialMaintenance_'+property_type+'_'+value+'" name="propertyDetails['+property_type+']['+value+'][ResidentialMaintenance]"  placeholder="Maintenance" />';
+    html += '</div>';
+    html += '</div>';
+  html += '</div>';
+  html += '<div class="row">';
+    html += '<div class="col-md-12">';
+     html += '<label>Total Price:<input type="hidden"  class="HiddenResidentialTotalPrice" id="HiddenResidentialTotalPrice_'+property_type+'_'+value+'"  name="propertyDetails['+property_type+']['+value+'][HiddenResidentialTotal]">  <span class="ResidentialTotalPrice" id="ResidentialTotalPrice_'+property_type+'_'+value+'">0.00</span></label>';
+    html += '</div>';
+  html += '</div>';
+html += '</div>';
+
 
             html += '</div>';
             html += '</div>';
@@ -1295,10 +1820,10 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
 
             $(".property_type_accordion").append(html);
             getPropertyTypeDisable();
-            $("#property_unit_type").prop("selectedIndex", 0); 
+			
+            $("#property_unit_type,#property_unit_type_ind").prop("selectedIndex", 0); 
            jQuery(".select2").select2();
-		    $( ".possesion_by" ).datepicker({ dateFormat: 'yy-mm-dd' });
-         }
+		  }
         else{
             alert("Please select value");
         }
@@ -1318,10 +1843,10 @@ html +='<div class="add-new-btn text-right d-block" style="float:right"><input t
 		var counterIndex= items_table_length -1; 
 		
       if(data_type=="ApartmentAndFlat"){
-		var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'"  class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+		var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control required number" placeholder="Carpet Area"></td><td><input type="text" keyup=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'")   onchange=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'") name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'"  class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
       }
       if(data_type=="IndependentHouse" || data_type=="Farmhouse" ){
-      var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][plot_area]['+counterIndex+']" class="plot_area_txt form-control required number" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div  data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
+      var html = '<tr class=""><td><span class="counter">'+items_table_length+'</span></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][plot_area]['+counterIndex+']" class="plot_area_txt form-control required number" placeholder="Plot Area"></td><td><input type="text" name="propertyDetails['+data_type+']['+data_value+'][carpet_area]['+counterIndex+']" class="carpet_area_txt form-control number required" placeholder="Carpet Area"></td><td><input type="text" keyup=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'")   onchange=calculateBasicPrice("'+data_id+'","'+data_type+'","'+data_value+'") name="propertyDetails['+data_type+']['+data_value+'][super_builtup_area]['+counterIndex+']" class="super_builtup_area_txt form-control required number" placeholder="Super Built-up Area"></td><td><div  data-id="'+data_id+'" data-type="'+data_type+'" data-value="'+data_value+'" class="delelteItem"><i class="fa fa-times"></i></div></td></tr>';
       }
       jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:last").after(html);	
 		
@@ -1345,6 +1870,7 @@ jQuery(document).on("click",".delelteItem",function() {
 		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .carpet_area_txt").attr("name","propertyDetails["+data_type+"]["+data_value+"][carpet_area]["+i+"]");
 		jQuery("."+data_type+"_items_table_"+data_id+" tbody tr:eq("+i+") .super_builtup_area_txt").attr("name","propertyDetails["+data_type+"]["+data_value+"][super_builtup_area]["+i+"]");
 	}
+	 calculateBasicPrice(data_id,data_type,data_value);
 });
 	
 	
@@ -1360,9 +1886,7 @@ $("#city").append('<option value="">Select City</option>');
   $("#sub_city").empty();
   $("#sub_city").append('<option value="">Select Sub City</option>');
 
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
-
+  
   
                   
 if (country !== '') {
@@ -1396,9 +1920,7 @@ var state = $('#state').val();
   
   $("#sub_city").empty();
   $("#sub_city").append('<option value="">Select Sub City</option>');
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
-
+ 
                
 if (state !== '') {
 
@@ -1426,8 +1948,6 @@ $("#city").on('change',function(){
 var city = $('#city').val();
   $("#sub_city").empty();
   $("#sub_city").append('<option value="">Select Sub City</option>');
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
                
 if (city !== '') {
 
@@ -1450,52 +1970,43 @@ if (city !== '') {
 });
 
 
-$("#sub_city").on('change',function(){
-
-var sub_city = $('#sub_city').val();
-  $("#area").empty();
-  $("#area").append('<option value="">Select Area</option>');
-               
-if (sub_city !== '') {
-
-    //Populate Sub Category Drop Down
-    $.ajax({
-        type:"GET",
-        dataType: "json",
-        url:"{{url('/vendor/getArea')}}?sub_city="+this.value,
-        success:function(data){
-            if ( data ) {
-                
-                $.each( data, function( key, value ) {
-                    $("#area").append('<option value="'+key+'">'+value+'</option>');
-                });
-            }
-        }
-    })
-  
-}
-});
 
 function getPropertyTypeDisable(){
 	var property_type = jQuery("#property_type").val().replace(/\s+/g, '');
-	 jQuery("#property_unit_type option").attr('disabled', false);
-    jQuery(".property_type_"+property_type+ " .delete_acc").each(function(index, element) {
-       jQuery("#property_unit_type option[value='"+jQuery(this).attr("data-value")+"']").attr('disabled', true);     
+	 
+	  if(property_type=="ApartmentAndFlat"){
+			jQuery("#property_unit_type option").attr('disabled', false);
+    		jQuery(".property_type_"+property_type+ " .delete_acc").each(function(index, element) {
+      		 jQuery("#property_unit_type option[value='"+jQuery(this).attr("data-value")+"']").attr('disabled', true);
+			 
+    });	    
+		}else{
+			jQuery("#property_unit_type_ind option").attr('disabled', false);
+   			 jQuery(".property_type_"+property_type+ " .delete_acc").each(function(index, element) {
+       	jQuery("#property_unit_type_ind option[value='"+jQuery(this).attr("data-value")+"']").attr('disabled', true);
+		
+    });	    
+		}
+	  
 			
-    });	
 }
 HideShowDependsubCategory();
 function HideShowDependsubCategory(){
+	calculateBasicPrice();
 var sub_category = jQuery("#sub_category").val();	
+var property_type = jQuery("#property_type").val();	
 
 		jQuery("#ProjectNameApartmentName").addClass("col-md-9").removeClass("col-md-6").removeClass("col-md-12");
+	
 		jQuery(".locality_prop").addClass("col-md-6").removeClass("col-md-12");
 		jQuery(".locatedinside_prop").show();
 		
 
 jQuery(".retail_type,.residential_prop,.commercial_prop,.WhatkindofHospitality,.vacantlandplotting_prop,.industrial_prop,.VacantLandPlotting_prop").hide();
 jQuery(".hospitality_prop").hide();
+
 	if(sub_category=="Commercial"){
+		jQuery(".commericial_price_hospital").show();
 		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9");
 		jQuery(".hospitality_prop_hide").show();
 		jQuery(".residential_prop").hide();
@@ -1516,6 +2027,7 @@ jQuery(".hospitality_prop").hide();
 			jQuery(".WhatkindofHospitality").show();
 			jQuery(".hospitality_prop").show();
 			jQuery(".hospitality_prop_hide").hide();
+			jQuery(".commericial_price_hospital").hide();
 		}
 			
 		
@@ -1525,11 +2037,21 @@ jQuery(".hospitality_prop").hide();
 		
 		jQuery("#ProjectNameApartmentName").addClass("col-md-6").removeClass("col-md-9").removeClass("col-md-12");
 		jQuery(".residential_prop").show();
-		jQuery(".commercial_prop").hide();	
+		jQuery(".commercial_prop").hide();
+		if(property_type=="Farmhouse"){
+			jQuery(".farmhouse_prop").hide();	
+		}
+		if(property_type=="Apartment And Flat"){
+			jQuery(".property_unit_type_prop").show();
+			jQuery(".property_unit_type_ind_prop").hide();	
+		}
+		if(property_type=="IndependentHouse" || property_type=="Farmhouse"){
+			jQuery(".property_unit_type_prop").hide();
+			jQuery(".property_unit_type_ind_prop").show();	
+		}	
 	}
 	if(sub_category=="IndustrialParkShades"){
 		jQuery("#ProjectNameApartmentName").addClass("col-md-12").removeClass("col-md-9").removeClass("col-md-6");
-		
 		jQuery(".industrial_prop").show();		
 	}
 	
@@ -1545,7 +2067,7 @@ jQuery(".hospitality_prop").hide();
 	}
 	
 }
-jQuery(document).on("change","#sub_category,#commercial_property_type",function(e) {
+jQuery(document).on("change","#sub_category,#commercial_property_type,#property_type",function(e) {
     HideShowDependsubCategory();
 });
    $(document).on("change","input[type=radio][name=furnishing_detail]",function(){
@@ -1605,6 +2127,7 @@ $(document).ready(function(){
 		});
 	    $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
    			checkPropertyTypeUnit();
+			
 			if ($('#propertyForm').valid()) {
        			
 		var formData = new FormData($('#propertyForm')[0]);
@@ -1635,9 +2158,9 @@ $(document).ready(function(){
 
 });
 
-$("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
+$("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection,stepPosition) {
 		checkPropertyTypeUnit();
-			if(stepNumber==2){
+			if(stepPosition=='last'){
 				$('.sw-btn-group-extra').show(); // show the button extra only in the last page
 			}else{
 				$('.sw-btn-group-extra').hide();				
@@ -1652,17 +2175,24 @@ function checkPropertyTypeUnit(){
 		 getPropertyTypeDisable();
 		
 }
-getState();	
 
 function getPropertyFor(){
 	var property_for = jQuery("#property_for").val();
+	var category = jQuery("#category").val();
 	if(property_for=="Rent"){
 		$("#category").empty();
 		 $("#category").append('<option value="For owner">For owner</option>');
 		
 	}else{
 		 $("#category").empty();
-		 $("#category").append('<option value="For Builder">For Builder</option><option value="For owner">For owner</option>');
+		 var selected_owner =selected_builder = "";
+		 if(category=="For owner"){
+		 	selected_owner = "selected";	 
+		 }
+		  if(category=="For Builder"){
+		 	selected_builder = "selected";	 
+		 }	
+		 $("#category").append('<option value="For Builder" '+selected_builder+'>For Builder</option><option value="For owner" '+selected_owner+'>For owner</option>');
 	}
 }
 
@@ -1670,7 +2200,16 @@ jQuery(document).on("change","#property_for",function(){
 	getPropertyFor();	
 });
 getPropertyFor();
-	  
+	
+jQuery(document).on("click",".delelte_gallery",function(){
+	jQuery(this).parent().remove();
+});
+
+jQuery(document).on("click",".delete_doc",function(){
+	jQuery(this).parent().remove();
+});
+		
+		  
 		  
 </script>
 @endsection

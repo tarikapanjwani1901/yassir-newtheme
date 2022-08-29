@@ -874,24 +874,10 @@ $booking_amount= $maintenance_type = $membership_charge = $maintenance = $total_
             mkdir($target_dir, 0777, true);
         }
 		$destinationPath = public_path().'/images/properties/'.$id;
-		if($request->file('pdf_brochure')){	
-
-			$pdf_brochure = $request->file('pdf_brochure');
-       	 	$pdf_brochure_name = $pdf_brochure->getClientOriginalName();  
-        
-       	 $thumb_img = Image::make($pdf_brochure->getRealPath())->resize(200, 200);
-       	 $thumb_img->save($destinationPath.'/'.$pdf_brochure_name,80);
-		 $Properties->pdf_brochure =  $pdf_brochure_name;
-
-		}
 		
-		if($request->file('sample_house_video')){	
-			$sample_house_video = $request->file('sample_house_video');
-       	 	$sample_house_video_name = $sample_house_video->getClientOriginalName();  
-        	$thumb_img = Image::make($sample_house_video->getRealPath())->resize(200, 200);
-       		 $thumb_img->save($destinationPath.'/'.$sample_house_video_name,80);
-			$Properties->sample_house_video =  $sample_house_video_name;
-
+		
+		if($request->file('pdf_brochure')){	
+			
 		 	$pdf_brochure_name = time().basename($request->file('pdf_brochure')->getClientOriginalName());
            move_uploaded_file($_FILES["pdf_brochure"]["tmp_name"], $target_dir."/".$pdf_brochure_name);
 		   $Properties->pdf_brochure =  $pdf_brochure_name;

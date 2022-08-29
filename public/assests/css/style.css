@@ -12226,7 +12226,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li {
   padding: 0 0 0 0; }
   [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li > a {
-    font-size: 16px;
+    font-size: 14px;
     padding: 0.375rem 1.975rem;
     -webkit-transition: all 0.5s;
     -ms-transition: all 0.5s;
