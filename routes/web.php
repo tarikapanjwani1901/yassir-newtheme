@@ -119,6 +119,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Properties
         Route::get('/admin/properties', [PropertiesController::class, 'index']);
         Route::get('/admin/properties/add', [PropertiesController::class, 'add']);
+        Route::get('/admin/properties/addform', [PropertiesController::class, 'addForm']);
         Route::post('/admin/properties/postProperty', [PropertiesController::class, 'addProperties']);
         Route::get('/admin/properties/edit/{id}', [PropertiesController::class, 'editProperties']);
         Route::post('/admin/properties/edit/{id}', [PropertiesController::class, 'editPostProperties']);

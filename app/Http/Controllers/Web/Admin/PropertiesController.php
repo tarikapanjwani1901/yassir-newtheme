@@ -211,6 +211,217 @@ class PropertiesController extends Controller
          return view('admin.properties.add',compact('propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
 		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','age_of_property','amenties','status','MonthNameList','yearList','vendors','country'));
     }
+    public function addForm() {
+		$vendors = $country = array();
+		$CommonModel = new Common;
+		$country = $CommonModel->countryList();
+		$vendors =$CommonModel->getVendorList();
+		
+		$propertyFor['Sell'] = "Sell";
+		$propertyFor['Rent'] = "Rent";
+		
+		$category[''] = "Select Category";
+		$category['For Builder'] = "For Builder";
+		$category['For owner'] = "For owner";
+		
+		
+		$SubCategory[''] = "Select Sub Category";
+		$SubCategory['Residential'] = "Residential";
+		$SubCategory['Commercial'] = "Commercial";
+		$SubCategory['Industrial'] = "Industrial";
+		$SubCategory['Plotting'] = "Plotting";
+		$SubCategory['VacantLand'] = "Vacant Land";
+		
+		
+		
+		$property_type[''] = "Select Property";
+		$property_type['Apartment And Flat'] = "Apartment/Flats";
+		$property_type['Duplex Vertical Villa'] = "Duplex Vertical Villa";
+		$property_type['Independent Home'] = "Independent Home";
+		$property_type['Farmhouse'] = "Farmhouse";
+		
+		$IndependentHouseSubType['Independent House'] = "Independent House";
+		$IndependentHouseSubType['Bunglows'] = "Bunglows";
+		$IndependentHouseSubType['Villas'] = "Villas";
+		$IndependentHouseSubType['Row House'] = "Row House";
+		$IndependentHouseSubType['Tenement'] = "Tenement";
+		$IndependentHouseSubType['Duplex'] = "Duplex";
+		
+		$rentwhatkindofpropetyisit['Residential Use'] = "Residential Use";
+		$rentwhatkindofpropetyisit['Commercial Use'] = "Commercial Use";
+		$rentwhatkindofpropetyisit['Service Apartments'] = "Service Apartments";
+		$rentwhatkindofpropetyisit['Penthouse'] = "Penthouse";
+		
+		$rentwhatkindofpropetyisitCommercial['Office'] = "Office";
+		$rentwhatkindofpropetyisitCommercial['Retail'] = "Retail";
+		$rentwhatkindofpropetyisitCommercial['Commercial Space'] = "Commercial Space";
+		$rentwhatkindofpropetyisitCommercial['Hospitality'] = "Hospitality";
+		
+		
+		
+		                                                                            
+                                                                                                           
+		
+		$commercial_property_type[''] = "Select Type";
+		$commercial_property_type['Office'] = "Office";
+		$commercial_property_type['Retail'] = "Retail";
+		$commercial_property_type['Commercial Space'] = "Commercial Space";
+	
+		$what_kind_of_vacantland['Commercial Land'] = "Commercial Land";
+		$what_kind_of_vacantland['Agriculture Land'] = "Agriculture Land";
+		$what_kind_of_vacantland['Industrial Land'] = "Industrial Land";
+		
+		
+		$what_kind_of_hospitality['Hotel / Resort'] = "Hotel / Resort";
+		$what_kind_of_hospitality['Guesthouse / Banquet Hall'] = "Guesthouse / Banquet Hall";
+		
+		
+		$retail_type['Commercial shops'] = "Commercial shops";
+		$retail_type['Commercial showrooms'] = "Commercial showrooms";
+	
+		$shop_located_inside['Mall'] = "Mall";
+		$shop_located_inside['Commercial Project'] = "Commercial Project";
+		$shop_located_inside['Residencial Project'] = "Residencial Project";
+		
+		$located_inside['IT Park'] = "IT Park";
+		$located_inside['Business Park'] = "Business Park";
+		$located_inside['Other'] = "Other";
+
+		$SubTypeIndustrial['Industrial Park'] = "Industrial Park";
+		$SubTypeIndustrial['Industrial Shade'] = "Industrial Shade";
+		
+		$property_type_vacant_land_plotting['Residential'] = "Residential";
+		$property_type_vacant_land_plotting['Commercial'] = "Commercial";
+		
+		$property_type_vacant_land['Agricultural'] = "Agricultural";
+		$property_type_vacant_land['Non Agricultural'] = "Non Agricultural";
+		
+		
+		
+		$RentSubTypeIndustrial['Industrial Shop'] = "Industrial Shop";
+		$RentSubTypeIndustrial['Industrial Shade'] = "Industrial Shade";
+		
+		$rentwhatkindofpropetyisitCommercialhospital['Hotels'] = "Hotels";
+		$rentwhatkindofpropetyisitCommercialhospital['Guest House'] = "Guest House";
+		
+		$rentwhatkindofpropetyisitCommercialhospital['Restaurants'] = "Restaurants";
+		$rentwhatkindofpropetyisitCommercialhospital['Banquet Hall'] = "Banquet Hall";
+		$rentwhatkindofpropetyisitCommercialhospital['Motels'] = " Motels";
+		$rentwhatkindofpropetyisitCommercialhospital['Bars And Cafe'] = "Bars And Cafe";
+		$rentwhatkindofpropetyisitCommercialhospital['Nightclub'] = " Nightclub";
+		$rentwhatkindofpropetyisitCommercialhospital['Tee & Coffe Shops Other'] = "Tee & Coffe Shops Other";
+		$rentwhatkindofpropetyisitCommercialhospital['Hospital'] = "Hospital";
+		$rentwhatkindofpropetyisitCommercialhospital['Spa'] = " Spa";
+		$rentwhatkindofpropetyisitCommercialhospital['Gaming Zone'] = " Gaming Zone";
+		$rentwhatkindofpropetyisitCommercialhospital['Other'] = " Other";
+		
+		
+		
+
+		
+		$age_of_property[''] = "Select";
+		$age_of_property['0-1 Year'] = "0-1 Year";
+		$age_of_property['1-5 Year'] = "1-5 Year";
+		$age_of_property['5-10 Year'] = "5-10 Year";
+		$age_of_property['10+ Year'] = "10+ Year";
+		
+		
+		
+		$status['Active'] = "Active";
+		$status['Inactive'] = "Inactive";
+		
+		$MonthNameList[''] = "Month";
+		$MonthNameList['January'] = "January";
+		$MonthNameList['February'] = "February";
+		$MonthNameList['March'] = "March";
+		$MonthNameList['April'] = "April";
+		$MonthNameList['May'] = "May";
+		$MonthNameList['June'] = "June";
+		$MonthNameList['July'] = "July";
+		$MonthNameList['August'] = "August";
+		$MonthNameList['September'] = "September";
+		$MonthNameList['October'] = "October";
+		$MonthNameList['November'] = "November";
+		$MonthNameList['December'] = "December";
+		
+		$yearList[''] = 'Year'; 
+		 $year_start  = 1999;
+    	$year_end = date('Y'); // current Year
+	
+		   for ($i_year = $year_start; $i_year <= ($year_end+20); $i_year++) {
+				$yearList[$i_year] = $i_year;	
+		  }
+		
+			
+		$state[''] = "Select State";
+		$city[''] = "Select City";
+		$sub_city[''] = "Select Sub City";
+		
+		
+		$amenties = array('Power Backup','Lift','24*7 Water Supply','24*7 Security Service','Parking Space','Vaastu Compliant Design','Ventilation','Fitness Center / GYM','Spa'
+		,'Yoga','Swimming Pool','Playground','Community Center','Media Room'
+		,'Party Room','Community events and classes','Outdoor Areas','Jogging/walking','Eco Friendly','Proximity Area','On Site Maintenance','Electric car charging stations'
+		,'Pets Allowed','Wood Flooring','Storage in unit','Wi-Fi','High-Speed Internet','Cable TV','Close to schools','Babysitting Services'
+		,'CCTV Surveillance','Doorman','Gated Access','Valet Trash','Recycling Center','Doorstep Recycling Collection','Laundry Facility','Dance studio'
+		,'Video Door Phone','Gas Connection','Main Entrance Door','Wi- Fi Smart Homes','Customized Wi- Fi Smart Homes','Terrace Garden','Garden GYM'
+		,'Senior Citizen Seating','Indoor Games','Celebration Lawn','Rest Room','River Facing','Basement','Fire Safety','Management Office','Library','School Drop off Zone'
+		,'Earthquake Resistance RCC Structure','Indoor Games Club House','Guest waiting Room','Hydro. Pressure Pump','Z+ Security System','Adequate Street Light','Steam Bathroom','Splash Pool'
+		,'Basketball Hoop','Skating Area');
+		
+		
+		$bhkData['RK']='RK';
+		$bhkData['HK']='HK';
+		$bhkData['1.5HK']='1.5HK';
+		$bhkData['1 BHK']='1 BHK';
+		$bhkData['1.5 BHK']='1.5 BHK';
+		$bhkData['2 BHK']='2 BHK';
+		$bhkData['2.5 BHK']='2.5 BHK';
+		$bhkData['3 BHK']='3 BHK';
+		$bhkData['3.5 BHK']='3.5 BHK';
+		$bhkData['4 BHK']='4 BHK';
+		$bhkData['4.5 BHK']='4.5 BHK';
+		$bhkData['5 BHK']='5 BHK';
+		$bhkData['5.5 BHK']='5.5 BHK';
+		$bhkData['6 BHK']='6 BHK';
+		$bhkData['6.5 BHK']='6.5 BHK';
+		$bhkData['7 BHK']='7 BHK';
+		$bhkData['7.5 BHK']='7.5 BHK';
+		$bhkData['8 BHK']='8 BHK';
+		$bhkData['8.5 BHK']='8.5 BHK';
+		$bhkData['9 BHK']='9 BHK';
+		$bhkData['9.5 BHK']='9.5 BHK';
+		$bhkData['10 BHK']='10 BHK';
+		$bhkData['10.5 BHK']='10.5 BHK';
+		$bhkData['11 BHK']='11 BHK';
+		
+		$bhkData['11.5 BHK']='11.5 BHK';
+		$bhkData['12 BHK']='12 BHK';
+		$bhkData['12.5 BHK']='12.5 BHK';
+		$bhkData['13 BHK']='13 BHK';
+		$bhkData['13.5 BHK']='13.5 BHK';
+		$bhkData['14 BHK']='14 BHK';
+		$bhkData['14.5 BHK']='14.5 BHK';
+		$bhkData['15 BHK']='15 BHK';
+		$bhkData['15.5 BHK']='15.5 BHK';
+		$bhkData['16 BHK']='16 BHK';
+		$bhkData['16.5 BHK']='16.5 BHK';
+		$bhkData['17 BHK']='17 BHK';
+		$bhkData['17.5 BHK']='17.5 BHK';
+		$bhkData['18 BHK']='18 BHK';
+		$bhkData['18.5 BHK']='18.5 BHK';
+		$bhkData['19 BHK']='19 BHK';
+		$bhkData['19.5 BHK']='19.5 BHK';
+		$bhkData['20 BHK']='20 BHK';
+		
+		$maintenance['MONTHLY'] = "MONTHLY";
+		$maintenance['ANNUALLY'] = "ANNUALLY";
+		$maintenance['ONE TIME'] = "ONE TIME";
+		$maintenance['PER UNIT/ MONTHLY'] = "PER UNIT/ MONTHLY";
+	
+		
+         return view('admin.properties.addForm',compact('maintenance','rentwhatkindofpropetyisitCommercialhospital','RentSubTypeIndustrial','rentwhatkindofpropetyisitCommercial','rentwhatkindofpropetyisit','property_type_vacant_land','property_type_vacant_land_plotting','SubTypeIndustrial','IndependentHouseSubType','bhkData','propertyFor','category','SubCategory','property_type','commercial_property_type','what_kind_of_vacantland','what_kind_of_hospitality'
+		 ,'retail_type','shop_located_inside','located_inside','state','city','sub_city','age_of_property','amenties','status','MonthNameList','yearList','vendors','country'));
+    }
 
     public function delete($id) {
         DB::table('properties')->where('id', '=', $id)->delete();
