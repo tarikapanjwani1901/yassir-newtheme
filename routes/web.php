@@ -76,7 +76,9 @@ Route::get('resendOTP', [LoginController::class, 'resendOTP'])->name('resendOTP'
 Route::get('backtologin', [LoginController::class, 'backtologin'])->name('backtologin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// home page
+// home page propertiesListAjax
+Route::get('property', [HomeController::class, 'propertiesList'])->name('properties.list');
+Route::post('property-list', [HomeController::class, 'propertiesListAjax'])->name('properties.ajax');
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/contact', [HomeController::class, 'contactUs'])->name('contact');
@@ -84,7 +86,11 @@ Route::post('/send-contact', [HomeController::class, 'sendContactInfo'])->name('
 Route::get('/blog', [HomeController::class, 'blogList'])->name('blog.list');
 Route::get('/blog-details/{id}', [HomeController::class, 'blogDetail'])->name('blog.details');
 Route::get('/{link}', [HomeController::class, 'dynamicPages'])->name('home.dynamic');
-Route::get('/property/{type}', [HomeController::class, 'propertiesList'])->name('properties.list');
+
+
+Route::get('/property/{type}', [HomeController::class, 'propertiesTypeList'])->name('properties.type.list');
+Route::post('/property-type-list', [HomeController::class, 'propertiesTypeAjax'])->name('properties.type.ajax');
+
 Route::get('/property-details/{id}', [HomeController::class, 'propertiesDetails'])->name('properties.details');
 Route::get('/property-category/{cat_type}', [HomeController::class, 'propertiesCatDetails'])->name('properties.cat.details');
 

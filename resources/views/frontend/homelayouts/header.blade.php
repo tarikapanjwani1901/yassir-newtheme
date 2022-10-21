@@ -27,17 +27,17 @@
                             <div class="ltn__main-menu">
                                 <ul>
                                     <li><a href="index-6.html">Buy</a></li>
-                                    <li><a href="#">Rent</a></li>
-                                    <li><a href="#">Sell</a></li>
-                                    <li><a href="index-6.html">Home Loan</a></li>
-                                    <li class="menu-icon"><a href="product-details.html">Product Details</a>
+                                    <li><a href="{{ route('properties.type.list', ['type' => 'Rent']) }}">Rent</a></li>
+                                    <li><a href="{{ route('properties.type.list', ['type' => 'Sell']) }}">Sell</a></li>
+                                    <li><a href="{{ route('properties.list') }}">Properties</a></li>
+                                    <!-- <li class="menu-icon"><a href="product-details.html">Product Details</a>
                                         <ul class="sub-menu menu-pages-img-show">
                                             <li>
                                                 <a href="product-list.html">Product List</a>
                                             </li>
 
                                         </ul>
-                                    </li>
+                                    </li> -->
                                     <li class="special-link">
                                         <a href="#">Add Listing</a>
                                     </li>

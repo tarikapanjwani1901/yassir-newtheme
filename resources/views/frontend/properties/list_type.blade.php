@@ -14,7 +14,7 @@
                         <ul>
                             <li>
                                 <div class="short-by text-center">
-                                    <select class="nice-select" id="sortByPro" onchange="sortByProperties('')">
+                                    <select class="nice-select" id="sortByPro" onchange="sortByProperties('{{ $type }}')">
                                    
                                         <option value="">Default sorting</option>
                                         <option value="popularity">Sort by popularity</option>
@@ -41,7 +41,7 @@
                                     <div class="col-lg-12 custom-shop-option">
                                         <!-- Search Widget -->
                                         <div class="ltn__search-widget mb-30">
-                                        <form method="post" onsubmit="return searchForProperties('')">
+                                        <form method="post" onsubmit="return searchForProperties('{{ $type }}')">
                                             <input type="text" id="searchKey" name="searchKey" placeholder="Search your keyword..." >
                                             <button type="submit"><i class="fas fa-search"></i></button>
                                         </form>
@@ -136,34 +136,8 @@
                                                                 class="ui-slider-handle ui-state-default ui-corner-all"
                                                                 tabindex="0" style="left: 29.2929%;"></span>
                                                         </div>
-                                                        
                                                     </div>
                                                 </div>
-                                                <hr>
-                                                <h4 class="ltn__widget-title">Catagory</h4>
-                                                <ul>
-                                                    <!-- <li>
-                                                        <label class="checkbox-item">Buying
-                                                            <input type="checkbox" checked="checked">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                        <span class="categorey-no">3,924</span>
-                                                    </li> -->
-                                                    <li>
-                                                        <label class="checkbox-item">Renting
-                                                            <input type="checkbox" onChange="CheckBoxFilter();" value="Rent">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                        <span class="categorey-no">{{ $totalRent }}</span>
-                                                    </li>
-                                                    <li>
-                                                        <label class="checkbox-item">Selling
-                                                        <input type="checkbox" onChange="CheckBoxFilter();" value="Sell">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                        <span class="categorey-no">{{ $totalSell }}</span>
-                                                    </li>
-                                                </ul>
                                                 <hr>
                                             </div>
                                         </aside>
@@ -180,7 +154,6 @@
 <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
 <input type="hidden" id="minRange" value="0" />
 <input type="hidden" id="maxRange" value="0" />
-<input type="hidden" id="proType" value="" />
                                     
 
                                         
@@ -191,7 +164,7 @@
 @push('script')
 <script>
     
-   var proType = "";
+   var proType = "{{ $type }}";
   
     $( ".slider-range" ).slider({
         range: true,
@@ -208,7 +181,7 @@
             var page = $('#hidden_page').val();
             var minRange =ui.values[ 0 ];
             var maxRange =ui.values[ 1 ];
-            getAllProperties(proType,searchKey,sortByPro,page,minRange,maxRange,minRange,maxRange);
+            getProperties(proType,searchKey,sortByPro,page,minRange,maxRange,minRange,maxRange);
         }
 
         
@@ -221,70 +194,55 @@ $(document).on('click', '.ltn__pagination a', function(event){
   event.preventDefault();
   
    var page = $(this).attr('href').split('page=')[1];
-    $('#hidden_page').val(page);
-    var searchKey = $('#searchKey').val();
-    var proType = $('#proType').val();
+   $('#hidden_page').val(page);
+   var searchKey = $('#searchKey').val();
     var sortByPro = $('#sortByPro').val();
-    var page = $('#hidden_page').val();
     var minRange = $('#minRange').val();
     var maxRange = $('#maxRange').val();
     $('li').removeClass('active');
         $(this).parent().addClass('active');
-    getAllProperties(proType,searchKey,sortByPro,page,minRange,maxRange) 
+    getProperties(proType,searchKey,sortByPro,page,minRange,maxRange) 
  });
- function CheckBoxFilter(){
-    var checkBoxval = $('input:checkbox:checked').map( function (e) {
-                        return $(this).val();
-    }).get().join();
-    $('#proType').val(checkBoxval);
+
+ function searchForProperties(proType){
+    // console.log(12321123);
     var searchKey = $('#searchKey').val();
-    var proType =  $('#proType').val();
     var sortByPro = $('#sortByPro').val();
     var page = $('#hidden_page').val();
     var minRange = $('#minRange').val();
     var maxRange = $('#maxRange').val();
-    getAllProperties(proType,searchKey,sortByPro,page,minRange,maxRange) 
-    
- }
- function searchForProperties(){
-  
-    var searchKey = $('#searchKey').val();
-    var proType = $('#proType').val();
-    var sortByPro = $('#sortByPro').val();
-    var page = $('#hidden_page').val();
-    var minRange = $('#minRange').val();
-    var maxRange = $('#maxRange').val();
-    getAllProperties(proType,searchKey,sortByPro,page,minRange,maxRange) 
+    getProperties(proType,searchKey,sortByPro,page,minRange,maxRange) 
     return false;
  }
  function sortByProperties(proType){
-    
-    var searchKey = $('#searchKey').val();
-    var proType = $('#proType').val();
     var sortByPro = $('#sortByPro').val();
+    var searchKey = $('#searchKey').val();
     var page = $('#hidden_page').val();
     var minRange = $('#minRange').val();
     var maxRange = $('#maxRange').val();
-     getAllProperties(proType,searchKey,sortByPro,page,minRange,maxRange) 
+     getProperties(proType,searchKey,sortByPro,page,minRange,maxRange) 
  }
 
-function getAllProperties(proType,searchKey,sortByPro,page,minRange,maxRange) {
+function getProperties(proType,searchKey,sortByPro,page,minRange,maxRange) {
     
     $.ajax({
-        url: "{{ route('properties.ajax') }}",
+        url: "{{ route('properties.type.ajax') }}",
         type: "post",
         data: {
+            proType: proType,
             _token: '{{ csrf_token() }}',
             searchKey: searchKey,
             sortByPro:sortByPro,
             page:page,
             minRange:minRange,
             maxRange:maxRange,
-            proType:proType,
         },
+        // dataType:'json',
         success: function(response) {
+            
             $('#propertyRentSell').html();
             $('#propertyRentSell').html(response);
+
         }
     });
 }
